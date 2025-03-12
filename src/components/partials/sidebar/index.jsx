@@ -1,17 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Users, Settings, HelpCircle, School2, Verified, Dock, Ruler, Calculator } from "lucide-react";
+import { FaTachometerAlt, FaUsers, FaTools, FaQuestionCircle, FaSchool, FaCheckCircle, FaFileAlt, FaRuler, FaCalculator } from "react-icons/fa";
 
 export const Sidebar = () => {
   const menuItems = [
-    { icon: LayoutDashboard, text: "Dashboard", path: "/dashboard" },
-    { icon: Users, text: "Pengguna", path: "/pengguna" },
-    { icon: School2, text: "Calon Penerima", path: "/calon-penerima" },
-    { icon: Ruler, text: "Kriteria", path: "/kriteria" },
-    { icon: Calculator, text: "HasilPerhitungan", path: "/hasil-perhitungan"},
-    { icon: Verified, text: "Verifikasi Dokumen", path: "/verifikasi-dokumen" },
-    { icon: Dock, text: "Laporan", path: "/laporan" },
-    { icon: Settings, text: "Pengaturan", path: "/pengaturan" },
-    { icon: HelpCircle, text: "Bantuan", path: "/bantuan" },
+    { icon: FaTachometerAlt, text: "Dashboard", path: "/dashboard" },
+    { icon: FaUsers, text: "Pengguna", path: "/pengguna" },
+    { icon: FaSchool, text: "Calon Penerima", path: "/calon-penerima" },
+    { icon: FaRuler, text: "Kriteria", path: "/kriteria" },
+    { icon: FaCalculator, text: "Hasil Perhitungan", path: "/hasil-perhitungan" },
+    { icon: FaCheckCircle, text: "Verifikasi Dokumen", path: "/verifikasi-dokumen" },
+    { icon: FaFileAlt, text: "Laporan", path: "/laporan" },
+    { icon: FaTools, text: "Pengaturan", path: "/pengaturan" },
+    { icon: FaQuestionCircle, text: "Bantuan", path: "/bantuan" },
   ];
 
   return (

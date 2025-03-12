@@ -1,5 +1,4 @@
-
-import { Bell, User } from "lucide-react"
+import { FaBell, FaUser } from "react-icons/fa";
 // import logoKabupatenRoteNdao from "../../../assets/logo-kab-rote-ndao.png";
 
 export const Header = () => {
@@ -12,10 +11,10 @@ export const Header = () => {
         </div>
         <div className="flex items-center space-x-4">
           <button className="p-1 rounded-full hover:bg-gray-100">
-            <Bell className="h-5 w-5 text-gray-600" />
+            <FaBell className="h-5 w-5 text-gray-600" />
           </button>
           <button className="p-1 rounded-full hover:bg-gray-100">
-            <User className="h-5 w-5 text-gray-600" />
+            <FaUser className="h-5 w-5 text-gray-600" />
           </button>
         </div>
       </div>
