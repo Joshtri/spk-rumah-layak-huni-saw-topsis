@@ -5,6 +5,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboardPage";
+import AdminCriteriaPage from "./pages/adminCriteriaPage";
 
 function App() {
   return (
@@ -12,8 +13,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
+            path="/dashboard"
             element={<DashboardPage />}
+          />
+          <Route
+            path="/kriteria"
+            element={<AdminCriteriaPage />}
           />
         </Routes>
       </BrowserRouter>
