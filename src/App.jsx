@@ -2,15 +2,19 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import "./App.css";
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import LoginPage from './pages/login';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import LoginPage from "./pages/login";
+import DashboardPage from "./pages/dashboardPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route
+            path="/"
+            element={<DashboardPage />}
+          />
         </Routes>
       </BrowserRouter>
     </>
