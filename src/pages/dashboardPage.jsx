@@ -28,6 +28,11 @@ export default function DashboardPage() {
             description={"This is a card that contains title, desc, and icon"}
             icon={<Home />}
           />
+          <IconCards
+            title={"Hello"}
+            description={"This is a card that contains title, desc, and icon"}
+            icon={<Home />}
+          />
         </div>
       </div>
     </LayoutRoot>
