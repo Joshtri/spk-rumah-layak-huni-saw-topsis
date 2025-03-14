@@ -20,6 +20,20 @@ export default function DashboardPage() {
             path={"/test"}
             buttonText={"Hello"}
           />
+          <IconCards
+            title={"Hello"}
+            description={"This is a card that contains title, desc, and icon"}
+            icon={<Home />}
+            path={"/test"}
+            buttonText={"Hello"}
+          />
+          <IconCards
+            title={"Hello"}
+            description={"This is a card that contains title, desc, and icon"}
+            icon={<Home />}
+            path={"/test"}
+            buttonText={"Hello"}
+          />
         </div>
       </div>
     </LayoutRoot>
