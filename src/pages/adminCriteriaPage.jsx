@@ -2,6 +2,8 @@ import LayoutRoot from "./layout";
 import CriteriaCard from "../components/criteriaCard";
 import CriteriaInputModal from "../components/criteriaInputModal";
 
+import { Table } from "flowbite-react";
+
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -32,17 +34,6 @@ export default function AdminCriteriaPage() {
           </div>
 
           {/* criteria table */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <CriteriaCard
-              title={"Jenis Dinding"}
-              bobot={50}
-            />
-
-            <CriteriaCard
-              title={"Kondisi Dinding"}
-              bobot={50}
-            />
-          </div>
         </div>
       </LayoutRoot>
     </>
