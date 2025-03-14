@@ -3,6 +3,7 @@ import LoginPage from "./pages/loginPage";
 import DashboardPage from "./pages/dashboardPage";
 import AdminCriteriaPage from "./pages/adminCriteriaPage";
 import CriteriaViewPage from "./pages/adminSubCriteriaPage";
+import AlternativeCrudPage from "./pages/alternativeCrud";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
           <Route
             path="/sub-kriteria"
             element={<CriteriaViewPage />}
+          />
+          <Route
+            path="/alternatif"
+            element={<AlternativeCrudPage />}
           />
         </Routes>
       </BrowserRouter>
