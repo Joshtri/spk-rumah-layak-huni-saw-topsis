@@ -3,6 +3,7 @@
 // import viteLogo from '/vite.svg'
 // import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/loginPage";
 // import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboardPage";
 import AdminCriteriaPage from "./pages/adminCriteriaPage";
@@ -13,6 +14,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/"
+            element={<LoginPage />}
+          />
           <Route
             path="/dashboard"
             element={<DashboardPage />}
