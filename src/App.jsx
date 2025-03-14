@@ -1,12 +1,8 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/loginPage";
-// import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboardPage";
-import TestPage from "./pages/testPage";
+import AdminCriteriaPage from "./pages/adminCriteriaPage";
+import CriteriaViewPage from "./pages/adminSubCriteriaPage";
 
 function App() {
   return (
@@ -20,6 +16,14 @@ function App() {
           <Route
             path="/dashboard"
             element={<DashboardPage />}
+          />
+          <Route
+            path="/kriteria"
+            element={<AdminCriteriaPage />}
+          />
+          <Route
+            path="/sub-kriteria"
+            element={<CriteriaViewPage />}
           />
         </Routes>
       </BrowserRouter>

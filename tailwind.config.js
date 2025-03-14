@@ -3,7 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js", // Add this line to include flowbite paths
+    "./node_modules/flowbite/**/*.js,jsx,tsx", // Add this line to include flowbite paths
   ],
   theme: {
     extend: {},
