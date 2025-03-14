@@ -3,6 +3,7 @@ import LoginPage from "@/pages/auth/loginPage";
 import DashboardPage from "@/pages/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
+import AlternativeCrudPage from "@/pages/users-management/alternativeCrud";
 
 function App() {
   return (
