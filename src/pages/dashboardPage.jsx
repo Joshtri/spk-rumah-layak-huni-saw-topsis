@@ -17,21 +17,8 @@ export default function DashboardPage() {
             title={"Hello"}
             description={"This is a card that contains title, desc, and icon"}
             icon={<Home />}
-          />
-          <IconCards
-            title={"Hello"}
-            description={"This is a card that contains title, desc, and icon"}
-            icon={<Home />}
-          />
-          <IconCards
-            title={"Hello"}
-            description={"This is a card that contains title, desc, and icon"}
-            icon={<Home />}
-          />
-          <IconCards
-            title={"Hello"}
-            description={"This is a card that contains title, desc, and icon"}
-            icon={<Home />}
+            path={"/test"}
+            buttonText={"Hello"}
           />
         </div>
       </div>

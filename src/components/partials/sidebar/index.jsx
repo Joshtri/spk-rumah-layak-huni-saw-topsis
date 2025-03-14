@@ -7,7 +7,7 @@ export const Sidebar = () => {
     { icon: Users, text: "Pengguna", path: "/pengguna" },
     { icon: School2, text: "Calon Penerima", path: "/calon-penerima" },
     { icon: Ruler, text: "Kriteria", path: "/kriteria" },
-    { icon: Calculator, text: "HasilPerhitungan", path: "/hasil-perhitungan"},
+    { icon: Calculator, text: "HasilPerhitungan", path: "/hasil-perhitungan" },
     { icon: Verified, text: "Verifikasi Dokumen", path: "/verifikasi-dokumen" },
     { icon: Dock, text: "Laporan", path: "/laporan" },
     { icon: Settings, text: "Pengaturan", path: "/pengaturan" },
