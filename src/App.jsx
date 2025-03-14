@@ -4,6 +4,9 @@
 // import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/loginPage";
+// import LoginPage from "./pages/login";
+import DashboardPage from "./pages/dashboardPage";
+import TestPage from "./pages/testPage";
 
 function App() {
   return (
@@ -13,6 +16,10 @@ function App() {
           <Route
             path="/"
             element={<LoginPage />}
+          />
+          <Route
+            path="/dashboard"
+            element={<DashboardPage />}
           />
         </Routes>
       </BrowserRouter>

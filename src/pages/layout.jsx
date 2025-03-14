@@ -1,6 +1,5 @@
-import React from 'react'
-import {Header, Sidebar, Footer } from '../components/partials';
-
+import React from "react";
+import { Header, Sidebar, Footer } from "../components/partials";
 
 const LayoutRoot = ({ children }) => {
   return (
@@ -14,7 +13,7 @@ const LayoutRoot = ({ children }) => {
         <Footer />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LayoutRoot
+export default LayoutRoot;
