@@ -1,6 +1,7 @@
 import LayoutRoot from "./layout";
 import CriteriaCard from "../components/criteriaCard";
-import CriteriaInputModal from "../components/criteriaInputModal";
+import CriteriaInputModal from "../components/criteriaComponents/criteriaInputModal";
+import CriteriaTable from "../components/criteriaComponents/criteriaTable";
 
 import { Table } from "flowbite-react";
 
@@ -29,11 +30,13 @@ export default function AdminCriteriaPage() {
             </button>
 
             <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-4">
-              <NavLink to={"/subkriteria-view"}>View Subkriteria</NavLink>
+              <NavLink to={"/sub-kriteria"}>View Subkriteria</NavLink>
             </button>
           </div>
 
           {/* criteria table */}
+
+          <CriteriaTable />
         </div>
       </LayoutRoot>
     </>

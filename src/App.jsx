@@ -1,13 +1,8 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/loginPage";
-// import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboardPage";
 import AdminCriteriaPage from "./pages/adminCriteriaPage";
-import CriteriaViewPage from "./pages/criteriaViewPage";
+import CriteriaViewPage from "./pages/adminSubCriteriaPage";
 
 function App() {
   return (
@@ -27,7 +22,7 @@ function App() {
             element={<AdminCriteriaPage />}
           />
           <Route
-            path="/subkriteria-view"
+            path="/sub-kriteria"
             element={<CriteriaViewPage />}
           />
         </Routes>
