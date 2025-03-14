@@ -22,7 +22,7 @@ export default function CriteriaCard({ title, bobot }) {
           },
         }}
       >
-        <div className="grid grid-cols-[auto_1fr] gap-4">
+        <div className="grid grid-cols-[1fr_3fr] gap-4">
           {/* criteria info */}
           <div className="w-full">
             <h1 className="text-xl font-bold">{title}</h1>
@@ -30,15 +30,16 @@ export default function CriteriaCard({ title, bobot }) {
           </div>
 
           {/* criteria actions */}
-          <div className="flex items-center justify-end">
+          <div className="lg:ml-8 flex items-center justify-end">
             <Button
-              className="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-md"
+              className="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 rounded-md"
               onClick={() => setIsModalOpen(true)}
             >
               Edit
             </Button>
-            <Button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md ml-2">
-              Hapus
+            <Button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 rounded-md ml-2">Hapus</Button>
+            <Button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold text-sm py-2 rounded-md ml-2">
+              Tambah Kriteria
             </Button>
           </div>
         </div>

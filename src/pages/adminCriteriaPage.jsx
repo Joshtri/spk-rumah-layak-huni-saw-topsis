@@ -16,7 +16,7 @@ export default function AdminCriteriaPage() {
 
       <LayoutRoot>
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
-          {/* add criteria button */}
+          {/* add criteria & view button */}
           <div className="flex justify-end items-center h-full">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -24,10 +24,14 @@ export default function AdminCriteriaPage() {
             >
               Tambah Kriteria
             </button>
+
+            <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-4">
+              View Kriteria
+            </button>
           </div>
 
-          {/* criteria cards */}
-          <div className={"grid grid-cols-1 lg:grid-cols-2 gap-4 h-full"}>
+          {/* criteria table */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <CriteriaCard
               title={"Jenis Dinding"}
               bobot={50}

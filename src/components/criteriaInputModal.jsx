@@ -2,8 +2,8 @@ import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
 
 export default function CriteriaInputModal({ isOpen, onClose }) {
-  const [criteriaName, setCriteriaName] = useState("");
-  const [bobot, setBobot] = useState(0);
+  const [criteriaName, setCriteriaName] = useState();
+  const [bobot, setBobot] = useState();
 
   return (
     <>
@@ -12,14 +12,14 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
         onClose={onClose}
         theme={{
           content: {
-            base: "relative w-full p-4 md:h-auto",
-            inner: "relative rounded-lg bg-white shadow dark:bg-slate-900 flex flex-col h-full md:h-auto",
+            base: "relative w-full lg:max-w-2xl p-4 md:h-auto",
+            inner: "relative rounded-lg bg-gray-100 border-stone-900 border-2 shadow-lg flex flex-col h-full md:h-auto",
           },
           position: "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
         }}
       >
         <div className="flex items-start justify-between p-4 border-b rounded-t">
-          <h3 className="text-xl text-white font-semibold">Tambah Kriteria </h3>
+          <h3 className="text-xl text-black font-semibold">Tambah Kriteria </h3>
         </div>
         <Modal.Body>
           <div className="space-y-6">
@@ -29,6 +29,7 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
                 <Label
                   htmlFor="criteriaName"
                   value="Nama Kriteria"
+                  className="!text-black"
                 />
               </div>
               <TextInput
@@ -46,6 +47,7 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
                 <Label
                   htmlFor="bobot"
                   value="Bobot"
+                  className="!text-black"
                 />
               </div>
               <TextInput
@@ -61,7 +63,7 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
         <Modal.Footer className="flex justify-end">
           <Button
             onClick={onClose}
-            className="hover:bg-white hover:text-black border border-white text-white"
+            className="bg-emerald-500 hover:bg-emerald-700 text-white border-emerald-500 hover:border-emerald-700 mr-2"
           >
             Simpan
           </Button>
