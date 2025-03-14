@@ -1,14 +1,12 @@
-import LayoutRoot from "./layout";
-import CriteriaCard from "../components/criteriaCard";
-import CriteriaInputModal from "../components/criteriaComponents/criteriaInputModal";
-import CriteriaTable from "../components/criteriaComponents/criteriaTable";
+import CriteriaInputModal from "@/components/kriteria/criteriaInputModal";
+import CriteriaTable from "@/components/kriteria/criteriaTable";
+import LayoutRoot from "../layout";
 
-import { Table } from "flowbite-react";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function AdminCriteriaPage() {
+export default function KriteriaList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
