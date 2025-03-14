@@ -3,6 +3,7 @@ import CriteriaCard from "../components/criteriaCard";
 import CriteriaInputModal from "../components/criteriaInputModal";
 
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export default function AdminCriteriaPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function AdminCriteriaPage() {
             </button>
 
             <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-4">
-              View Kriteria
+              <NavLink to={"/subkriteria-view"}>View Subkriteria</NavLink>
             </button>
           </div>
 

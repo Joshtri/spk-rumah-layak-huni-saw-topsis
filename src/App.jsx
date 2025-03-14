@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import LoginPage from "./pages/login";
 import DashboardPage from "./pages/dashboardPage";
 import AdminCriteriaPage from "./pages/adminCriteriaPage";
+import CriteriaViewPage from "./pages/criteriaViewPage";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
           <Route
             path="/kriteria"
             element={<AdminCriteriaPage />}
+          />
+          <Route
+            path="/subkriteria-view"
+            element={<CriteriaViewPage />}
           />
         </Routes>
       </BrowserRouter>
