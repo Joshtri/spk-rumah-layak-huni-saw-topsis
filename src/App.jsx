@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/loginPage";
-import DashboardPage from "./pages/dashboardPage";
-import AdminCriteriaPage from "./pages/adminCriteriaPage";
-import CriteriaViewPage from "./pages/adminSubCriteriaPage";
-import AlternativeCrudPage from "./pages/alternativeCrud";
+import LoginPage from "@/pages/auth/loginPage";
+import DashboardPage from "@/pages/dashboard";
+import KriteriaList from "@/pages/kriteria/list";
+import SubKriteriaList from "@/pages/sub-kriteria/list";
 
 function App() {
   return (
@@ -20,11 +19,11 @@ function App() {
           />
           <Route
             path="/kriteria"
-            element={<AdminCriteriaPage />}
+            element={<KriteriaList />}
           />
           <Route
             path="/sub-kriteria"
-            element={<CriteriaViewPage />}
+            element={<SubKriteriaList />}
           />
           <Route
             path="/alternatif"

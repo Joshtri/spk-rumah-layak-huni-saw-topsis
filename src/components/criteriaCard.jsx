@@ -1,5 +1,5 @@
 import { Card, Button } from "flowbite-react";
-import CriteriaEditModal from "./criteriaComponents/criteriaEditModal";
+import CriteriaEditModal from "./kriteria/criteriaEditModal";
 import { useState } from "react";
 
 export default function CriteriaCard({ title, bobot }) {

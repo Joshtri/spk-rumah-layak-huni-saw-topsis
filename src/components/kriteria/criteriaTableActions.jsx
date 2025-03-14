@@ -1,5 +1,5 @@
 import CriteriaEditModal from "./criteriaEditModal";
-import SubCriteriaInputModal from "../subCriteriaComponents/subCriteriaInputModal";
+import SubCriteriaInputModal from "../sub-kriteria/subCriteriaInputModal";
 import { useState } from "react";
 
 export default function CriteriaTableActions({ idCriteria, title, bobot }) {
