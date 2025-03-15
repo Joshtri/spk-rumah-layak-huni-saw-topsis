@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "@/pages/auth/loginPage";
-import DashboardPage from "@/pages/dashboard";
+import DashboardPage from "@/pages/dashboard/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
 import AlternatifList from "@/pages/alternatif/list";
