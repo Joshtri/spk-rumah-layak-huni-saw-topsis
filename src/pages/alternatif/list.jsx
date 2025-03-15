@@ -1,6 +1,6 @@
 import LayoutRoot from "@/pages/layout";
-import AlternativeTable from "../../components/alternatif/alternatifTable";
-import AlternatifInputModal from "@/components/alternatif/alternatifInputModal";
+import AlternativeTable from "../../components/alternatif/table";
+import AlternatifInputModal from "@/components/alternatif/inputModal";
 
 import { useState } from "react";
 

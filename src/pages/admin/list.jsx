@@ -1,6 +1,6 @@
 import LayoutRoot from "../layout";
-import AdminTable from "../../components/admin/adminTable";
-import AdminInputModal from "@/components/admin/adminInputModal";
+import AdminTable from "../../components/admin/table";
+import AdminInputModal from "@/components/admin/inputModal";
 import { useState } from "react";
 
 export default function AdminList() {

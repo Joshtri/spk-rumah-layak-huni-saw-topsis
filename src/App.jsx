@@ -3,8 +3,8 @@ import LoginPage from "@/pages/auth/loginPage";
 import DashboardPage from "@/pages/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
-import AlternatifList from "@/pages/alternatif/alternatifList";
-import AdminList from "./pages/admin/adminList";
+import AlternatifList from "@/pages/alternatif/list";
+import AdminList from "./pages/admin/list";
 
 function App() {
   return (

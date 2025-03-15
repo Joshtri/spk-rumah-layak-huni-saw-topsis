@@ -1,5 +1,5 @@
 import { Table } from "flowbite-react";
-import AdminTableActions from "./adminTableActions";
+import AdminTableActions from "./actionCell";
 
 export default function AdminTable() {
   return (
