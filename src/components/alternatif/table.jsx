@@ -1,5 +1,5 @@
 import { Table } from "flowbite-react";
-import AlternatifTableActions from "./alternatifTableActions";
+import AlternatifTableActions from "./actionCell";
 
 export default function AlternativeTable() {
   return (

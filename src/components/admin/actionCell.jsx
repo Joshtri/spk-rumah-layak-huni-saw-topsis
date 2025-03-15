@@ -1,26 +1,27 @@
-import AlternatifEditModal from "./alternatifEditModal";
+import AdminEditModal from "./editModal";
 import { useState } from "react";
 
-export default function AlternatifTableActions() {
+export default function AdminTableActions({ username, password }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
-      <AlternatifEditModal
+      <AdminEditModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
         }}
-        nama={"Setron Dalla"}
-        periode={"periode 1"}
+        username={username}
+        password={password}
       />
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-2">
         <button
           className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => setIsModalOpen(true)}
         >
           Edit
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Hapus</button>
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
       </div>
     </>
   );
