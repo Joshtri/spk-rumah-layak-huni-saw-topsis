@@ -4,6 +4,7 @@ import DashboardPage from "@/pages/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
 import AlternativeCrudPage from "@/pages/users-management/alternativeCrud";
+import AdminCrud from "./pages/admin/adminCrud";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route
             path="/alternatif"
             element={<AlternativeCrudPage />}
+          />
+          <Route
+            path="/admin"
+            element={<AdminCrud />}
           />
         </Routes>
       </BrowserRouter>
