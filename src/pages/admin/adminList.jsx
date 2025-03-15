@@ -1,14 +1,14 @@
-import LayoutRoot from "@/pages/layout";
-import AlternativeTable from "../../components/alternatif/alternatifTable";
-import AlternatifInputModal from "@/components/alternatif/alternatifInputModal";
-
+import LayoutRoot from "../layout";
+import AdminTable from "../../components/admin/adminTable";
+import AdminInputModal from "@/components/admin/adminInputModal";
 import { useState } from "react";
 
-export default function AlternativeCrudPage() {
+export default function AdminList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <LayoutRoot>
-      <AlternatifInputModal
+      <AdminInputModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
@@ -20,11 +20,11 @@ export default function AlternativeCrudPage() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => setIsModalOpen(true)}
           >
-            Tambah Alternatif
+            Tambah Admin
           </button>
         </div>
 
-        <AlternativeTable />
+        <AdminTable />
       </div>
     </LayoutRoot>
   );

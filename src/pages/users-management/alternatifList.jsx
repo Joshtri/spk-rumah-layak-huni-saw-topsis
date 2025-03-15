@@ -1,14 +1,14 @@
-import LayoutRoot from "../layout";
-import AdminTable from "../../components/admin/adminTable";
-import AdminInputModal from "@/components/admin/adminInputModal";
+import LayoutRoot from "@/pages/layout";
+import AlternativeTable from "../../components/alternatif/alternatifTable";
+import AlternatifInputModal from "@/components/alternatif/alternatifInputModal";
+
 import { useState } from "react";
 
-export default function AdminCrud() {
+export default function AlternatifList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <LayoutRoot>
-      <AdminInputModal
+      <AlternatifInputModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
@@ -20,11 +20,11 @@ export default function AdminCrud() {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => setIsModalOpen(true)}
           >
-            Tambah Admin
+            Tambah Alternatif
           </button>
         </div>
 
-        <AdminTable />
+        <AlternativeTable />
       </div>
     </LayoutRoot>
   );
