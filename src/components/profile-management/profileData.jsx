@@ -46,15 +46,15 @@ export default function ProfileData() {
           {/* username */}
           <div>
             <label
-              for="username"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="username"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Username
             </label>
             <textarea
               id="username"
               rows="1"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border max-w-md border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border max-w-md border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               disabled={!isEditing}
@@ -64,15 +64,15 @@ export default function ProfileData() {
           {/* email */}
           <div>
             <label
-              for="email"
-              class="block mb-2 text-sm font-medium text-gray-900"
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Email
             </label>
             <textarea
               id="email"
               rows="1"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border max-w-md border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border max-w-md border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={!isEditing}
