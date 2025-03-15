@@ -1,11 +1,11 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import LoginPage from "./pages/login";
-import DashboardPage from "./pages/dashboardPage";
-import TestPage from "./pages/testPage";
+import LoginPage from "@/pages/auth/loginPage";
+import DashboardPage from "@/pages/dashboard";
+import KriteriaList from "@/pages/kriteria/list";
+import SubKriteriaList from "@/pages/sub-kriteria/list";
+import AlternatifList from "@/pages/alternatif/list";
+import AdminList from "./pages/admin/list";
+import Profile from "./pages/profile-management/profile";
 
 function App() {
   return (
@@ -14,11 +14,31 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<LoginPage />}
+          />
+          <Route
+            path="/dashboard"
             element={<DashboardPage />}
           />
           <Route
-            path="/test"
-            element={<TestPage />}
+            path="/kriteria"
+            element={<KriteriaList />}
+          />
+          <Route
+            path="/sub-kriteria"
+            element={<SubKriteriaList />}
+          />
+          <Route
+            path="/alternatif"
+            element={<AlternatifList />}
+          />
+          <Route
+            path="/admin"
+            element={<AdminList />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile />}
           />
         </Routes>
       </BrowserRouter>
