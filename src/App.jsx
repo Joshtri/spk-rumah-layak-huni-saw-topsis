@@ -5,6 +5,7 @@ import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
 import AlternatifList from "@/pages/alternatif/list";
 import AdminList from "./pages/admin/list";
+import Profile from "./pages/profile-management/profile";
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
           <Route
             path="/admin"
             element={<AdminList />}
+          />
+          <Route
+            path="/profile"
+            element={<Profile />}
           />
         </Routes>
       </BrowserRouter>
