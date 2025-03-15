@@ -4,7 +4,7 @@ import AlternatifInputModal from "@/components/alternatif/alternatifInputModal";
 
 import { useState } from "react";
 
-export default function AlternativeCrudPage() {
+export default function AlternatifList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <LayoutRoot>

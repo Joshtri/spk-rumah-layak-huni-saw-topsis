@@ -3,7 +3,8 @@ import LoginPage from "@/pages/auth/loginPage";
 import DashboardPage from "@/pages/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
-import AlternativeCrudPage from "@/pages/users-management/alternativeCrud";
+import AlternatifList from "@/pages/alternatif/alternatifList";
+import AdminList from "./pages/admin/adminList";
 
 function App() {
   return (
@@ -28,7 +29,11 @@ function App() {
           />
           <Route
             path="/alternatif"
-            element={<AlternativeCrudPage />}
+            element={<AlternatifList />}
+          />
+          <Route
+            path="/admin"
+            element={<AdminList />}
           />
         </Routes>
       </BrowserRouter>
