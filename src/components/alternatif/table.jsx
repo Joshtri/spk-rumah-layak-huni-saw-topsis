@@ -19,7 +19,7 @@ export default function AlternativeTable() {
         <Table.Head>
           <Table.HeadCell className="w-[10%] text-center">Id</Table.HeadCell>
 
-          <Table.HeadCell className="w-[20%] text-center">Nama ALternatif</Table.HeadCell>
+          <Table.HeadCell className="w-[20%] text-center">Nama Alternatif</Table.HeadCell>
 
           <Table.HeadCell className="w-[20%] text-center">Periode</Table.HeadCell>
           <Table.HeadCell className="w-[50%] text-center">Aksi</Table.HeadCell>

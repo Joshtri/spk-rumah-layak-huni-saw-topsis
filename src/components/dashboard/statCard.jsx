@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 export default function StatCard({ children, title, navTo, navText }) {
   return (
     <Card
-      className="w-full h-[22rem]"
+      className="w-full h-[20rem]"
       theme={{
         root: {
           base: "bg-white border border-gray-200 rounded-lg shadow transition-shadow duration-300 hover:shadow-md hover:shadow-stone-500 ",

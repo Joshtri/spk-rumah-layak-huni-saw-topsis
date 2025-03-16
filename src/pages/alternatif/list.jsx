@@ -1,6 +1,7 @@
 import LayoutRoot from "@/pages/layout";
 import AlternativeTable from "../../components/alternatif/table";
 import AlternatifInputModal from "@/components/alternatif/inputModal";
+import PageTitle from "@/components/pageTitle";
 
 import { useState } from "react";
 
@@ -8,6 +9,7 @@ export default function AlternatifList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <LayoutRoot>
+      <PageTitle title="Alternatif" />
       <AlternatifInputModal
         isOpen={isModalOpen}
         onClose={() => {

@@ -7,7 +7,13 @@ export default function DashboardPage() {
       <div className=" grid grid-rows-[auto,1fr] gap-10 h-full">
         {/* greetings */}
         <div className="flex justify-center items-center h-full text-center">
-          <h1 className="text-6xl font-bold">Selamat Datang!</h1>
+          <h1
+            className="text-6xl font-bold text-gray-800 
+            transition-all duration-300 ease-in-out
+            [text-shadow:_0px_10px_10px_rgb(0_0_0_/_20%)]"
+          >
+            Selamat Datang!
+          </h1>
         </div>
 
         {/* cards */}
