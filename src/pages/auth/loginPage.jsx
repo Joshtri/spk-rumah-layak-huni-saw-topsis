@@ -18,19 +18,34 @@ export default function LoginPage() {
       </div>
 
       {/* login form */}
-      <Card className="w-full max-w-md mx-4">
+      <Card
+        className="w-full max-w-md mx-4"
+        theme={{
+          root: {
+            base: "bg-gray-100 border-stone-900 border-2 shadow-lg rounded-lg",
+          },
+        }}
+      >
         <form className="flex flex-col gap-4">
           <div>
             <div className="mb-2 block">
               <Label
                 htmlFor="username"
                 value="Username"
+                className="!text-black !text-lg"
               />
             </div>
             <TextInput
               id="username"
               type="text"
               required
+              theme={{
+                field: {
+                  input: {
+                    base: "block w-full h-8 border disabled:cursor-not-allowed disabled:opacity-50 !bg-gray-50 border-gray-300 !text-gray-900 focus:border-blue-500 focus:ring-blue-500 !px-3 !py-4 !text-lg",
+                  },
+                },
+              }}
             />
           </div>
           <div>
@@ -38,22 +53,35 @@ export default function LoginPage() {
               <Label
                 htmlFor="password1"
                 value="Password"
+                className="!text-black !text-lg"
               />
             </div>
             <TextInput
               id="password1"
               type="password"
               required
+              theme={{
+                field: {
+                  input: {
+                    base: "block w-full h-8 border disabled:cursor-not-allowed disabled:opacity-50 !bg-gray-50 border-gray-300 !text-gray-900 focus:border-blue-500 focus:ring-blue-500 !px-3 !py-4 !text-lg",
+                  },
+                },
+              }}
             />
           </div>
           <div className="flex items-center gap-2">
-            <NavLink className="hover:underline">Lupa password?</NavLink>
+            <NavLink
+              to={"/forgot-password"}
+              className="hover:underline text-gray-900"
+            >
+              Lupa password?
+            </NavLink>
           </div>
           <Button
             type="submit"
-            className="hover:bg-white hover:text-black hover:font-bold"
+            className="bg-blue-500 hover:bg-blue-700 text-white border-blue-500 hover:border-blue-700"
           >
-            Submit
+            Masuk
           </Button>
         </form>
       </Card>

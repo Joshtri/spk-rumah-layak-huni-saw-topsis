@@ -6,7 +6,9 @@ import SubKriteriaList from "@/pages/sub-kriteria/list";
 import AlternatifList from "@/pages/alternatif/list";
 import AdminList from "./pages/admin/list";
 import Profile from "./pages/profile-management/profile";
+import ForgotPassword from "./pages/auth/forgotPassword";
 import RankingList from "./pages/ranking/list";
+
 
 function App() {
   return (
@@ -16,6 +18,10 @@ function App() {
           <Route
             path="/"
             element={<LoginPage />}
+          />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
           />
           <Route
             path="/dashboard"
