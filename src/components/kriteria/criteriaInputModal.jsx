@@ -1,9 +1,10 @@
-import { Button, Modal, TextInput, Label } from "flowbite-react";
+import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState } from "react";
 
 export default function CriteriaInputModal({ isOpen, onClose }) {
   const [criteriaName, setCriteriaName] = useState();
   const [bobot, setBobot] = useState();
+  const [tipe, setTipe] = useState("Benefit");
 
   return (
     <>
@@ -30,7 +31,6 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
         </div>
         <Modal.Body>
           <div className="space-y-6">
-            {/* edit nama kriteria */}
             <div>
               <div className="mb-2 block">
                 <Label
@@ -55,7 +55,6 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
               />
             </div>
 
-            {/* edit bobot */}
             <div>
               <div className="mb-2 block">
                 <Label
@@ -78,6 +77,50 @@ export default function CriteriaInputModal({ isOpen, onClose }) {
                   },
                 }}
               />
+            </div>
+
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  htmlFor="tipe"
+                  value="Tipe"
+                  className="!text-black !text-lg"
+                />
+              </div>
+              <Select
+                id="tipe"
+                value={tipe}
+                onChange={(event) => setTipe(event.target.value)}
+                required
+                style={{ color: "#111827" }}
+                className="!text-gray-900"
+                theme={{
+                  field: {
+                    select: {
+                      base: "block w-full h-8 border disabled:cursor-not-allowed disabled:opacity-50 !bg-gray-50 border-gray-300 !text-gray-900 focus:border-blue-500 focus:ring-blue-500 !px-3 !py-4 !text-lg ",
+                    },
+                  },
+                  input: {
+                    base: "!text-gray-900",
+                  },
+                  addon: {
+                    base: "!text-gray-900",
+                  },
+                }}
+              >
+                <option
+                  value="Benefit"
+                  className="!text-gray-900"
+                >
+                  Benefit
+                </option>
+                <option
+                  value="Cost"
+                  className="!text-gray-900"
+                >
+                  Cost
+                </option>
+              </Select>
             </div>
           </div>
         </Modal.Body>
