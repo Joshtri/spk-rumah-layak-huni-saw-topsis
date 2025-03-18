@@ -1,12 +1,10 @@
+import SubKriteriaList from "@/pages/sub-kriteria/list";
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
 
-export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriteriaBobot, idCriteria }) {
-  const [subCriteriaName, setSubCriteriaName] = useState(title);
-  const [bobotSubCriteria, setBobotSubCriteria] = useState(subCriteriaBobot);
-
-  console.log(idCriteria);
-  // use idCriteria to edit subcriteria to the correct criteria
+export default function SubCriteriaEditModal({ isOpen, onClose, selectedSubKriteria }) {
+  const [subCriteriaName, setSubCriteriaName] = useState(selectedSubKriteria.sub_kriteria_name);
+  const [subCriteriaBobot, setBobotSubCriteria] = useState(selectedSubKriteria.sub_kriteria_bobot);
 
   return (
     <>
@@ -29,7 +27,7 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
         }}
       >
         <div className="flex items-start justify-between p-4 border-b rounded-t">
-          <h3 className="text-xl text-black font-semibold">Edit {title}</h3>
+          <h3 className="text-xl text-black font-semibold">Edit {subCriteriaName}</h3>
         </div>
         <Modal.Body>
           <div className="space-y-6">
@@ -43,7 +41,7 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
               </div>
               <TextInput
                 id="subCriteriaName"
-                placeholder={title}
+                placeholder={subCriteriaName}
                 value={subCriteriaName}
                 onChange={(event) => setSubCriteriaName(event.target.value)}
                 required
@@ -68,7 +66,7 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
               <TextInput
                 id="bobotSubCriteria"
                 placeholder={subCriteriaBobot}
-                value={bobotSubCriteria}
+                value={subCriteriaBobot}
                 onChange={(event) => setBobotSubCriteria(event.target.value)}
                 required
                 theme={{

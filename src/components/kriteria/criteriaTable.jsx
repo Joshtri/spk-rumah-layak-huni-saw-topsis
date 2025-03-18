@@ -2,6 +2,21 @@ import { Table } from "flowbite-react";
 import CriteriaTableActions from "./criteriaTableActions";
 
 export default function CriteriaTable() {
+  const criteriaData = [
+    {
+      id: "C1",
+      nama: "Jenis Dinding",
+      bobot: "10",
+      tipe: "Benefit",
+    },
+    {
+      id: "C2",
+      nama: "Jenis Lantai",
+      bobot: "15",
+      tipe: "Benefit",
+    },
+  ];
+
   return (
     <div className="overflow-x-auto rounded-lg shadow">
       <Table
@@ -26,23 +41,29 @@ export default function CriteriaTable() {
         </Table.Head>
 
         <Table.Body className="divide-y">
-          <Table.Row className="bg-white text-gray-900 text-center">
-            <Table.Cell className="">C1</Table.Cell>
-            <Table.Cell className="">Jenis Dinding</Table.Cell>
-            <Table.Cell className="text-center">10%</Table.Cell>
-            <Table.Cell className="text-center">Benefit</Table.Cell>
-            <Table.Cell className="text-center">
-              {/* {id.tipe_kriteria == "Benefit"
-                ? `Semakin tinggi ${id.nama_kriteria} semakin baik`
-                : `semakin rendah ${id.nama_kriteria} semakin baik`} */}
-            </Table.Cell>
-            <Table.Cell>
-              <CriteriaTableActions
-                title="Jenis Dinding"
-                bobot="10"
-              />
-            </Table.Cell>
-          </Table.Row>
+          {criteriaData.map((criteria, index) => (
+            <Table.Row
+              key={index}
+              className="bg-white text-gray-900 text-center"
+            >
+              <Table.Cell className="">{criteria.id}</Table.Cell>
+              <Table.Cell className="">{criteria.nama}</Table.Cell>
+              <Table.Cell className="text-center">{criteria.bobot}%</Table.Cell>
+              <Table.Cell className="text-center">{criteria.tipe}</Table.Cell>
+              <Table.Cell className="text-center">
+                {criteria.tipe === "Benefit"
+                  ? `Semakin tinggi ${criteria.nama} semakin baik`
+                  : `Semakin rendah ${criteria.nama} semakin baik`}
+              </Table.Cell>
+              <Table.Cell>
+                <CriteriaTableActions
+                  title={criteria.nama}
+                  bobot={criteria.bobot}
+                  idCriteria={criteria.id}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
     </div>

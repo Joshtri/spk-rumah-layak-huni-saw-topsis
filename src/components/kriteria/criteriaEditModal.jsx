@@ -1,10 +1,10 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState } from "react";
 
-export default function CriteriaEditModal({ isOpen, onClose, title, criteriaBobot, criteriaTipe }) {
-  const [criteriaName, setCriteriaName] = useState(title);
-  const [bobot, setBobot] = useState(criteriaBobot);
-  const [tipe, setTipe] = useState(criteriaTipe);
+export default function CriteriaEditModal({ isOpen, onClose, selectedCriteria }) {
+  const [criteriaName, setCriteriaName] = useState(selectedCriteria.title);
+  const [bobot, setBobot] = useState(selectedCriteria.criteriaBobot);
+  const [tipe, setTipe] = useState(selectedCriteria.criteriaTipe);
 
   return (
     <>
@@ -27,7 +27,7 @@ export default function CriteriaEditModal({ isOpen, onClose, title, criteriaBobo
         }}
       >
         <div className="flex items-start justify-between p-4 border-b rounded-t">
-          <h3 className="text-xl text-black font-semibold">Edit {title}</h3>
+          <h3 className="text-xl text-black font-semibold">Edit {criteriaName}</h3>
         </div>
         <Modal.Body>
           <div className="space-y-6">
@@ -41,7 +41,7 @@ export default function CriteriaEditModal({ isOpen, onClose, title, criteriaBobo
               </div>
               <TextInput
                 id="criteriaName"
-                placeholder={title}
+                placeholder={criteriaName}
                 value={criteriaName}
                 onChange={(event) => setCriteriaName(event.target.value)}
                 required
@@ -65,7 +65,7 @@ export default function CriteriaEditModal({ isOpen, onClose, title, criteriaBobo
               </div>
               <TextInput
                 id="bobot"
-                placeholder={criteriaBobot}
+                placeholder={bobot}
                 value={bobot}
                 onChange={(event) => setBobot(event.target.value)}
                 required

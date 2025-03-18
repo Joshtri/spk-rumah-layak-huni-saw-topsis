@@ -1,0 +1,56 @@
+[33mc6ffb12[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcreate-ui-admin-users-crud-1984627023[m[33m, [m[1;31morigin/create-ui-admin-users-crud-1984627023[m[33m)[m feat: add 'Tipe' selection to CriteriaEditModal for criteria type management
+[33m501d9e9[m feat: add 'Tipe' selection to CriteriaInputModal and update CriteriaTable to display it
+[33m5f80633[m[33m ([m[1;31morigin/develop[m[33m)[m Merge pull request #14 from Joshtri/create-forgot-password-ui-1984627768
+[33mb7a7d88[m Merge branch 'develop' into create-forgot-password-ui-1984627768
+[33m3418dcd[m Merge pull request #15 from Joshtri/create-dashboard-1984567789
+[33me6ac5d3[m[33m ([m[1;31morigin/create-dashboard-1984567789[m[33m)[m feat: add PageTitle component and update various pages to include it fix: correct spelling in AlternativeTable header style: adjust StatCard height and improve sidebar layout
+[33m2fec031[m feat: restructure dashboard page and add stat card component
+[33m8777572[m feat: add ranking page and table component
+[33m839ec67[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-dashboard-1984567789
+[33m3a4d6e3[m[33m ([m[1;31morigin/create-forgot-password-ui-1984627768[m[33m, [m[1;32mcreate-forgot-password-ui-1984627768[m[33m)[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-forgot-password-ui-1984627768
+[33mc2d42f6[m feat: add forgot password functionality and update login page
+[33mef93d32[m Merge pull request #13 from Joshtri/create-confirmation-dialog-modal-1984627685
+[33m7391da6[m Merge pull request #12 from Joshtri/create-ui-profile-management-1984627610
+[33md3d25c4[m[33m ([m[1;31morigin/create-confirmation-dialog-modal-1984627685[m[33m, [m[1;32mcreate-confirmation-dialog-modal-1984627685[m[33m)[m feat: add confirmation dialog component
+[33ma91b6db[m[33m ([m[1;31morigin/create-ui-profile-management-1984627610[m[33m, [m[1;32mcreate-ui-profile-management-1984627610[m[33m)[m feat: add profile management page with change password functionality
+[33m80327b4[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-ui-admin-users-crud-1984627023
+[33m5f81dd1[m feat: renamed page and components inside alternatif and admin folder
+[33m59062cd[m Merge pull request #11 from Joshtri/create-ui-admin-users-crud-1984627023
+[33m52303b4[m feat: reorganize alternatif components; move to dedicated directory and update styles
+[33me200688[m feat: refactor admin and alternative CRUD pages; replace components and update routes
+[33med2f00c[m feat: add admin management functionality with CRUD operations and modals
+[33md9f2db1[m Merge pull request #10 from Joshtri/create-ui-alternatif-masyarakat-1984627241
+[33md82ad26[m[33m ([m[1;31morigin/create-ui-alternatif-masyarakat-1984627241[m[33m, [m[1;32mcreate-ui-alternatif-masyarakat-1984627241[m[33m)[m feat: implement alternative CRUD functionality with new components and modal
+[33m74d09dc[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-ui-alternatif-masyarakat-1984627241
+[33m982be3a[m feat: add alternative CRUD page and table component; remove test page
+[33m0a57124[m feat: add UserManagementList component for user management functionality
+[33m4cf6ba1[m feat: add Kriteria and SubKriteria pages with related components; remove deprecated files
+[33ma51a78a[m Merge pull request #9 from Joshtri/create-ui-admin-users-crud-1984627023
+[33m10b6b76[m feat: implement admin sub-criteria page and related components
+[33m3f8b778[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-ui-admin-users-crud-1984627023
+[33me2c6fa6[m Merge pull request #8 from Joshtri/create-login-page-1984627755
+[33mf1348bf[m[33m ([m[1;31morigin/create-login-page-1984627755[m[33m, [m[1;32mcreate-login-page-1984627755[m[33m)[m Merge branch 'develop' of https://github.com/Joshtri/spk-inthan into create-login-page-1984627755
+[33mc4623fa[m ``` No changes detected; skipping commit. ```
+[33md30613b[m fix: add format .jsx,tsx tp support flowbite on this app
+[33mfd6b11c[m add criteriaTable component; initialize criteria table structure
+[33m2b7a676[m added login page
+[33mddceec3[m add CriteriaViewPage and update routing; implement navigation from AdminCriteriaPage to view sub-criteria
+[33m36e6c3b[m refactor criteria components; improve layout and styling for better usability and visual consistency
+[33m1878d9b[m ``` refactor IconCards and DashboardPage components; streamline code structure and enhance maintainability ```
+[33ma07283f[m Merge pull request #7 from Joshtri/create-dashboard-1984567789
+[33m9d94c49[m added button for routing in card; enhance IconCards with button with the ability to link between routes
+[33m5049f6a[m add AdminCriteriaPage and criteria components; implement criteria management with modals for adding and editing criteria
+[33mb8bfb1f[m add AdminCriteriaPage component and update routing; include new route for admin criteria
+[33me385010[m add IconCards component to DashboardPage; enhance card display with additional content
+[33mc0f73dc[m refactor IconCards and DashboardPage components; improve styling and layout for better visual consistency
+[33ma527515[m add IconCards component; enhance DashboardPage layout with greeting and card sections; update Tailwind CSS config for flowbite
+[33m16b66ad[m add DashboardPage component; update routing to use DashboardPage; add lucide-react dependency; remove unused Test component
+[33m1fc14c2[m[33m ([m[1;31morigin/slicing-ui-1984567790[m[33m, [m[1;32mslicing-ui-1984567790[m[33m)[m Merge pull request #5 from Joshtri/create-proctected-route-1984628914
+[33m13fd61b[m update routing to use LoginPage; add protected route component; modify Tailwind CSS config for flowbite; add path alias in Vite config
+[33m982051d[m Merge pull request #4 from Joshtri/layouting-1984625363
+[33m15861d9[m add layout components with header, footer, and sidebar; update dependencies
+[33m00dc28e[m Merge pull request #3 from Joshtri/create-login-page-1984627755
+[33mf7306e2[m add Test component with a simple greeting
+[33ma240924[m Merge pull request #1 from Joshtri/layouting-1984625363
+[33m907c699[m[33m ([m[1;31morigin/layouting-1984625363[m[33m)[m add layout component with header, main, and footer structure
+[33m4178ecb[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m ;ts
