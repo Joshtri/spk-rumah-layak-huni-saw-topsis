@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import ConfirmationDialog from "@/components/confirmationDialog";
 
-// import logoKabupatenRoteNdao from "../../../assets/logo-kab-rote-ndao.png";
+import logoRoteNdao from "../../../assets/logo-rote-ndao.png";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,9 +22,9 @@ export const Header = () => {
       <div className="flex justify-between items-center px-6 py-4">
         <div className="flex items-center space-x-4">
           <img
-            src=""
+            src={logoRoteNdao}
             alt="Kabupaten Rote Ndao Logo"
-            className="h-10 w-10"
+            className="h-14 w-auto object-contain"
           />
           <h1 className="text-xl font-semibold">SPK Penentuan Rumah Layak Huni | Desa Lakamola</h1>
         </div>

@@ -2,12 +2,14 @@ import LayoutRoot from "../layout";
 import AdminTable from "../../components/admin/table";
 import AdminInputModal from "@/components/admin/inputModal";
 import { useState } from "react";
+import PageTitle from "@/components/pageTitle";
 
 export default function AdminList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <LayoutRoot>
+      <PageTitle title="Admin" />
       <AdminInputModal
         isOpen={isModalOpen}
         onClose={() => {
