@@ -1,12 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "@/pages/auth/loginPage";
-import DashboardPage from "@/pages/dashboard";
+import DashboardPage from "@/pages/dashboard/dashboard";
 import KriteriaList from "@/pages/kriteria/list";
 import SubKriteriaList from "@/pages/sub-kriteria/list";
 import AlternatifList from "@/pages/alternatif/list";
 import AdminList from "./pages/admin/list";
 import Profile from "./pages/profile-management/profile";
 import ForgotPassword from "./pages/auth/forgotPassword";
+import RankingList from "./pages/ranking/list";
+
 
 function App() {
   return (
@@ -44,6 +46,10 @@ function App() {
           <Route
             path="/profile"
             element={<Profile />}
+          />
+          <Route
+            path="/ranking"
+            element={<RankingList />}
           />
         </Routes>
       </BrowserRouter>

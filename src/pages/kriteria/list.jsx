@@ -1,7 +1,7 @@
 import CriteriaInputModal from "@/components/kriteria/criteriaInputModal";
 import CriteriaTable from "@/components/kriteria/criteriaTable";
 import LayoutRoot from "../layout";
-
+import PageTitle from "@/components/pageTitle";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -17,6 +17,7 @@ export default function KriteriaList() {
       />
 
       <LayoutRoot>
+        <PageTitle title="Kriteria" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           {/* add criteria & view button */}
           <div className="flex justify-end items-center h-full">
