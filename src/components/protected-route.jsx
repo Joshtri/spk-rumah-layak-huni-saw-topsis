@@ -1,28 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ element: Component, allowedRoles }) => {
-  const user = localStorage.getItem("token");
+const ProtectedRoute = ({ allowedRoles }) => {
+  const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  // Jika user belum login, arahkan ke halaman login
-  if (!user) {
-    return <Navigate to="/" />;
+  console.log("🔒 Token di ProtectedRoute:", token); // 🔥 Debugging
+
+  if (!token) {
+    return <Navigate to="/" replace />;
   }
 
-  // Jika peran user tidak diizinkan untuk mengakses halaman ini, arahkan ke dashboard
   if (allowedRoles && !allowedRoles.includes(role)) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" replace />;
   }
 
-  // Jika user login dan peran diizinkan, tampilkan komponen yang diminta
-  return <Component />;
+  return <Outlet />;
 };
 
-// Menambahkan propTypes untuk validasi
 ProtectedRoute.propTypes = {
-  element: PropTypes.elementType.isRequired,
   allowedRoles: PropTypes.arrayOf(PropTypes.string),
 };
 
