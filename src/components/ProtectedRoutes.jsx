@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ allowedRoles }) => {
+const ProtectedRoutes = ({ allowedRoles }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
@@ -29,8 +29,8 @@ const ProtectedRoute = ({ allowedRoles }) => {
   return <Outlet />;
 };
 
-ProtectedRoute.propTypes = {
+ProtectedRoutes.propTypes = {
   allowedRoles: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default ProtectedRoute;
+export default ProtectedRoutes;

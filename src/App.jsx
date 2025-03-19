@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute.jsx";
+import ProtectedRoutes from "./Components/ProtectedRoutes";
 import LoginPage from "./Pages/Auth/LoginPage";
 import DashboardPage from "./Pages/Dashboard/Dashboard";
 import KriteriaList from "./Pages/Kriteria/KriteriaList";
@@ -34,7 +34,7 @@ function App() {
           />
 
           {/* Protected Routes - Semua halaman hanya bisa diakses oleh ADMIN */}
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoutes />}>
             <Route
               path="/dashboard"
               element={<DashboardPage />}
