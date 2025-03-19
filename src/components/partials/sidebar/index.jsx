@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, Users, Settings, HelpCircle, Verified, Dock, Ruler, TrendingUp, LogOut, Calendar } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth"; // 🔥 Import hook auth
+import { useAuth } from "../../../hooks/useAuth"; // 🔥 Import hook auth
 
 export const Sidebar = () => {
   const { logout } = useAuth(); // ✅ Ambil fungsi logout dari hooks

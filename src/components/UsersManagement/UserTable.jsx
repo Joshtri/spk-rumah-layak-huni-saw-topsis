@@ -1,4 +1,4 @@
-import { useUsers } from "@/hooks/useUsers"; // 🔥 Import hooks user
+import { useUsers } from "../../hooks/useUsers"; // 🔥 Import hooks user
 import { Table, Button } from "flowbite-react";
 import { useState } from "react";
 import { toast } from "sonner";

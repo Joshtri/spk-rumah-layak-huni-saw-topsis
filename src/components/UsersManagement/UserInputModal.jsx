@@ -1,6 +1,6 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
+import { useUsers } from "../../hooks/useUsers";
 import { toast } from "sonner";
 
 export default function UserInputModal({ isOpen, onClose, refresh }) {

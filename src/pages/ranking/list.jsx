@@ -1,6 +1,6 @@
 import LayoutRoot from "../layout";
 import RankingTable from "../../components/ranking/table";
-import PageTitle from "../../components/pageTitle";
+import PageTitle from "../../components/PageTitle";
 
 export default function RankingList() {
   return (
