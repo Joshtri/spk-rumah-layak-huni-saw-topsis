@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllKriteria, createKriteria, updateKriteria, deleteKriteria, getKriteriaById as fetchKriteriaById } from "@/api/kriteriaApi";
+import { getAllKriteria, createKriteria, updateKriteria, deleteKriteria, getKriteriaById as fetchKriteriaById,  getSubKriteriaByKriteria as fetchSubKriteriaByKriteria } from "@/api/kriteriaApi";
 
 export const useKriteria = () => {
     const [kriteria, setKriteria] = useState([]);
@@ -58,5 +58,16 @@ export const useKriteria = () => {
             }
         };
 
-    return { kriteria, loading, fetchKriteria, addKriteria, editKriteria, removeKriteria,getKriteriaById };
+           // ✅ Tambahkan fungsi untuk mendapatkan subkriteria berdasarkan idKriteria
+    const getSubKriteriaByKriteria = async (idKriteria) => {
+        try {
+            const data = await fetchSubKriteriaByKriteria(idKriteria);
+            return data;
+        } catch (error) {
+            console.error(`❌ Error fetching subkriteria untuk ID ${idKriteria}:`, error);
+            return [];
+        }
+    };
+
+    return { kriteria, loading, fetchKriteria, addKriteria, editKriteria, removeKriteria,getKriteriaById, getSubKriteriaByKriteria };
 };
