@@ -1,5 +1,5 @@
-import KriteriaInputModal from "@/components/kriteria/kriteriaInputModal";
-import CriteriaTable from "@/components/kriteria/kriteriaTable";
+import KriteriaInputModal from "@/components/Kriteria/KriteriaInputModal";
+import CriteriaTable from "@/components/Kriteria/KriteriaTable";
 import LayoutRoot from "../layout";
 import PageTitle from "@/components/pageTitle";
 

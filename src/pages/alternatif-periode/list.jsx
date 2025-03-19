@@ -1,5 +1,5 @@
-import AlternatifPeriodeTable from "@/components/alternatif-periode/AlternatifPeriodeTable";
-import AlternatifPeriodeInputModal from "@/components/alternatif-periode/AlternatifPeriodeInputModal";
+import AlternatifPeriodeTable from "@/components/AlternatifPeriode/AlternatifPeriodeTable";
+import AlternatifPeriodeInputModal from "@/components/AlternatifPeriode/AlternatifPeriodeInputModal";
 import LayoutRoot from "../layout";
 import PageTitle from "@/components/pageTitle";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { useKriteria } from "@/hooks/useKriteria"; // Import custom hook
 import { Table } from "flowbite-react";
-import KriteriaTableActions from "./kriteriaTableActions";
+import KriteriaTableActions from "./KriteriaTableActions";
 import LoadingSpinner from "@/components/ui/Spinner"; // Import komponen spinner
 
 export default function KriteriaTable() {

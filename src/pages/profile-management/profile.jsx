@@ -1,5 +1,5 @@
 import LayoutRoot from "../layout";
-import ProfileData from "@/components/profile-management/profileData";
+import ProfileData from "@/components/ProfileManagement/profileData";
 
 export default function Profile() {
   return (

@@ -1,4 +1,4 @@
-import KriteriaEditModal from "./kriteriaEditModal";
+import KriteriaEditModal from "./KriteriaEditModal";
 import SubKriteriaInputModal from "../sub-kriteria/subKriteriaInputModal";
 import SubKriteriaViewModal from "../sub-kriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
 import { useState } from "react";
