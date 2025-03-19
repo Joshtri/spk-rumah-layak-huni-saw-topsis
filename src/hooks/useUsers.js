@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllUsers, createUser, updateUser, deleteUser } from "@/api/userApi";
+import { getAllUsers, createUser, updateUser, deleteUser } from "../api/userApi";
 import { toast } from "sonner";
 
 export const useUsers = () => {

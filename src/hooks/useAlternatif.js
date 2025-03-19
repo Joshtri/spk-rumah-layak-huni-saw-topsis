@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllAlternatif, createAlternatif, updateAlternatif, deleteAlternatif } from "@/api/alternatifApi";
+import { getAllAlternatif, createAlternatif, updateAlternatif, deleteAlternatif } from "../api/alternatifApi";
 
 export const useAlternatif = () => {
     const [alternatif, setAlternatif] = useState([]);

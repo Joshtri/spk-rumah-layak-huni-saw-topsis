@@ -1,7 +1,7 @@
-import PeriodeInputModal from "@/components/Periode/PeriodeInputModal";
-import PeriodeTable from "@/components/Periode/PeriodeTable";
+import PeriodeInputModal from "../../components/Periode/periodeInputModal";
+import PeriodeTable from "../../components/Periode/periodeTable";
 import LayoutRoot from "../layout";
-import PageTitle from "@/components/PageTitle";
+import PageTitle from "../../components/pageTitle";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";

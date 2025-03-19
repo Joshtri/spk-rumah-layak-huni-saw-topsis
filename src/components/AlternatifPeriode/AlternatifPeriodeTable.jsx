@@ -1,5 +1,5 @@
 import { Table, Spinner } from "flowbite-react";
-import { useAlternatifPeriode } from "@/hooks/useAlternatifPeriode"; // 🔥 Import hooks
+import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode"; // 🔥 Import hooks
 
 export default function AlternatifPeriodeTable() {
   const { alternatifPeriode, loading } = useAlternatifPeriode(); // Ambil data dari hooks

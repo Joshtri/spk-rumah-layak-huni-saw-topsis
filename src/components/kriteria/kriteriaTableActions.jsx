@@ -4,7 +4,7 @@ import SubKriteriaViewModal from "../SubKriteria/SubKriteriaViewModal"; // 🔥 
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { toast } from "sonner";
-import { useKriteria } from "@/hooks/useKriteria";
+import { useKriteria } from "../../hooks/useKriteria";
 
 export default function KriteriaTableActions({ idKriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

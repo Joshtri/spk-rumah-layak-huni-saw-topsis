@@ -1,6 +1,6 @@
 // src/context/KriteriaContext.js
 import { createContext, useContext } from "react";
-import { useKriteria } from "@/hooks/useKriteria";
+import { useKriteria } from "../hooks/useKriteria";
 
 const KriteriaContext = createContext();
 

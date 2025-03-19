@@ -1,6 +1,5 @@
-import { Card, Button } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import { NavLink } from "react-router-dom";
-import { FiBarChart2, FiTrendingUp, FiDatabase } from "react-icons/fi"; // 🔥 Ikon tambahan
 
 export default function StatCard({ children, title, navTo, navText, icon }) {
   return (

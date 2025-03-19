@@ -5,7 +5,7 @@ import {
     getPeriodeByAlternatif, 
     getAlternatifByPeriode, 
     getAllAlternatifPeriode 
-} from "@/api/alternatifPeriodeApi";
+} from "../api/alternatifPeriodeApi";
 
 export const useAlternatifPeriode = (periodeId = null, alternatifId = null) => {
     const [alternatifPeriode, setAlternatifPeriode] = useState([]);

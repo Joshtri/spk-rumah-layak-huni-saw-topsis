@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllSubKriteria, createSubKriteria, updateSubKriteria, deleteSubKriteria } from "@/api/subKriteriaApi";
+import { getAllSubKriteria, createSubKriteria, updateSubKriteria, deleteSubKriteria } from "../api/subKriteriaApi";
 
 export const useSubKriteria = () => {
   const [subKriteria, setSubKriteria] = useState([]);

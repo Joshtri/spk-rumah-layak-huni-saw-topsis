@@ -1,6 +1,6 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth"; // 🔥 Import hooks auth
+import { useAuth } from "../../hooks/useAuth"; // 🔥 Import hooks auth
 import { useState } from "react";
 import { toast } from "sonner"; // 🔥 Gunakan Sonner untuk notifikasi
 

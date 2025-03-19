@@ -1,5 +1,5 @@
-import AlternatifEditModal from "@/components/Alternatif/AlternatifEditModal";
-import AlternatifPeriodeModal from "@/components/AlternatifPeriode/AlternatifPeriodeModal"; // 🔥 Import Modal Periode
+import AlternatifEditModal from "../../components/Alternatif/AlternatifEditModal";
+import AlternatifPeriodeModal from "../../components/AlternatifPeriode/AlternatifPeriodeModal"; // 🔥 Import Modal Periode
 import { useState } from "react";
 
 export default function AlternatifTableActions({ idAlternatif, hasPeriode }) {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllKriteria, createKriteria, updateKriteria, deleteKriteria, getKriteriaById as fetchKriteriaById,  getSubKriteriaByKriteria as fetchSubKriteriaByKriteria } from "@/api/kriteriaApi";
+import { getAllKriteria, createKriteria, updateKriteria, deleteKriteria, getKriteriaById as fetchKriteriaById,  getSubKriteriaByKriteria as fetchSubKriteriaByKriteria } from "../api/kriteriaApi";
 
 export const useKriteria = () => {
     const [kriteria, setKriteria] = useState([]);

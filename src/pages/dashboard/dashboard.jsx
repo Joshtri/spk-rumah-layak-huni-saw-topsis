@@ -1,10 +1,10 @@
 import LayoutRoot from "../layout";
-import StatCard from "@/components/Dashboard/statCard";
+import StatCard from "../../components/Dashboard/statCard";
 import { FiList, FiUsers, FiClock, FiBarChart2 } from "react-icons/fi"; // 🔥 Ikon tambahan
-import { useAlternatif } from "@/hooks/useAlternatif";
-import { usePeriode } from "@/hooks/usePeriode";
-import { useKriteria } from "@/hooks/useKriteria";
-import { useAlternatifPeriode } from "@/hooks/useAlternatifPeriode";
+import { useAlternatif } from "../../hooks/useAlternatif";
+import { usePeriode } from "../../hooks/usePeriode";
+import { useKriteria } from "../../hooks/useKriteria";
+import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
 
 export default function DashboardPage() {
   const { alternatif, loading: loadingAlternatif } = useAlternatif();
