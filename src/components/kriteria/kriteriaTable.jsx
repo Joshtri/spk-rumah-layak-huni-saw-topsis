@@ -1,7 +1,7 @@
 import { useKriteria } from "../../hooks/useKriteria"; // Import custom hook
 import { Table } from "flowbite-react";
 import KriteriaTableActions from "./KriteriaTableActions";
-import LoadingSpinner from "../../components/ui/Spinner"; // Import komponen spinner
+import LoadingSpinner from "../ui/Spinner"; // Import komponen spinner
 
 export default function KriteriaTable() {
   const { kriteria, loading } = useKriteria(); // Ambil data dari custom hook

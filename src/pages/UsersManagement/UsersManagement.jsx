@@ -1,8 +1,8 @@
 import LayoutRoot from "../LayoutRoot";
-import UserTable from "../../components/UsersManagement/UserTable";
-import UserInputModal from "../../components/UsersManagement/UserInputModal";
+import UserTable from "../../Components/UsersManagement/UserTable";
+import UserInputModal from "../../Components/UsersManagement/UserInputModal";
 import { useState } from "react";
-import PageTitle from "../../components/PageTitle";
+import PageTitle from "../../Components/PageTitle";
 
 export default function UsersList() {
   const [isModalOpen, setIsModalOpen] = useState(false);

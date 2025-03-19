@@ -1,8 +1,8 @@
 import { useSubKriteria } from "../../hooks/useSubKriteria"; // Import hooks sub kriteria
 import { Table, Button } from "flowbite-react";
-import SubCriteriaTableActions from "../../components/SubKriteria/subKriteriaTableActions";
+import SubCriteriaTableActions from "./subKriteriaTableActions";
 import { useState } from "react";
-import SubKriteriaInputModal from "../../components/SubKriteria/subKriteriaInputModal"; // Modal tambah/edit sub-kriteria
+import SubKriteriaInputModal from "./subKriteriaInputModal"; // Modal tambah/edit sub-kriteria
 import { toast } from "sonner";
 
 export default function SubCriteriaTable() {

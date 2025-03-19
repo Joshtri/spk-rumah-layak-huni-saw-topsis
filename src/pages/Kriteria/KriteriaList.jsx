@@ -1,7 +1,7 @@
-import KriteriaInputModal from "../../components/Kriteria/KriteriaInputModal";
-import CriteriaTable from "../../components/Kriteria/KriteriaTable";
+import KriteriaInputModal from "../../Components/Kriteria/KriteriaInputModal";
+import CriteriaTable from "../../Components/Kriteria/KriteriaTable";
 import LayoutRoot from "../LayoutRoot";
-import PageTitle from "../../components/PageTitle";
+import PageTitle from "../../Components/PageTitle";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";

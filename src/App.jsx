@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import LoginPage from "./pages/Auth/LoginPage";
-import DashboardPage from "./pages/Dashboard/Dashboard";
-import KriteriaList from "./pages/Kriteria/KriteriaList";
-import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
-import AlternatifList from "./pages/Alternatif/list";
-import UsersList from "./pages/UsersManagement/UsersManagement";
-import Profile from "./pages/ProfileManagement/Profile";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
-import RankingList from "./pages/Ranking/RankingList";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import LoginPage from "./Pages/Auth/LoginPage";
+import DashboardPage from "./Pages/Dashboard/Dashboard";
+import KriteriaList from "./Pages/Kriteria/KriteriaList";
+import SubKriteriaList from "./Pages/SubKriteria/SubKriteriaList";
+import AlternatifList from "./Pages/Alternatif/list";
+import UsersList from "./Pages/UsersManagement/UsersManagement";
+import Profile from "./Pages/ProfileManagement/Profile";
+import ForgotPassword from "./Pages/Auth/ForgotPassword";
+import RankingList from "./Pages/Ranking/RankingList";
 import { Toaster } from "sonner";
 import { KriteriaProvider } from "./contexts/kriteriaContext";
-import PeriodeList from "./pages/Periode/PeriodeList";
-import AlternatifPeriodeList from "./pages/AlternatifPeriode/list";
+import PeriodeList from "./Pages/Periode/PeriodeList";
+import AlternatifPeriodeList from "./Pages/AlternatifPeriode/list";
 
 function App() {
   return (
