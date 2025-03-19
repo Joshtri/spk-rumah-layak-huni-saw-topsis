@@ -2,10 +2,7 @@ import React from "react";
 import { Sidebar } from "../components/partials/Sidebar";
 import { Header } from "../components/partials/Header";
 import { Footer } from "flowbite-react";
-// import { Footer } from "../Components/partials/footer/index";
-// import { Header } from "../Components/partials/header/index";
-// import { Sidebar } from "../Components/partials/sidebar/index";
-
+ 
 const Layout = ({ children }) => {
   return (
     <div className="flex h-screen overflow-hidden">

@@ -6,6 +6,7 @@ import { useAlternatif } from "../hooks/useAlternatif";
 import { usePeriode } from "../hooks/usePeriode";
 import { useKriteria } from "../hooks/useKriteria";
 import { useAlternatifPeriode } from "../hooks/useAlternatifPeriode";
+import Layout from "./Layout";
 
 const Dashboard = () => {
   const { alternatif, loading: loadingAlternatif } = useAlternatif();
@@ -14,7 +15,7 @@ const Dashboard = () => {
   const { alternatifPeriode, loading: loadingAlternatifPeriode } =
     useAlternatifPeriode();
   return (
-    <LayoutRoot>
+    <Layout>
       <div className="grid grid-rows-[auto,1fr] gap-10 h-full">
         {/* 🔥 Greeting */}
         <div className="flex justify-center items-center h-full text-center">
@@ -78,7 +79,7 @@ const Dashboard = () => {
           </StatCard>
         </div>
       </div>
-    </LayoutRoot>
+    </Layout>
   );
 };
 
