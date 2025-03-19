@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth"; // 🔥 Import hooks auth
 import { useState } from "react";
 import { toast } from "sonner"; // 🔥 Gunakan Sonner untuk notifikasi
 
-export default function LoginPage() {
+function LoginPage() {
   const { login } = useAuth(); // 🔥 Ambil fungsi login dari hooks auth
   const [data, setData] = useState({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
@@ -117,3 +117,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;
