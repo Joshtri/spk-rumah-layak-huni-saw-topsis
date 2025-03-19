@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, Users, Settings, HelpCircle, Verified, Dock, Ruler, TrendingUp, LogOut, Calendar } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth"; // 🔥 Import hook auth
 
 export const Sidebar = () => {
+  const { logout } = useAuth(); // ✅ Ambil fungsi logout dari hooks
+
   const menuItems = [
     { icon: LayoutDashboard, text: "Dashboard", path: "/dashboard" },
     { icon: Ruler, text: "Kriteria", path: "/kriteria" },
@@ -10,6 +13,7 @@ export const Sidebar = () => {
     { icon: Users, text: "Alternatif Periode", path: "/alternatif-periode" },
     { icon: TrendingUp, text: "Ranking", path: "/ranking" },
     { icon: Calendar, text: "Periode", path: "/periode" },
+    { icon: Users, text: "Users Management", path: "/users-management" },
   ];
 
   return (
@@ -33,13 +37,14 @@ export const Sidebar = () => {
             ))}
           </div>
 
-          <NavLink
+          {/* 🔥 Tombol Logout */}
+          <button
+            onClick={logout}
             className="flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-gray-300 hover:bg-red-700 hover:text-white mt-auto"
-            to="/"
           >
             <LogOut className="h-5 w-5" />
             <span className="text-sm font-medium">Keluar</span>
-          </NavLink>
+          </button>
         </nav>
       </div>
     </aside>
