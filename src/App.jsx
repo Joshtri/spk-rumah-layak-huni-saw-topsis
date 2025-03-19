@@ -16,7 +16,9 @@ import AlternatifPeriodeList from "./Pages/AlternatifPeriode/list";
 
 function App() {
   return (
-    <KriteriaProvider>
+    // <KriteriaProvider>
+    <>
+
       <Toaster position="top-right" richColors />
       <BrowserRouter>
         <Routes>
@@ -44,7 +46,8 @@ function App() {
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </BrowserRouter>
-    </KriteriaProvider>
+      </>
+    // </KriteriaProvider>
   );
 }
 
