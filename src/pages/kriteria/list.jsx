@@ -1,5 +1,5 @@
-import CriteriaInputModal from "@/components/kriteria/criteriaInputModal";
-import CriteriaTable from "@/components/kriteria/criteriaTable";
+import KriteriaInputModal from "@/components/kriteria/kriteriaInputModal";
+import CriteriaTable from "@/components/kriteria/kriteriaTable";
 import LayoutRoot from "../layout";
 import PageTitle from "@/components/pageTitle";
 
@@ -11,7 +11,7 @@ export default function KriteriaList() {
 
   return (
     <>
-      <CriteriaInputModal
+      <KriteriaInputModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
