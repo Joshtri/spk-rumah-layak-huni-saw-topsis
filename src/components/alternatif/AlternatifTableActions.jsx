@@ -1,4 +1,4 @@
-import AlternatifEditModal from "./AlternatifEditModal";
+import AlternatifEditModal from "@/components/alternatif/AlternatifEditModal";
 import AlternatifPeriodeModal from "@/components/alternatif-periode/AlternatifPeriodeModal"; // 🔥 Import Modal Periode
 import { useState } from "react";
 
