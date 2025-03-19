@@ -1,5 +1,5 @@
 import LayoutRoot from "@/pages/layout";
-import AlternativeTable from "../../components/alternatif/AlternatifTable";
+import AlternatifTable from "../../components/alternatif/AlternatifTable";
 import AlternatifInputModal from "@/components/alternatif/AlternatifInputModal";
 import PageTitle from "@/components/pageTitle";
 
@@ -26,7 +26,7 @@ export default function AlternatifList() {
           </button>
         </div>
 
-        <AlternativeTable />
+        <AlternatifTable />
       </div>
     </LayoutRoot>
   );
