@@ -2,27 +2,27 @@ import CriteriaEditModal from "./criteriaEditModal";
 import SubCriteriaInputModal from "../sub-kriteria/subCriteriaInputModal";
 import { useState } from "react";
 
-export default function CriteriaTableActions({ idCriteria, title, bobot }) {
+export default function CriteriaTableActions({ selectedCriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubCriteriaModalOpen, setIsSubCriteriaModalOpen] = useState(false);
+  // const [isSubCriteriaModalOpen, setIsSubCriteriaModalOpen] = useState(false);
   return (
     <>
-      <CriteriaEditModal
+      {/* <CriteriaEditModal
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
         }}
-        title={title}
-        criteriaBobot={bobot}
-      />
+        title={selectedCriteria.nama_kriteria}
+        criteriaBobot={selectedCriteria.criteriaBobot}
+      /> */}
 
-      <SubCriteriaInputModal
+      {/* <SubCriteriaInputModal
         isOpen={isSubCriteriaModalOpen}
         onClose={() => {
           setIsSubCriteriaModalOpen(false);
         }}
         idCriteria={idCriteria}
-      />
+      /> */}
 
       <div className="flex gap-2 justify-center">
         <button
@@ -36,7 +36,7 @@ export default function CriteriaTableActions({ idCriteria, title, bobot }) {
         </button>
         <button
           className="min-w-[6rem] bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded text-sm"
-          onClick={() => setIsSubCriteriaModalOpen(true)}
+          // onClick={() => setIsSubCriteriaModalOpen(true)}
         >
           Tambah Subkriteria
         </button>

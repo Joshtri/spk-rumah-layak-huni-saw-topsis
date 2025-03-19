@@ -4,16 +4,46 @@ import CriteriaTableActions from "./criteriaTableActions";
 export default function CriteriaTable() {
   const criteriaData = [
     {
-      id: "C1",
-      nama: "Jenis Dinding",
-      bobot: "10",
-      tipe: "Benefit",
+      id: 1,
+      nama_kriteria: "Jenis Dinding",
+      bobot_kriteria: "10",
+      tipe_kriteria: "Benefit",
+      keteranga_kriteria: "Semakin tinggi jenis dinding semakin baik",
     },
     {
-      id: "C2",
-      nama: "Jenis Lantai",
-      bobot: "15",
-      tipe: "Benefit",
+      id: 2,
+      nama_kriteria: "Jumlah Kamar",
+      bobot_kriteria: "20",
+      tipe_kriteria: "Benefit",
+      keteranga_kriteria: "Semakin tinggi jumlah kamar semakin baik",
+    },
+    {
+      id: 3,
+      nama_kriteria: "Jumlah Kamar Mandi",
+      bobot_kriteria: "15",
+      tipe_kriteria: "Benefit",
+      keteranga_kriteria: "Semakin tinggi jumlah kamar mandi semakin baik",
+    },
+    {
+      id: 4,
+      nama_kriteria: "Luas Tanah",
+      bobot_kriteria: "10",
+      tipe_kriteria: "Benefit",
+      keteranga_kriteria: "Semakin tinggi luas tanah semakin baik",
+    },
+    {
+      id: 5,
+      nama_kriteria: "Luas Bangunan",
+      bobot_kriteria: "15",
+      tipe_kriteria: "Benefit",
+      keteranga_kriteria: "Semakin tinggi luas bangunan semakin baik",
+    },
+    {
+      id: 6,
+      nama_kriteria: "Harga",
+      bobot_kriteria: "30",
+      tipe_kriteria: "Cost",
+      keteranga_kriteria: "Semakin rendah harga semakin baik",
     },
   ];
 
@@ -56,11 +86,7 @@ export default function CriteriaTable() {
                   : `Semakin rendah ${criteria.nama} semakin baik`}
               </Table.Cell>
               <Table.Cell>
-                <CriteriaTableActions
-                  title={criteria.nama}
-                  bobot={criteria.bobot}
-                  idCriteria={criteria.id}
-                />
+                <CriteriaTableActions selectedCriteria={criteria} />
               </Table.Cell>
             </Table.Row>
           ))}
