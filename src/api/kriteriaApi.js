@@ -1,35 +1,38 @@
 import axios from "axios";
 
+const API_URL = `${import.meta.env.VITE_BASE_URL}/api/kriteria`;
 
+const getAuthHeader = () => {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
 export const getAllKriteria = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/kriteria`);
+    const response = await axios.get(API_URL, { headers: getAuthHeader() });
     return response.data;
 };
 
 export const getKriteriaById = async (id) => {
-    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${id}`);
+    const response = await axios.get(`${API_URL}/${id}`, { headers: getAuthHeader() });
     return response.data;
 };
 
 export const createKriteria = async (data) => {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/kriteria`, data);
+    const response = await axios.post(API_URL, data, { headers: getAuthHeader() });
     return response.data;
 };
 
 export const updateKriteria = async (id, data) => {
-    const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${id}`, data);
+    const response = await axios.put(`${API_URL}/${id}`, data, { headers: getAuthHeader() });
     return response.data;
 };
 
 export const deleteKriteria = async (id) => {
-    const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${id}`);
+    const response = await axios.delete(`${API_URL}/${id}`, { headers: getAuthHeader() });
     return response.data;
 };
 
-
-// 🔥 Ambil daftar subkriteria berdasarkan ID Kriteria
 export const getSubKriteriaByKriteria = async (idKriteria) => {
-    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${idKriteria}/subkriteria`);
+    const response = await axios.get(`${API_URL}/${idKriteria}/subkriteria`, { headers: getAuthHeader() });
     return response.data;
 };
