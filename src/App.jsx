@@ -1,11 +1,17 @@
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.css";
-
+import LoginPage from "./pages/Auth/LoginPage";
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <BrowserRouter>
+        <Routes>
+        <Route path="/" element={<LoginPage />} />
+
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
