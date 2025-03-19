@@ -1,32 +1,17 @@
 import KriteriaEditModal from "./KriteriaEditModal";
 import SubKriteriaInputModal from "../sub-kriteria/SubKriteriaInputModal";
-import { useState, useEffect } from "react";
-import { useKriteria } from "@/hooks/useKriteria"; // Import custom hook
+import SubKriteriaViewModal from "../sub-kriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
+import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
-import { toast } from "sonner"; // Untuk notifikasi
+import { toast } from "sonner";
+import { useKriteria } from "@/hooks/useKriteria";
 
 export default function KriteriaTableActions({ idKriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubKriteriaModalOpen, setIsSubKriteriaModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Modal konfirmasi hapus
-  const [selectedKriteria, setSelectedKriteria] = useState(null);
-  const { getKriteriaById, removeKriteria } = useKriteria(); // Tambahkan removeKriteria
-
-  // Fetch data kriteria saat modal edit dibuka
-  useEffect(() => {
-    const fetchKriteria = async () => {
-      if (isModalOpen) {
-        try {
-          const data = await getKriteriaById(idKriteria);
-          setSelectedKriteria(data);
-        } catch (error) {
-          console.error("Error fetching kriteria:", error);
-        }
-      }
-    };
-
-    fetchKriteria();
-  }, [isModalOpen, idKriteria]);
+  const [isSubKriteriaViewModalOpen, setIsSubKriteriaViewModalOpen] = useState(false); // 🔥 Modal Lihat Subkriteria
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { removeKriteria } = useKriteria();
 
   // Fungsi hapus kriteria
   const handleDelete = async () => {
@@ -46,13 +31,19 @@ export default function KriteriaTableActions({ idKriteria }) {
       <KriteriaEditModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        kriteria={selectedKriteria}
       />
 
       {/* Modal Tambah Subkriteria */}
       <SubKriteriaInputModal
         isOpen={isSubKriteriaModalOpen}
         onClose={() => setIsSubKriteriaModalOpen(false)}
+        idKriteria={idKriteria}
+      />
+
+      {/* 🔥 Modal Lihat Subkriteria */}
+      <SubKriteriaViewModal
+        isOpen={isSubKriteriaViewModalOpen}
+        onClose={() => setIsSubKriteriaViewModalOpen(false)}
         idKriteria={idKriteria}
       />
 
@@ -93,6 +84,12 @@ export default function KriteriaTableActions({ idKriteria }) {
           onClick={() => setIsSubKriteriaModalOpen(true)}
         >
           Tambah Subkriteria
+        </button>
+        <button
+          className="min-w-[6rem] bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded text-sm"
+          onClick={() => setIsSubKriteriaViewModalOpen(true)}
+        >
+          Lihat Subkriteria
         </button>
       </div>
     </>
