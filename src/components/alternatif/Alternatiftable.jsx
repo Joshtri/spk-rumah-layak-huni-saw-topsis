@@ -1,6 +1,6 @@
 import { Table, Spinner } from "flowbite-react";
 import AlternatifTableActions from "./AlternatifTableActions";
-import { useAlternatif } from "@/hooks/useAlternatif"; // Import hooks
+import { useAlternatif } from "../../hooks/useAlternatif"; // Import hooks
 
 export default function AlternatifTable() {
   const { alternatif, loading } = useAlternatif(); // Ambil data dari hook

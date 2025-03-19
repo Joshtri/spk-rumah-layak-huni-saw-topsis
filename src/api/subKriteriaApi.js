@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAuthHeader } from "@/utils/authHeader";
+import { getAuthHeader } from "../utils/authHeader";
 
 const API_BASE_URL = `${import.meta.env.VITE_BASE_URL}/api/subkriteria`;
 

@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "@/components/protected-route";
-import LoginPage from "@/pages/auth/loginPage";
-import DashboardPage from "@/pages/dashboard/dashboard";
-import KriteriaList from "@/pages/kriteria/list";
-import SubKriteriaList from "@/pages/sub-kriteria/list";
-import AlternatifList from "@/pages/alternatif/list";
+import ProtectedRoute from "./components/protected-route";
+import LoginPage from "./pages/auth/loginPage";
+import DashboardPage from "./pages/dashboard/dashboard";
+import KriteriaList from "./pages/kriteria/list";
+import SubKriteriaList from "./pages/sub-kriteria/list";
+import AlternatifList from "./pages/alternatif/list";
 import UsersList from "./pages/users-management/list";
 import Profile from "./pages/profile-management/profile";
 import ForgotPassword from "./pages/auth/forgotPassword";
 import RankingList from "./pages/ranking/list";
 import { Toaster } from "sonner";
-import { KriteriaProvider } from "@/contexts/kriteriaContext";
+import { KriteriaProvider } from "./contexts/kriteriaContext";
 import PeriodeList from "./pages/periode/list";
 import AlternatifPeriodeList from "./pages/alternatif-periode/list";
 

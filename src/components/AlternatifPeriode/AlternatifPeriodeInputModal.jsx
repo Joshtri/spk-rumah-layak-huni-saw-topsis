@@ -1,8 +1,8 @@
 import { Modal, Button, Label, Select } from "flowbite-react";
 import { useState } from "react";
-import { useAlternatif } from "@/hooks/useAlternatif";
-import { usePeriode } from "@/hooks/usePeriode";
-import { useAlternatifPeriode } from "@/hooks/useAlternatifPeriode";
+import { useAlternatif } from "../../hooks/useAlternatif";
+import { usePeriode } from "../../hooks/usePeriode";
+import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
 import { toast } from "sonner";
 
 export default function AlternatifPeriodeInputModal({ isOpen, onClose }) {

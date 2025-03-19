@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAuthHeader } from "@/utils/authHeader";
+import { getAuthHeader } from "../utils/authHeader";
 
 export const getAllUsers = async () => {
     const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user`, { headers: getAuthHeader() });

@@ -2,10 +2,8 @@ import axios from "axios";
 
 const API_URL = `${import.meta.env.VITE_BASE_URL}/api/kriteria`;
 
-const getAuthHeader = () => {
-    const token = localStorage.getItem("token");
-    return token ? { Authorization: `Bearer ${token}` } : {};
-};
+import { getAuthHeader } from "../utils/authHeader";
+
 
 export const getAllKriteria = async () => {
     const response = await axios.get(API_URL, { headers: getAuthHeader() });

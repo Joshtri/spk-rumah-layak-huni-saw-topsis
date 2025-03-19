@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, TextInput, Label, Select, Textarea } from "flowbite-react";
 import { toast } from "sonner";
-import { useKriteria } from "@/hooks/useKriteria"; // Import hook
+import { useKriteria } from "../../hooks/useKriteria"; // Import hook
 
 export default function KriteriaEditModal({ isOpen, onClose, kriteria }) {
   const [namaKriteria, setNamaKriteria] = useState("");

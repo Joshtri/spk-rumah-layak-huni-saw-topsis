@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllPeriode, createPeriode, updatePeriode, deletePeriode } from "@/api/periodeApi";
+import { getAllPeriode, createPeriode, updatePeriode, deletePeriode } from "../api/periodeApi";
 
 export const usePeriode = () => {
     const [periode, setPeriode] = useState([]);

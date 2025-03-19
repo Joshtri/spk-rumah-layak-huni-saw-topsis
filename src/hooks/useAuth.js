@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { loginUser, getCurrentUser, logoutUser } from "@/api/authApi";
+import { loginUser, getCurrentUser, logoutUser } from "../api/authApi";
 import { toast } from "sonner";
 
 export const useAuth = () => {

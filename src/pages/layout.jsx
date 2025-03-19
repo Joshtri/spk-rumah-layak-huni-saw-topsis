@@ -1,5 +1,7 @@
 import React from "react";
-import { Header, Sidebar, Footer } from "../components/partials";
+import { Footer } from "../components/partials/footer/index";
+import { Header } from "../components/partials/header/index";
+import { Sidebar } from "../components/partials/sidebar/index";
 
 const LayoutRoot = ({ children }) => {
   return (
