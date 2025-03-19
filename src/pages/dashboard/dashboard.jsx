@@ -1,4 +1,4 @@
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import StatCard from "../../components/Dashboard/statCard";
 import { FiList, FiUsers, FiClock, FiBarChart2 } from "react-icons/fi"; // 🔥 Ikon tambahan
 import { useAlternatif } from "../../hooks/useAlternatif";

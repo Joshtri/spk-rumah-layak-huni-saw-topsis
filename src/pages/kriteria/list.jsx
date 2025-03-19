@@ -1,6 +1,6 @@
 import KriteriaInputModal from "../../components/Kriteria/KriteriaInputModal";
 import CriteriaTable from "../../components/Kriteria/KriteriaTable";
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import PageTitle from "../../components/PageTitle";
 
 import { useState } from "react";

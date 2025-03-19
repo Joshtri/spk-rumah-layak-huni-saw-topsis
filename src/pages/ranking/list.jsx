@@ -1,4 +1,4 @@
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import RankingTable from "../../components/ranking/table";
 import PageTitle from "../../components/PageTitle";
 

@@ -1,4 +1,4 @@
-import LayoutRoot from "../../pages/layout";
+import LayoutRoot from "../LayoutRoot";
 import SubCriteriaTable from "../../components/SubKriteria/subKriteriaTable";
 import PageTitle from "../../components/PageTitle";
 

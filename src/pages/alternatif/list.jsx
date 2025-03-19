@@ -1,4 +1,4 @@
-import LayoutRoot from "../../pages/layout";
+import LayoutRoot from "../LayoutRoot";
 import AlternatifTable from "../../components/Alternatif/AlternatifTable";
 import AlternatifInputModal from "../../components/Alternatif/AlternatifInputModal";
 import PageTitle from "../../components/PageTitle";

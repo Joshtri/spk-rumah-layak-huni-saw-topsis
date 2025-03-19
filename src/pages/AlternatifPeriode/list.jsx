@@ -1,6 +1,6 @@
 import AlternatifPeriodeTable from "../../components/AlternatifPeriode/AlternatifPeriodeTable";
 import AlternatifPeriodeInputModal from "../../components/AlternatifPeriode/AlternatifPeriodeInputModal";
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import PageTitle from "../../components/PageTitle";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";

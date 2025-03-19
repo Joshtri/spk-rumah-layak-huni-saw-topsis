@@ -1,6 +1,6 @@
 import PeriodeInputModal from "../../components/Periode/periodeInputModal";
 import PeriodeTable from "../../components/Periode/periodeTable";
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import PageTitle from "../../components/PageTitle";
 
 import { useState } from "react";

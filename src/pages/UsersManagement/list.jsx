@@ -1,4 +1,4 @@
-import LayoutRoot from "../layout";
+import LayoutRoot from "../LayoutRoot";
 import UserTable from "../../components/UsersManagement/UserTable";
 import UserInputModal from "../../components/UsersManagement/UserInputModal";
 import { useState } from "react";
