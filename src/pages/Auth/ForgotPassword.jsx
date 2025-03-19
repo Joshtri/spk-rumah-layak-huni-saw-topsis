@@ -1,4 +1,4 @@
-export default function ForgotPassword() {
+const ForgotPassword = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-md">
@@ -34,3 +34,5 @@ export default function ForgotPassword() {
     </div>
   );
 }
+
+export default ForgotPassword;
