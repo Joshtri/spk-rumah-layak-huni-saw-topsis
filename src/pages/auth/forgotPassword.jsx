@@ -1,10 +1,12 @@
-export default function ForgotPassword() {
+const ForgotPassword = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center">
           <h1 className="text-3xl font-bold">Lupa Password?</h1>
-          <p className="mt-2 text-sm text-gray-500">Masukan alamat email untuk mereset password</p>
+          <p className="mt-2 text-sm text-gray-500">
+            Masukan alamat email untuk mereset password
+          </p>
         </div>
         <form className="mt-4 space-y-4">
           <div>
@@ -33,4 +35,6 @@ export default function ForgotPassword() {
       </div>
     </div>
   );
-}
+};
+
+export default ForgotPassword;
