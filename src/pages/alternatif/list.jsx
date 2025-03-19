@@ -1,6 +1,6 @@
 import LayoutRoot from "@/pages/layout";
-import AlternativeTable from "../../components/alternatif/table";
-import AlternatifInputModal from "@/components/alternatif/inputModal";
+import AlternatifTable from "../../components/Alternatif/AlternatifTable";
+import AlternatifInputModal from "@/components/Alternatif/AlternatifInputModal";
 import PageTitle from "@/components/pageTitle";
 
 import { useState } from "react";
@@ -26,7 +26,7 @@ export default function AlternatifList() {
           </button>
         </div>
 
-        <AlternativeTable />
+        <AlternatifTable />
       </div>
     </LayoutRoot>
   );

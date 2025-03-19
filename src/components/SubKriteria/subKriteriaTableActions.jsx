@@ -1,4 +1,4 @@
-import SubCriteriaEditModal from "./subCriteriaEditModal";
+import SubCriteriaEditModal from "./subKriteriaEditModal";
 import { useState } from "react";
 
 export default function SubCriteriaTableActions({ idCriteria, title, bobot }) {

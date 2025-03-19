@@ -1,5 +1,5 @@
 import LayoutRoot from "@/pages/layout";
-import SubCriteriaTable from "@/components/sub-kriteria/subCriteriaTable";
+import SubCriteriaTable from "@/components/SubKriteria/subKriteriaTable";
 import PageTitle from "@/components/pageTitle";
 
 export default function SubKriteriaList() {

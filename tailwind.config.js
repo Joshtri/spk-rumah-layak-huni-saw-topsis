@@ -3,12 +3,14 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js,jsx,tsx", // Add this line to include flowbite paths
+    "./node_modules/flowbite/**/*. {js,jsx,ts,tsx}", // 
+    
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    import("flowbite/plugin"), // Use 'flowbite/plugin' instead of flowbite.plugin()
+    // eslint-disable-next-line no-undef
+    require("flowbite/plugin"), // ✅ Use require instead of import()
   ],
 };
