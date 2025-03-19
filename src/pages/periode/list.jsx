@@ -1,5 +1,5 @@
 import PeriodeInputModal from "@/components/periode/periodeInputModal";
-import PeriodeTable from "@/components/periode/PeriodeTable";
+import PeriodeTable from "@/components/periode/periodeTable";
 import LayoutRoot from "../layout";
 import PageTitle from "@/components/pageTitle";
 

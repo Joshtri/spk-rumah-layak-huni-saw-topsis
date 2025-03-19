@@ -1,5 +1,4 @@
 import { usePeriode } from "@/hooks/usePeriode";
-import PeriodeTableActions from "./PeriodeTableActions";
 import { Table, Spinner } from "flowbite-react";
 
 export default function PeriodeTable() {

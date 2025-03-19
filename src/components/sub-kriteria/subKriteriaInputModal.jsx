@@ -1,6 +1,6 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { useKriteriaContext } from "@/contexts/KriteriaContext"; // Untuk dropdown Kriteria
+import { useKriteriaContext } from "@/contexts/kriteriaContext"; // Untuk dropdown Kriteria
 import { useSubKriteria } from "@/hooks/useSubKriteria"; // Gunakan hooks sub-kriteria
 import { toast } from "sonner"; // Untuk notifikasi
 
