@@ -1,6 +1,6 @@
 import KriteriaEditModal from "./KriteriaEditModal";
-import SubKriteriaInputModal from "../sub-kriteria/subKriteriaInputModal";
-import SubKriteriaViewModal from "../sub-kriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
+import SubKriteriaInputModal from "../SubKriteria/subKriteriaInputModal";
+import SubKriteriaViewModal from "../SubKriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { toast } from "sonner";

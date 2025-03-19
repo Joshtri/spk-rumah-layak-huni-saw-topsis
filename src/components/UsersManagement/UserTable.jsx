@@ -2,8 +2,8 @@ import { useUsers } from "@/hooks/useUsers"; // 🔥 Import hooks user
 import { Table, Button } from "flowbite-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import UserTableActions from "./userTableActions";
-import UserInputModal from "./userInputModal"; // 🔥 Import Modal Tambah User
+import UserTableActions from "./UserTableActions";
+import UserInputModal from "./UserInputModal"; // 🔥 Import Modal Tambah User
 
 export default function UserTable() {
   const { users, loading, fetchUsers, removeUser } = useUsers();

@@ -1,4 +1,4 @@
-import UserEditModal from "./userEditModal";
+import UserEditModal from "./UserEditModal";
 import { useState } from "react";
 import { Button } from "flowbite-react";
 
