@@ -26,3 +26,10 @@ export const deleteKriteria = async (id) => {
     const response = await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${id}`);
     return response.data;
 };
+
+
+// 🔥 Ambil daftar subkriteria berdasarkan ID Kriteria
+export const getSubKriteriaByKriteria = async (idKriteria) => {
+    const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/kriteria/${idKriteria}/subkriteria`);
+    return response.data;
+};
