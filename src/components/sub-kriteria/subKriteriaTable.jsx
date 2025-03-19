@@ -16,6 +16,7 @@ export default function SubCriteriaTable() {
       await removeSubKriteria(id);
       toast.success("Sub kriteria berhasil dihapus!");
     } catch (error) {
+      console.log(error);
       toast.error("Gagal menghapus sub kriteria!");
     }
   };
