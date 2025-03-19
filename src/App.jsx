@@ -5,6 +5,8 @@ import "./App.css";
 import LoginPage from "./pages/Auth/LoginPage";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
+import { Toaster } from "sonner";
+
 function App() {
   return (
     <>
@@ -15,7 +17,6 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
           <Route path="/dashboard" element={<Dashboard />} />
-
         </Routes>
       </BrowserRouter>
     </>
