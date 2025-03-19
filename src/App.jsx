@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute";
+import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import LoginPage from "./Pages/Auth/LoginPage";
 import DashboardPage from "./Pages/Dashboard/Dashboard";
 import KriteriaList from "./Pages/Kriteria/KriteriaList";
