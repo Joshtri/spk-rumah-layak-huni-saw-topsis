@@ -5,6 +5,7 @@ export const Sidebar = () => {
   const menuItems = [
     { icon: LayoutDashboard, text: "Dashboard", path: "/dashboard" },
     { icon: Ruler, text: "Kriteria", path: "/kriteria" },
+    { icon: Ruler, text: "Sub Kriteria", path: "/sub-kriteria" },
     { icon: Users, text: "Alternatif", path: "/alternatif" },
     { icon: TrendingUp, text: "Ranking", path: "/ranking" },
   ];
