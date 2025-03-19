@@ -9,11 +9,21 @@ const ProtectedRoute = ({ allowedRoles }) => {
   console.log("🔒 Token di ProtectedRoute:", token); // 🔥 Debugging
 
   if (!token) {
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+      />
+    );
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    return <Navigate to="/dashboard" replace />;
+    return (
+      <Navigate
+        to="/dashboard"
+        replace
+      />
+    );
   }
 
   return <Outlet />;

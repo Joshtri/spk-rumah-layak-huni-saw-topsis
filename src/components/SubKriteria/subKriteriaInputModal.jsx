@@ -1,7 +1,7 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { useKriteriaContext } from "@/contexts/kriteriaContext"; // Untuk dropdown Kriteria
-import { useSubKriteria } from "@/hooks/useSubKriteria"; // Gunakan hooks sub-kriteria
+import { useKriteriaContext } from "../../contexts/kriteriaContext"; // Untuk dropdown Kriteria
+import { useSubKriteria } from "../../hooks/useSubKriteria"; // Gunakan hooks sub-kriteria
 import { toast } from "sonner"; // Untuk notifikasi
 
 export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
@@ -49,7 +49,11 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
   };
 
   return (
-    <Modal show={isOpen} size="md" onClose={onClose}>
+    <Modal
+      show={isOpen}
+      size="md"
+      onClose={onClose}
+    >
       <div className="flex items-start justify-between p-4 border-b rounded-t">
         <h3 className="text-xl text-black font-semibold">Tambah Sub-Kriteria</h3>
       </div>
@@ -57,7 +61,10 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
         <div className="space-y-6">
           {/* Pilihan Kriteria */}
           <div>
-            <Label htmlFor="kriteriaId" value="Kriteria" />
+            <Label
+              htmlFor="kriteriaId"
+              value="Kriteria"
+            />
             <Select
               id="kriteriaId"
               value={selectedKriteriaId}
@@ -67,7 +74,10 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
             >
               <option value="">Pilih Kriteria</option>
               {kriteria.map((item) => (
-                <option key={item.id_kriteria} value={item.id_kriteria}>
+                <option
+                  key={item.id_kriteria}
+                  value={item.id_kriteria}
+                >
                   {item.nama_kriteria}
                 </option>
               ))}
@@ -76,7 +86,10 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
 
           {/* Nama Sub-Kriteria */}
           <div>
-            <Label htmlFor="subKriteriaName" value="Nama Sub-Kriteria" />
+            <Label
+              htmlFor="subKriteriaName"
+              value="Nama Sub-Kriteria"
+            />
             <TextInput
               id="subKriteriaName"
               placeholder="Nama Sub-Kriteria"
@@ -88,7 +101,10 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
 
           {/* Bobot Sub-Kriteria */}
           <div>
-            <Label htmlFor="bobotSubKriteria" value="Bobot Sub-Kriteria" />
+            <Label
+              htmlFor="bobotSubKriteria"
+              value="Bobot Sub-Kriteria"
+            />
             <TextInput
               id="bobotSubKriteria"
               type="number"
@@ -101,10 +117,17 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
-        <Button onClick={handleSave} disabled={loading} className="bg-emerald-500 text-white">
+        <Button
+          onClick={handleSave}
+          disabled={loading}
+          className="bg-emerald-500 text-white"
+        >
           {loading ? "Menyimpan..." : "Simpan"}
         </Button>
-        <Button onClick={onClose} className="bg-red-500 text-white">
+        <Button
+          onClick={onClose}
+          className="bg-red-500 text-white"
+        >
           Batal
         </Button>
       </Modal.Footer>

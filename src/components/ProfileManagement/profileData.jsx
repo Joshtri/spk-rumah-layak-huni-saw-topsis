@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ChangePasswordModal from "./changePasswordModal";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 export default function ProfileData() {
   const [isEditing, setIsEditing] = useState(false);

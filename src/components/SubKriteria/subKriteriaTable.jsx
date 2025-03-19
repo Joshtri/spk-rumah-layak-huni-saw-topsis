@@ -1,13 +1,12 @@
-import { useSubKriteria } from "@/hooks/useSubKriteria"; // Import hooks sub kriteria
+import { useSubKriteria } from "../../hooks/useSubKriteria"; // Import hooks sub kriteria
 import { Table, Button } from "flowbite-react";
-import SubCriteriaTableActions from "@/components/SubKriteria/subKriteriaTableActions";
+import SubCriteriaTableActions from "../../components/SubKriteria/subKriteriaTableActions";
 import { useState } from "react";
-import SubKriteriaInputModal from "@/components/SubKriteria/subKriteriaInputModal"; // Modal tambah/edit sub-kriteria
+import SubKriteriaInputModal from "../../components/SubKriteria/subKriteriaInputModal"; // Modal tambah/edit sub-kriteria
 import { toast } from "sonner";
 
 export default function SubCriteriaTable() {
-  const { subKriteria, loading, fetchSubKriteria, removeSubKriteria } =
-    useSubKriteria();
+  const { subKriteria, loading, fetchSubKriteria, removeSubKriteria } = useSubKriteria();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSubKriteria, setSelectedSubKriteria] = useState(null);
 
@@ -45,34 +44,28 @@ export default function SubCriteriaTable() {
       {loading ? (
         <p className="text-center p-4">Loading...</p>
       ) : (
-        <Table striped className="min-w-full whitespace-nowrap overflow-hidden">
+        <Table
+          striped
+          className="min-w-full whitespace-nowrap overflow-hidden"
+        >
           <Table.Head>
-            <Table.HeadCell className="w-[25%] text-center">
-              Kriteria
-            </Table.HeadCell>
-            <Table.HeadCell className="w-[25%] text-center">
-              Sub Kriteria
-            </Table.HeadCell>
-            <Table.HeadCell className="w-[20%] text-center">
-              Bobot
-            </Table.HeadCell>
-            <Table.HeadCell className="w-[30%] text-center">
-              Aksi
-            </Table.HeadCell>
+            <Table.HeadCell className="w-[25%] text-center">Kriteria</Table.HeadCell>
+            <Table.HeadCell className="w-[25%] text-center">Sub Kriteria</Table.HeadCell>
+            <Table.HeadCell className="w-[20%] text-center">Bobot</Table.HeadCell>
+            <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {subKriteria.length > 0 ? (
               subKriteria.map((item) => (
-                <Table.Row key={item.id} className="bg-white">
+                <Table.Row
+                  key={item.id}
+                  className="bg-white"
+                >
                   <Table.Cell className="font-medium text-gray-900 text-center">
                     {item.kriteria.nama_kriteria}
                   </Table.Cell>
-                  <Table.Cell className="font-medium text-gray-900 text-center">
-                    {item.nama_sub_kriteria}
-                  </Table.Cell>
-                  <Table.Cell className="text-center">
-                    {item.bobot_sub_kriteria}
-                  </Table.Cell>
+                  <Table.Cell className="font-medium text-gray-900 text-center">{item.nama_sub_kriteria}</Table.Cell>
+                  <Table.Cell className="text-center">{item.bobot_sub_kriteria}</Table.Cell>
                   <Table.Cell className="text-center space-x-2">
                     <SubCriteriaTableActions
                       idCriteria={item.kriteria_id}
@@ -89,7 +82,10 @@ export default function SubCriteriaTable() {
               ))
             ) : (
               <Table.Row>
-                <Table.Cell colSpan="4" className="text-center py-4">
+                <Table.Cell
+                  colSpan="4"
+                  className="text-center py-4"
+                >
                   Tidak ada data sub kriteria.
                 </Table.Cell>
               </Table.Row>

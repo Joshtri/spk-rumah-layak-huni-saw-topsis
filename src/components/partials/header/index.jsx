@@ -2,7 +2,7 @@ import { Bell, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 import { useState } from "react";
-import ConfirmationDialog from "@/components/confirmationDialog";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 
 import logoRoteNdao from "../../../assets/logo-rote-ndao.png";
 

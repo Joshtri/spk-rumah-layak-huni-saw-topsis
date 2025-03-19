@@ -1,7 +1,7 @@
 import AlternatifPeriodeTable from "@/components/AlternatifPeriode/AlternatifPeriodeTable";
 import AlternatifPeriodeInputModal from "@/components/AlternatifPeriode/AlternatifPeriodeInputModal";
 import LayoutRoot from "../layout";
-import PageTitle from "@/components/pageTitle";
+import PageTitle from "@/components/PageTitle";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -34,7 +34,7 @@ export default function AlternatifPeriodeList() {
           </div>
 
           {/* Tabel Alternatif dalam Periode */}
-          <AlternatifPeriodeTable  />
+          <AlternatifPeriodeTable />
         </div>
       </LayoutRoot>
     </>

@@ -1,6 +1,6 @@
 import { Modal, Table, Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useKriteria } from "@/hooks/useKriteria"; // 🔥 Import hooks
+import { useKriteria } from "../../hooks/useKriteria"; // 🔥 Import hooks
 
 export default function SubKriteriaViewModal({ isOpen, onClose, idKriteria }) {
   const { getSubKriteriaByKriteria } = useKriteria(); // 🔥 Fetch subkriteria
@@ -25,7 +25,11 @@ export default function SubKriteriaViewModal({ isOpen, onClose, idKriteria }) {
   }, [isOpen, idKriteria]);
 
   return (
-    <Modal show={isOpen} size="md" onClose={onClose}>
+    <Modal
+      show={isOpen}
+      size="md"
+      onClose={onClose}
+    >
       <div className="p-4 border-b rounded-t">
         <h3 className="text-xl text-black font-semibold text-center">Daftar Subkriteria</h3>
       </div>
@@ -46,7 +50,10 @@ export default function SubKriteriaViewModal({ isOpen, onClose, idKriteria }) {
               </Table.Head>
               <Table.Body>
                 {subKriteriaList.map((sub) => (
-                  <Table.Row key={sub.id_subkriteria} className="bg-white">
+                  <Table.Row
+                    key={sub.id_subkriteria}
+                    className="bg-white"
+                  >
                     <Table.Cell className="text-center">{sub.id_subkriteria}</Table.Cell>
                     <Table.Cell className="text-center">{sub.nama_sub_kriteria}</Table.Cell>
                     <Table.Cell className="text-center">{sub.bobot_sub_kriteria}</Table.Cell>
@@ -58,7 +65,10 @@ export default function SubKriteriaViewModal({ isOpen, onClose, idKriteria }) {
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-center">
-        <Button onClick={onClose} className="bg-gray-500 text-white">
+        <Button
+          onClick={onClose}
+          className="bg-gray-500 text-white"
+        >
           Tutup
         </Button>
       </Modal.Footer>

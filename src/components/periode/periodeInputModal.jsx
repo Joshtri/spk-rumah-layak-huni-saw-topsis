@@ -1,6 +1,6 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { usePeriode } from "@/hooks/usePeriode";
+import { usePeriode } from "../../hooks/usePeriode";
 import { toast } from "sonner";
 
 export default function PeriodeInputModal({ isOpen, onClose }) {
@@ -38,7 +38,12 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal show={isOpen} size="md" onClose={onClose} className="flex items-center justify-center">
+    <Modal
+      show={isOpen}
+      size="md"
+      onClose={onClose}
+      className="flex items-center justify-center"
+    >
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
         <div className="p-4 border-b rounded-t">
           <h3 className="text-xl text-black font-semibold text-center">Tambah Periode</h3>
@@ -47,7 +52,10 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
           <div className="space-y-4">
             {/* Nama Periode */}
             <div>
-              <Label htmlFor="namaPeriode" value="Nama Periode" />
+              <Label
+                htmlFor="namaPeriode"
+                value="Nama Periode"
+              />
               <TextInput
                 id="namaPeriode"
                 placeholder="Masukkan Nama Periode"
@@ -59,7 +67,10 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
 
             {/* Tanggal Mulai */}
             <div>
-              <Label htmlFor="tanggalMulai" value="Tanggal Mulai" />
+              <Label
+                htmlFor="tanggalMulai"
+                value="Tanggal Mulai"
+              />
               <TextInput
                 id="tanggalMulai"
                 type="date"
@@ -71,7 +82,10 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
 
             {/* Tanggal Selesai */}
             <div>
-              <Label htmlFor="tanggalSelesai" value="Tanggal Selesai" />
+              <Label
+                htmlFor="tanggalSelesai"
+                value="Tanggal Selesai"
+              />
               <TextInput
                 id="tanggalSelesai"
                 type="date"
@@ -83,10 +97,17 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
           </div>
         </Modal.Body>
         <Modal.Footer className="flex justify-between p-4">
-          <Button onClick={onClose} className="bg-gray-500 text-white w-1/3">
+          <Button
+            onClick={onClose}
+            className="bg-gray-500 text-white w-1/3"
+          >
             Batal
           </Button>
-          <Button onClick={handleSave} disabled={loading} className="bg-emerald-500 text-white w-1/3">
+          <Button
+            onClick={handleSave}
+            disabled={loading}
+            className="bg-emerald-500 text-white w-1/3"
+          >
             {loading ? "Menyimpan..." : "Simpan"}
           </Button>
         </Modal.Footer>
