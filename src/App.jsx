@@ -1,17 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/protected-route";
-import LoginPage from "./pages/Auth/loginPage";
-import DashboardPage from "./pages/Dashboard/dashboard";
-import KriteriaList from "./pages/Kriteria/list";
-import SubKriteriaList from "./pages/SubKriteria/list";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/Auth/LoginPage";
+import DashboardPage from "./pages/Dashboard/Dashboard";
+import KriteriaList from "./pages/Kriteria/KriteriaList";
+import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
 import AlternatifList from "./pages/Alternatif/list";
-import UsersList from "./pages/UsersManagement/list";
-import Profile from "./pages/ProfileManagement/profile";
-import ForgotPassword from "./pages/Auth/forgotPassword";
-import RankingList from "./pages/Ranking/list";
+import UsersList from "./pages/UsersManagement/UsersManagement";
+import Profile from "./pages/ProfileManagement/Profile";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import RankingList from "./pages/Ranking/RankingList";
 import { Toaster } from "sonner";
 import { KriteriaProvider } from "./contexts/kriteriaContext";
-import PeriodeList from "./pages/Periode/list";
+import PeriodeList from "./pages/Periode/PeriodeList";
 import AlternatifPeriodeList from "./pages/AlternatifPeriode/list";
 
 function App() {
