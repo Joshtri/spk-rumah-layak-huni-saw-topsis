@@ -10,6 +10,8 @@ import ForgotPassword from "./pages/auth/forgotPassword";
 import RankingList from "./pages/ranking/list";
 import { Toaster } from "sonner";
 import { KriteriaProvider } from "@/contexts/kriteriaContext"; // Import Provider
+import PeriodeList from "./pages/periode/list";
+import AlternatifPeriodeList from "./pages/alternatif-periode/list";
 
 function App() {
   return (
@@ -28,6 +30,11 @@ function App() {
             <Route path="/admin" element={<AdminList />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/ranking" element={<RankingList />} />
+
+            <Route path="*" element={<h1>Not Found</h1>} />
+
+            <Route path="/periode" element={<PeriodeList/>}/>
+            <Route path="/alternatif-periode" element={<AlternatifPeriodeList/>}/>
           </Routes>
         </BrowserRouter>
       </KriteriaProvider>

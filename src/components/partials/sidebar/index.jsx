@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Users, Settings, HelpCircle, Verified, Dock, Ruler, TrendingUp, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, Settings, HelpCircle, Verified, Dock, Ruler, TrendingUp, LogOut, Calendar } from "lucide-react";
 
 export const Sidebar = () => {
   const menuItems = [
@@ -7,7 +7,9 @@ export const Sidebar = () => {
     { icon: Ruler, text: "Kriteria", path: "/kriteria" },
     { icon: Ruler, text: "Sub Kriteria", path: "/sub-kriteria" },
     { icon: Users, text: "Alternatif", path: "/alternatif" },
+    { icon: Users, text: "Alternatif Periode", path: "/alternatif-periode" },
     { icon: TrendingUp, text: "Ranking", path: "/ranking" },
+    { icon: Calendar, text: "Periode", path: "/periode" },
   ];
 
   return (

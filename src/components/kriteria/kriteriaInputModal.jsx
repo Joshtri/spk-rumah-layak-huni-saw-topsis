@@ -54,7 +54,7 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal show={isOpen} onClose={onClose}>
+    <Modal show={isOpen}  size="md"  onClose={onClose}>
       <div className="flex items-start justify-between p-4 border-b rounded-t">
         <h3 className="text-xl text-black font-semibold">Tambah Kriteria</h3>
       </div>
