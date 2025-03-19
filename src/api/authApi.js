@@ -12,14 +12,14 @@ export const getCurrentUser = async () => {
     if (!token) return null;
   
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/me", {
+      const response = await axios.get(`${API_BASE_URL}/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       return response.data;
     } catch (error) {
-      console.error("❌ Gagal mengambil data user:", error);
+    //   console.error("❌ Gagal mengambil data user:", error);
       return null;
     }
 };
