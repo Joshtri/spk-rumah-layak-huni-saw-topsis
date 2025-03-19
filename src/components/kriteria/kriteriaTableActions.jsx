@@ -1,5 +1,5 @@
-import KriteriaEditModal from "./KriteriaEditModal";
-import SubKriteriaInputModal from "../sub-kriteria/SubKriteriaInputModal";
+import KriteriaEditModal from "./kriteriaEditModal";
+import SubKriteriaInputModal from "../sub-kriteria/subKriteriaInputModal";
 import SubKriteriaViewModal from "../sub-kriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
