@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 
 import "./App.css";
 import LoginPage from "./pages/Auth/LoginPage";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import DashboardPage from "./pages/Dashboard";
 import AlternatifList from "./pages/Alternatif/list";
-import { Toaster } from "sonner";
 import AlternatifPeriodeList from "./pages/AlternatifPeriode/list";
 import UsersList from "./pages/UsersManagement/UsersManagement";
 import PeriodeList from "./pages/Periode/PeriodeList";
@@ -15,16 +14,21 @@ import KriteriaList from "./pages/Kriteria/KriteriaList";
 import RankingList from "./pages/Ranking/RankingList";
 import Profile from "./pages/ProfileManagement/Profile";
 import { KriteriaProvider } from "./contexts/kriteriaContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <>
-      <KriteriaProvider>
-        <Toaster position="top-right" richColors />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+    <KriteriaProvider>
+      <Toaster position="top-right" richColors />
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          {/* Protected Routes - HANYA ADMIN yang bisa mengakses */}
+          <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/alternatif" element={<AlternatifList />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/ranking" element={<RankingList />} />
@@ -36,13 +40,13 @@ function App() {
               path="/alternatif-periode"
               element={<AlternatifPeriodeList />}
             />
+          </Route>
 
-            {/* Dashboard */}
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Routes>
-        </BrowserRouter>
-      </KriteriaProvider>
-    </>
+          {/* Not Found Route */}
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </KriteriaProvider>
   );
 }
 
