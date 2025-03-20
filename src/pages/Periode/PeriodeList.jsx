@@ -1,0 +1,43 @@
+import PeriodeInputModal from "../../components/Periode/PeriodeInputModal";
+import PeriodeTable from "../../components/Periode/PeriodeTable";
+import Layout from "../Layout";
+import PageTitle from "../../components/ui/PageTitle";
+
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
+export default function PeriodeList() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      {/* Modal Tambah Periode */}
+      <PeriodeInputModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+
+      <Layout>
+        <PageTitle title="Periode" />
+        <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
+          {/* Tombol Tambah Periode & View Alternatif */}
+          <div className="flex justify-end items-center h-full">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Tambah Periode
+            </button>
+
+            <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-4">
+              <NavLink to={"/alternatif"}>View Alternatif</NavLink>
+            </button>
+          </div>
+
+          {/* Tabel Periode */}
+          <PeriodeTable />
+        </div>
+      </Layout>
+    </>
+  );
+}
