@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useKriteria } from "../../hooks/useKriteria";
 import { useAlternatif } from "../../hooks/useAlternatif";
 import { usePenilaian } from "../../hooks/usePenilaian";
@@ -13,7 +13,6 @@ export default function PenilaianInputForm() {
   const [selectedAlternatif, setSelectedAlternatif] = useState("");
   const [nilaiPenilaian, setNilaiPenilaian] = useState({});
 
-  // Handle perubahan nilai pada setiap kriteria
   const handleChange = (e, kriteriaId) => {
     setNilaiPenilaian({
       ...nilaiPenilaian,
@@ -21,7 +20,6 @@ export default function PenilaianInputForm() {
     });
   };
 
-  // Submit penilaian
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,15 +28,25 @@ export default function PenilaianInputForm() {
       return;
     }
 
+    for (const krit of kriteria) {
+      const value = nilaiPenilaian[krit.id_kriteria];
+      if (!value || value === "") {
+        toast.error(`Sub kriteria untuk "${krit.nama_kriteria}" belum dipilih!`);
+        return;
+      }
+    }
+
     try {
-      // Loop untuk menyimpan semua penilaian berdasarkan kriteria
       for (const kriteriaId in nilaiPenilaian) {
-        await addPenilaian(selectedAlternatif, kriteriaId, nilaiPenilaian[kriteriaId]);
+        const subKriteriaId = nilaiPenilaian[kriteriaId];
+        await addPenilaian(Number(selectedAlternatif), Number(subKriteriaId));
       }
 
       toast.success("Penilaian berhasil ditambahkan!");
       setNilaiPenilaian({});
+      setSelectedAlternatif("");
     } catch (error) {
+      console.error(error);
       toast.error("Gagal menambahkan penilaian.");
     }
   };
@@ -49,7 +57,6 @@ export default function PenilaianInputForm() {
         Form Input Penilaian
       </h2>
 
-      {/* Pilih Alternatif */}
       <div className="mb-6">
         <Label htmlFor="alternatif" className="text-lg font-semibold">
           Pilih Alternatif
@@ -63,7 +70,7 @@ export default function PenilaianInputForm() {
         >
           <option value="">Pilih Alternatif</option>
           {alternatifLoading ? (
-            <option value="">Loading...</option>
+            <option>Loading...</option>
           ) : (
             alternatif.map((alt) => (
               <option key={alt.id_alternatif} value={alt.id_alternatif}>
@@ -74,7 +81,6 @@ export default function PenilaianInputForm() {
         </Select>
       </div>
 
-      {/* Form Input Kriteria */}
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {kriteriaLoading ? (
           <p>Loading kriteria...</p>
@@ -95,20 +101,17 @@ export default function PenilaianInputForm() {
                 {krit.subKriteria.length > 0 ? (
                   krit.subKriteria.map((sub) => (
                     <option key={sub.id_sub_kriteria} value={sub.id_sub_kriteria}>
-                      {sub.nama_sub_kriteria}
+                      {sub.nama_sub_kriteria} - bobot: {sub.bobot_sub_kriteria}
                     </option>
                   ))
                 ) : (
-                  <option value="" disabled>
-                    Tidak ada sub kriteria
-                  </option>
+                  <option disabled>Tidak ada sub kriteria</option>
                 )}
               </Select>
             </div>
           ))
         )}
 
-        {/* Submit Button */}
         <div className="col-span-full flex justify-end mt-6">
           <Button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">
             Simpan Penilaian

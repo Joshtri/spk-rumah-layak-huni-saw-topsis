@@ -40,16 +40,19 @@ export const usePenilaian = () => {
     };
 
     // 🔥 Tambahkan Penilaian baru
-    const addPenilaian = async (alternatifId, sub_kriteriaId) => {
-        try {
-            const newPenilaian = await createPenilaian(alternatifId, sub_kriteriaId);
-            setPenilaian([...penilaian, newPenilaian]);
-            toast.success("Penilaian berhasil ditambahkan!");
-        } catch (error) {
-            console.error("❌ Error adding penilaian:", error);
-            toast.error("Gagal menambahkan penilaian.");
-        }
-    };
+// 🔥 Tambahkan Penilaian baru
+const addPenilaian = async (alternatifId, subKriteriaId) => {
+    try {
+        console.log("📤 Mengirim penilaian:", { alternatifId, subKriteriaId });
+        const newPenilaian = await createPenilaian(alternatifId, subKriteriaId);
+        setPenilaian([...penilaian, newPenilaian]);
+        toast.success("Penilaian berhasil ditambahkan!");
+    } catch (error) {
+        console.error("❌ Error adding penilaian:", error.response?.data || error.message);
+        toast.error(error.response?.data?.error || "Gagal menambahkan penilaian.");
+    }
+};
+  
 
     // 🔥 Update Penilaian
     const editPenilaian = async (id, nilai) => {

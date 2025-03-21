@@ -16,8 +16,12 @@ export const getPenilaianById = async (id) => {
 };
 
 // 🔥 Tambah Penilaian baru (dengan nilai dari bobot sub_kriteria)
-export const createPenilaian = async (alternatifId, sub_kriteriaId) => {
-    const response = await axios.post(API_BASE_URL, { alternatifId, sub_kriteriaId }, { headers: getAuthHeader() });
+export const createPenilaian = async (alternatifId, subKriteriaId) => {
+    const response = await axios.post(API_BASE_URL, {
+        alternatifId,
+        subKriteriaId,
+    });
+
     return response.data;
 };
 

@@ -2,21 +2,24 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import "./App.css";
-import LoginPage from "./pages/Auth/LoginPage";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
-import DashboardPage from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { KriteriaProvider } from "./contexts/kriteriaContext";
 import AlternatifList from "./pages/Alternatif/list";
 import AlternatifPeriodeList from "./pages/AlternatifPeriode/list";
-import UsersList from "./pages/UsersManagement/UsersManagement";
-import PeriodeList from "./pages/Periode/PeriodeList";
-import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import LoginPage from "./pages/Auth/LoginPage";
+import DashboardPage from "./pages/Dashboard";
 import KriteriaList from "./pages/Kriteria/KriteriaList";
-import RankingList from "./pages/Ranking/RankingList";
-import Profile from "./pages/ProfileManagement/Profile";
-import { KriteriaProvider } from "./contexts/kriteriaContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-import PenilaianList from "./pages/Penilaian/PenilaianList";
 import PenilaianCreate from "./pages/Penilaian/PenilaianCreate";
+import PenilaianList from "./pages/Penilaian/PenilaianList";
+import PerhitunganMain from "./pages/Perhitungan/PerhitunganMain";
+import PeriodeList from "./pages/Periode/PeriodeList";
+import Profile from "./pages/ProfileManagement/Profile";
+import RankingList from "./pages/Ranking/RankingList";
+import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
+import UsersList from "./pages/UsersManagement/UsersManagement";
+import PerhitunganSawTopsis from "./components/Perhitungan/SawTopsis/PerhitunganSawTopsis";
+import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMain";
 
 function App() {
   return (
@@ -44,6 +47,9 @@ function App() {
               path="/alternatif-periode"
               element={<AlternatifPeriodeList />}
             />
+
+            <Route path="/perhitungan-intro" element={<PerhitunganMain/>} />
+            <Route path="/perhitungan-saw-topsis" element={<PerhitunganSawTopsisMain/>} />
           </Route>
 
           {/* Not Found Route */}
