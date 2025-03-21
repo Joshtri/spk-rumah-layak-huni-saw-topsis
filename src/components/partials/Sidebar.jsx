@@ -1,6 +1,7 @@
 import { Calendar, LayoutDashboard, LogOut, Ruler, TrendingUp, Users } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth"; // 🔥 Import hook auth
+import { MdGrade } from "react-icons/md";
 
 export const Sidebar = () => {
   const { logout } = useAuth(); // ✅ Ambil fungsi logout dari hooks
@@ -14,6 +15,7 @@ export const Sidebar = () => {
     { icon: TrendingUp, text: "Ranking", path: "/ranking" },
     { icon: Calendar, text: "Periode", path: "/periode" },
     { icon: Users, text: "Users Management", path: "/users-management" },
+    { icon: MdGrade, text: "Penilaian Alternatif", path: "/penilaian" },
   ];
 
   return (

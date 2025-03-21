@@ -15,6 +15,8 @@ import RankingList from "./pages/Ranking/RankingList";
 import Profile from "./pages/ProfileManagement/Profile";
 import { KriteriaProvider } from "./contexts/kriteriaContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PenilaianList from "./pages/Penilaian/PenilaianList";
+import PenilaianCreate from "./pages/Penilaian/PenilaianCreate";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
             <Route path="/sub-kriteria" element={<SubKriteriaList />} />
             <Route path="/periode" element={<PeriodeList />} />
             <Route path="/users-management" element={<UsersList />} />
+            <Route path="/penilaian" element={<PenilaianList />} />
+            <Route path="/penilaian/create" element={<PenilaianCreate />} />
             <Route
               path="/alternatif-periode"
               element={<AlternatifPeriodeList />}
