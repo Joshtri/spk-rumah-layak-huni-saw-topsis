@@ -4,6 +4,7 @@ import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import { useKriteria } from "../../hooks/useKriteria";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -41,6 +42,8 @@ export default function KriteriaList() {
       />
 
       <Layout>
+        <Breadcrumbs pathArray={["Home", "Kriteria"]} />
+
         <PageTitle title="Kriteria" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full w-full">
           {/* add criteria & view button */}

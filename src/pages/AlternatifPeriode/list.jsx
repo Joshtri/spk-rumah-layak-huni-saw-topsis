@@ -3,6 +3,7 @@ import AlternatifPeriodeInputModal from "../../components/AlternatifPeriode/Alte
 import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
@@ -38,7 +39,8 @@ export default function AlternatifPeriodeList() {
       />
 
       <Layout>
-        <PageTitle title="Alternatif dalam Periode" />
+        <Breadcrumbs pathArray={["Home", "Alternatif Periode"]} />
+        <PageTitle title="Alternatif Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">
             <div className="mr-auto">

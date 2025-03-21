@@ -4,6 +4,7 @@ import AlternatifInputModal from "../../components/Alternatif/AlternatifInputMod
 import PageTitle from "../../components/ui/PageTitle";
 import { useAlternatif } from "../../hooks/useAlternatif";
 import SearchBar from "../../components/ui/SearchBar";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import { useState, useEffect } from "react";
 
 export default function AlternatifList() {
@@ -29,6 +30,7 @@ export default function AlternatifList() {
 
   return (
     <Layout>
+      <Breadcrumbs pathArray={["Home", "Alternatif"]} />
       <PageTitle title="Alternatif" />
       <AlternatifInputModal
         isOpen={isModalOpen}

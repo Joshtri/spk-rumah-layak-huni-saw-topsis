@@ -4,6 +4,7 @@ import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import { usePeriode } from "../../hooks/usePeriode";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -35,6 +36,7 @@ export default function PeriodeList() {
       />
 
       <Layout>
+        <Breadcrumbs pathArray={["Home", "Periode"]} />
         <PageTitle title="Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">
