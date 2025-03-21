@@ -1,20 +1,22 @@
 import { Table, Spinner, Button } from "flowbite-react";
 import { usePenilaian } from "../../hooks/usePenilaian";
 import { useKriteria } from "../../hooks/useKriteria";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SearchBar from "../ui/SearchBar";
 
 export default function PenilaianTable() {
   const { penilaian, loading, fetchPenilaian, removePenilaian } = usePenilaian();
   const { kriteria, loading: kriteriaLoading, fetchKriteria } = useKriteria();
   const navigate = useNavigate();
+  const [filteredData, setFilteredData] = useState({});
 
   useEffect(() => {
     fetchPenilaian();
     fetchKriteria();
   }, []);
 
-  // 🔥 Group data penilaian berdasarkan alternatifId
+  // Group data penilaian berdasarkan alternatifId
   const groupedPenilaian = {};
   penilaian.forEach((item) => {
     const alternatifId = item.alternatif.id_alternatif;
@@ -31,27 +33,61 @@ export default function PenilaianTable() {
     };
   });
 
+  useEffect(() => {
+    setFilteredData(groupedPenilaian);
+  }, [penilaian]);
+
+  const handleSearch = (query) => {
+    const searchQuery = query.trim();
+    if (searchQuery === "") {
+      setFilteredData(groupedPenilaian);
+    } else {
+      const filtered = Object.fromEntries(
+        Object.entries(groupedPenilaian).filter(([_, value]) =>
+          value.nama_alternatif.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+      setFilteredData(filtered);
+    }
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg shadow p-4">
-      <div className="flex justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-800">Daftar Penilaian</h2>
+      <div className="flex justify-between items-center mb-4">
+        <div className="mr-auto">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Cari Alternatif"
+          />
+        </div>
         <Button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => navigate("/penilaian/create")}
         >
-          Tambah Penilaian
+          + Tambah Penilaian
         </Button>
       </div>
 
-      <Table striped className="min-w-full whitespace-nowrap overflow-hidden">
+      <Table
+        striped
+        className="min-w-full whitespace-nowrap overflow-hidden"
+      >
         <Table.Head>
           <Table.HeadCell className="text-center">No</Table.HeadCell>
           <Table.HeadCell className="text-center">Nama (A)</Table.HeadCell>
           {kriteriaLoading ? (
-            <Table.HeadCell colSpan={9} className="text-center">Loading Kriteria...</Table.HeadCell>
+            <Table.HeadCell
+              colSpan={9}
+              className="text-center"
+            >
+              Loading Kriteria...
+            </Table.HeadCell>
           ) : (
             kriteria.map((krit, index) => (
-              <Table.HeadCell key={krit.id_kriteria} className="text-center">
+              <Table.HeadCell
+                key={krit.id_kriteria}
+                className="text-center"
+              >
                 {krit.nama_kriteria} (C{index + 1})
               </Table.HeadCell>
             ))
@@ -62,25 +98,37 @@ export default function PenilaianTable() {
         <Table.Body className="divide-y">
           {loading ? (
             <Table.Row>
-              <Table.Cell colSpan={12} className="text-center py-4">
+              <Table.Cell
+                colSpan={12}
+                className="text-center py-4"
+              >
                 <Spinner size="lg" />
               </Table.Cell>
             </Table.Row>
-          ) : Object.keys(groupedPenilaian).length === 0 ? (
+          ) : Object.keys(filteredData).length === 0 ? (
             <Table.Row>
-              <Table.Cell colSpan={12} className="text-center py-4 text-gray-500">
+              <Table.Cell
+                colSpan={12}
+                className="text-center py-4 text-gray-500"
+              >
                 Tidak ada data penilaian
               </Table.Cell>
             </Table.Row>
           ) : (
-            Object.values(groupedPenilaian).map((item, index) => (
-              <Table.Row key={item.id_penilaian} className="bg-white">
+            Object.values(filteredData).map((item, index) => (
+              <Table.Row
+                key={item.id_penilaian}
+                className="bg-white"
+              >
                 <Table.Cell className="text-center">{index + 1}</Table.Cell>
                 <Table.Cell className="text-center">{item.nama_alternatif}</Table.Cell>
                 {kriteria.map((krit) => {
                   const subKriteria = item.penilaian[krit.id_kriteria];
                   return (
-                    <Table.Cell key={krit.id_kriteria} className="text-center">
+                    <Table.Cell
+                      key={krit.id_kriteria}
+                      className="text-center"
+                    >
                       {subKriteria ? `${subKriteria.nama} (${subKriteria.bobot})` : "-"}
                     </Table.Cell>
                   );

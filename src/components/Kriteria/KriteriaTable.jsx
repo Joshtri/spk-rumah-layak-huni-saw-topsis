@@ -1,11 +1,8 @@
-import { useKriteria } from "../../hooks/useKriteria"; // Import custom hook
 import { Table } from "flowbite-react";
 import KriteriaTableActions from "./KriteriaTableActions";
 import LoadingSpinner from "../ui/Spinner"; // Import komponen spinner
 
-export default function KriteriaTable() {
-  const { kriteria, loading } = useKriteria(); // Ambil data dari custom hook
-
+export default function KriteriaTable({ kriteria, loading }) {
   return (
     <div className="overflow-x-auto rounded-lg shadow">
       {loading ? (
@@ -32,10 +29,11 @@ export default function KriteriaTable() {
           <Table.Body className="divide-y">
             {kriteria.length > 0 ? (
               kriteria.map((item) => (
-                <Table.Row key={item.id} className="bg-white">
-                  <Table.Cell className="font-medium text-gray-900 text-center">
-                    {item.nama_kriteria}
-                  </Table.Cell>
+                <Table.Row
+                  key={item.id}
+                  className="bg-white"
+                >
+                  <Table.Cell className="font-medium text-gray-900 text-center">{item.nama_kriteria}</Table.Cell>
                   <Table.Cell className="text-center">{item.bobot_kriteria}%</Table.Cell>
                   <Table.Cell className="text-center">{item.tipe_kriteria}</Table.Cell>
                   <Table.Cell>
@@ -45,7 +43,10 @@ export default function KriteriaTable() {
               ))
             ) : (
               <Table.Row>
-                <Table.Cell colSpan="3" className="text-center py-4">
+                <Table.Cell
+                  colSpan="3"
+                  className="text-center py-4"
+                >
                   Tidak ada data kriteria.
                 </Table.Cell>
               </Table.Row>

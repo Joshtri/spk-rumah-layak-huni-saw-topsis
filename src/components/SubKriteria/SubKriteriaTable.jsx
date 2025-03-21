@@ -1,14 +1,41 @@
 import { useSubKriteria } from "../../hooks/useSubKriteria"; // Import hooks sub kriteria
 import { Table, Button } from "flowbite-react";
 import SubCriteriaTableActions from "./SubKriteriaTableActions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SubKriteriaInputModal from "./SubKriteriaInputModal"; // Modal tambah/edit sub-kriteria
+import SearchBar from "../ui/SearchBar";
 import { toast } from "sonner";
 
 export default function SubCriteriaTable() {
   const { subKriteria, loading, fetchSubKriteria, removeSubKriteria } = useSubKriteria();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSubKriteria, setSelectedSubKriteria] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setFilteredData(subKriteria);
+    console.log(subKriteria);
+  }, [subKriteria]);
+
+  useEffect(() => {
+    console.log("filtered data:", filteredData);
+  }, [filteredData]);
+
+  const handleSearch = (query) => {
+    const searchQuery = query.trim();
+    if (searchQuery === "") {
+      setFilteredData(subKriteria);
+    } else {
+      const filtered = subKriteria.filter((item) => {
+        // Search in both kriteria name and sub-kriteria name
+        return (
+          item.kriteria.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.nama_sub_kriteria.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      });
+      setFilteredData(filtered);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -22,13 +49,22 @@ export default function SubCriteriaTable() {
 
   return (
     <div className="overflow-x-auto rounded-lg shadow p-4">
-      {/* Tombol Tambah Sub Kriteria */}
-      <Button
-        onClick={() => setIsModalOpen(true)}
-        className="mb-4 bg-blue-500 hover:bg-blue-700 text-white"
-      >
-        + Tambah Sub Kriteria
-      </Button>
+      <div className="flex justify-end items-center w-full mb-4">
+        {/* SeachBar */}
+        <div className="mr-auto">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Cari Sub Kriteria"
+          />
+        </div>
+        {/* Tombol Tambah Sub Kriteria */}
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          className="mb-4 bg-blue-500 hover:bg-blue-700 text-white"
+        >
+          + Tambah Sub Kriteria
+        </Button>
+      </div>
 
       {/* Modal Input Sub Kriteria */}
       <SubKriteriaInputModal
@@ -55,8 +91,8 @@ export default function SubCriteriaTable() {
             <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {subKriteria.length > 0 ? (
-              subKriteria.map((item) => (
+            {filteredData.length > 0 ? (
+              filteredData.map((item) => (
                 <Table.Row
                   key={item.id}
                   className="bg-white"

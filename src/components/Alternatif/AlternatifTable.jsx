@@ -1,29 +1,28 @@
 import { Table, Spinner } from "flowbite-react";
 import AlternatifTableActions from "./AlternatifTableActions";
-import { useAlternatif } from "../../hooks/useAlternatif"; // Import hooks
 
-export default function AlternatifTable() {
-  const { alternatif, loading } = useAlternatif(); // Ambil data dari hook
-
+export default function AlternatifTable({ alternatif, loading }) {
   console.log(alternatif);
   return (
     <div className="overflow-x-auto rounded-lg shadow">
-      <Table striped className="min-w-full whitespace-nowrap overflow-hidden">
+      <Table
+        striped
+        className="min-w-full whitespace-nowrap overflow-hidden"
+      >
         <Table.Head>
           <Table.HeadCell className="w-[10%] text-center">ID</Table.HeadCell>
-          <Table.HeadCell className="w-[30%] text-center">
-            Nama Alternatif
-          </Table.HeadCell>
-          <Table.HeadCell className="w-[30%] text-center">
-            Periode
-          </Table.HeadCell>
+          <Table.HeadCell className="w-[30%] text-center">Nama Alternatif</Table.HeadCell>
+          <Table.HeadCell className="w-[30%] text-center">Periode</Table.HeadCell>
           <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
         </Table.Head>
 
         <Table.Body className="divide-y">
           {loading ? (
             <Table.Row>
-              <Table.Cell colSpan={4} className="text-center py-4">
+              <Table.Cell
+                colSpan={4}
+                className="text-center py-4"
+              >
                 <Spinner size="lg" />
               </Table.Cell>
             </Table.Row>
@@ -38,13 +37,12 @@ export default function AlternatifTable() {
             </Table.Row>
           ) : (
             alternatif.map((item) => (
-              <Table.Row key={item.id_alternatif} className="bg-white">
-                <Table.Cell className="text-center">
-                  {item.id_alternatif}
-                </Table.Cell>
-                <Table.Cell className="text-center">
-                  {item.nama_alternatif}
-                </Table.Cell>
+              <Table.Row
+                key={item.id_alternatif}
+                className="bg-white"
+              >
+                <Table.Cell className="text-center">{item.id_alternatif}</Table.Cell>
+                <Table.Cell className="text-center">{item.nama_alternatif}</Table.Cell>
                 <Table.Cell className="text-center">
                   {item.alternatifPeriode.length > 0 ? (
                     item.alternatifPeriode.map((ap) => (
