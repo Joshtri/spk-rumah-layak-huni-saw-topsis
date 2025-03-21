@@ -60,7 +60,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       console.error("❌ Error saving results:", error);
   
       if (error.response && error.response.data && error.response.data.error) {
-        toast.error(`⚠️ ${error.response.data.error}`);
+        toast.error(` ${error.response.data.error}`);
       } else {
         toast.error("❌ Gagal menyimpan hasil perhitungan.");
       }
