@@ -1,14 +1,14 @@
 import { Table, Spinner } from "flowbite-react";
-import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode"; // 🔥 Import hooks
 
-export default function AlternatifPeriodeTable() {
-  const { alternatifPeriode, loading } = useAlternatifPeriode(); // Ambil data dari hooks
-
+export default function AlternatifPeriodeTable({ alternatifPeriode, loading }) {
   console.log(alternatifPeriode);
 
   return (
     <div className="overflow-x-auto rounded-lg shadow">
-      <Table striped className="min-w-full whitespace-nowrap overflow-hidden">
+      <Table
+        striped
+        className="min-w-full whitespace-nowrap overflow-hidden"
+      >
         <Table.Head>
           <Table.HeadCell className="w-[20%] text-center">ID</Table.HeadCell>
           <Table.HeadCell className="w-[40%] text-center">Nama Alternatif</Table.HeadCell>
@@ -18,19 +18,28 @@ export default function AlternatifPeriodeTable() {
         <Table.Body className="divide-y">
           {loading ? (
             <Table.Row>
-              <Table.Cell colSpan={3} className="text-center py-4">
+              <Table.Cell
+                colSpan={3}
+                className="text-center py-4"
+              >
                 <Spinner size="lg" />
               </Table.Cell>
             </Table.Row>
           ) : alternatifPeriode.length === 0 ? (
             <Table.Row>
-              <Table.Cell colSpan={3} className="text-center py-4 text-gray-500">
+              <Table.Cell
+                colSpan={3}
+                className="text-center py-4 text-gray-500"
+              >
                 Tidak ada data Alternatif dalam Periode
               </Table.Cell>
             </Table.Row>
           ) : (
             alternatifPeriode.map((item) => (
-              <Table.Row key={item.id} className="bg-white">
+              <Table.Row
+                key={item.id}
+                className="bg-white"
+              >
                 <Table.Cell className="text-center">{item.id}</Table.Cell>
                 <Table.Cell className="text-center">{item.alternatif.nama_alternatif}</Table.Cell>
                 <Table.Cell className="text-center">{item.periode.nama_periode}</Table.Cell>
