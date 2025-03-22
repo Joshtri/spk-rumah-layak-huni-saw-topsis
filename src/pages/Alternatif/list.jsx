@@ -1,6 +1,6 @@
 import Layout from "../Layout";
 import AlternatifTable from "../../components/Alternatif/AlternatifTable";
-import AlternatifInputModal from "../../components/alternatif/alternatifInputModal";
+import AlternatifInputModal from "../../components/Alternatif/AlternatifInputModal";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
