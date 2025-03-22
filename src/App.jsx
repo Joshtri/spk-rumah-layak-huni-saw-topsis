@@ -20,6 +20,7 @@ import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
 import UsersList from "./pages/UsersManagement/UsersManagement";
 import PerhitunganSawTopsis from "./components/Perhitungan/SawTopsis/PerhitunganSawTopsis";
 import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMain";
+import SPKStepByStep from "./pages/HowTo/HowToPage";
 
 function App() {
   return (
@@ -96,6 +97,10 @@ function App() {
               element={<PerhitunganSawTopsisMain />}
             />
           </Route>
+
+          <Route
+            path="/how-to"
+            element={<SPKStepByStep />}/>
 
           {/* Not Found Route */}
           <Route
