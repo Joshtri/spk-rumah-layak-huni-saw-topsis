@@ -24,36 +24,84 @@ import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMa
 function App() {
   return (
     <KriteriaProvider>
-      <Toaster position="top-right" richColors />
+      <Toaster
+        position="top-right"
+        richColors
+      />
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/"
+            element={<LoginPage />}
+          />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
 
           {/* Protected Routes - HANYA ADMIN yang bisa mengakses */}
           <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/alternatif" element={<AlternatifList />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/ranking" element={<RankingList />} />
-            <Route path="/kriteria" element={<KriteriaList />} />
-            <Route path="/sub-kriteria" element={<SubKriteriaList />} />
-            <Route path="/periode" element={<PeriodeList />} />
-            <Route path="/users-management" element={<UsersList />} />
-            <Route path="/penilaian" element={<PenilaianList />} />
-            <Route path="/penilaian/create" element={<PenilaianCreate />} />
+            <Route
+              path="/dashboard"
+              element={<DashboardPage />}
+            />
+            <Route
+              path="/alternatif"
+              element={<AlternatifList />}
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/hasil-perhitungan"
+              element={<RankingList />}
+            />
+            <Route
+              path="/kriteria"
+              element={<KriteriaList />}
+            />
+            <Route
+              path="/sub-kriteria"
+              element={<SubKriteriaList />}
+            />
+            <Route
+              path="/periode"
+              element={<PeriodeList />}
+            />
+            <Route
+              path="/users-management"
+              element={<UsersList />}
+            />
+            <Route
+              path="/penilaian"
+              element={<PenilaianList />}
+            />
+            <Route
+              path="/penilaian/create"
+              element={<PenilaianCreate />}
+            />
             <Route
               path="/alternatif-periode"
               element={<AlternatifPeriodeList />}
             />
 
-            <Route path="/perhitungan-intro" element={<PerhitunganMain/>} />
-            <Route path="/perhitungan-saw-topsis" element={<PerhitunganSawTopsisMain/>} />
+            <Route
+              path="/perhitungan-intro"
+              element={<PerhitunganMain />}
+            />
+            <Route
+              path="/perhitungan-saw-topsis"
+              element={<PerhitunganSawTopsisMain />}
+            />
           </Route>
 
           {/* Not Found Route */}
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route
+            path="*"
+            element={<h1>404 - Page Not Found</h1>}
+          />
         </Routes>
       </BrowserRouter>
     </KriteriaProvider>

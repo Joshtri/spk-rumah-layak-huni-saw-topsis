@@ -1,4 +1,4 @@
-import { CalculatorIcon, Calendar, LayoutDashboard, LogOut, Ruler, TrendingUp, Users } from "lucide-react";
+import { CalculatorIcon, Calendar, LayoutDashboard, LogOut, Ruler, Users } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth"; // 🔥 Import hook auth
 import { MdGrade } from "react-icons/md";
@@ -12,7 +12,6 @@ export const Sidebar = () => {
     { icon: Ruler, text: "Sub Kriteria", path: "/sub-kriteria" },
     { icon: Users, text: "Alternatif", path: "/alternatif" },
     { icon: Users, text: "Alternatif Periode", path: "/alternatif-periode" },
-    { icon: TrendingUp, text: "Ranking", path: "/ranking" },
     { icon: Calendar, text: "Periode", path: "/periode" },
     { icon: Users, text: "Users Management", path: "/users-management" },
     { icon: MdGrade, text: "Penilaian Alternatif", path: "/penilaian" },
@@ -28,7 +27,7 @@ export const Sidebar = () => {
             {menuItems.map((item, index) => (
               <NavLink
                 key={index}
-                to={item.path} 
+                to={item.path}
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
                     isActive ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
