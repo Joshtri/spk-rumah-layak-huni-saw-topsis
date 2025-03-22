@@ -2,7 +2,7 @@ import { Table } from "flowbite-react";
 import { useState } from "react";
 import Paginations from "../ui/Pagination";
 
-export default function RankingTable({ rankings = [] }) {
+export default function RankingTable({ rankings = [], disablePagination = false, showAllData = false }) {
   // Add pagination states
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,9 +14,13 @@ export default function RankingTable({ rankings = [] }) {
 
   const onPageChange = (page) => setCurrentPage(page);
 
+  // Use all data when printing
+  const displayData = disablePagination || showAllData ? rankings : currentData;
+
   return (
     <div className="overflow-x-auto rounded-lg shadow">
       <Table
+        id="ranking-table"
         striped
         className="min-w-full whitespace-nowrap overflow-hidden"
         theme={{
@@ -34,7 +38,7 @@ export default function RankingTable({ rankings = [] }) {
           <Table.HeadCell className="w-[30%] text-center">Nilai</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {currentData.map((ranking, index) => (
+          {displayData.map((ranking, index) => (
             <Table.Row
               key={index}
               className="bg-white"
@@ -47,14 +51,15 @@ export default function RankingTable({ rankings = [] }) {
         </Table.Body>
       </Table>
 
-      {/* Add pagination component */}
-      <div className="mt-4">
-        <Paginations
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-        />
-      </div>
+      {!disablePagination && (
+        <div className="mt-4">
+          <Paginations
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        </div>
+      )}
     </div>
   );
 }
