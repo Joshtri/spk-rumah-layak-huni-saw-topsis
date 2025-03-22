@@ -29,8 +29,9 @@ export default function RankingTable({ rankings = [] }) {
         }}
       >
         <Table.Head>
-          <Table.HeadCell className="w-[30%] text-center">Peringkat</Table.HeadCell>
-          <Table.HeadCell className="w-[70%] text-center">Nama</Table.HeadCell>
+          <Table.HeadCell className="w-[20%] text-center">Peringkat</Table.HeadCell>
+          <Table.HeadCell className="w-[50%] text-center">Nama</Table.HeadCell>
+          <Table.HeadCell className="w-[30%] text-center">Nilai</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {currentData.map((ranking, index) => (
@@ -40,6 +41,7 @@ export default function RankingTable({ rankings = [] }) {
             >
               <Table.Cell className="font-medium text-gray-900 text-center">{startIndex + index + 1}</Table.Cell>
               <Table.Cell className="text-gray-900 text-center">{ranking.nama}</Table.Cell>
+              <Table.Cell className="text-gray-900 text-center">{ranking.nilai}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
