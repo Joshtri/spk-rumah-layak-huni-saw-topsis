@@ -4,24 +4,34 @@ import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import { useKriteria } from "../../hooks/useKriteria";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import Paginations from "../../components/ui/Pagination";
 
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function KriteriaList() {
+  // searchbar states
   const { kriteria, loading } = useKriteria();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 
+  // modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // pagination states
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  // searchbar functions
   useEffect(() => {
     setFilteredData(kriteria);
     console.log(kriteria);
   }, [kriteria]);
-
-  useEffect(() => {
-    console.log("filtered data:", filteredData);
-  }, [filteredData]);
 
   const handleSearch = (query) => {
     const searchQuery = query.trim();
@@ -33,6 +43,9 @@ export default function KriteriaList() {
     }
   };
 
+  // pagination functions
+  const onPageChange = (page) => setCurrentPage(page);
+
   return (
     <>
       <KriteriaInputModal
@@ -41,6 +54,8 @@ export default function KriteriaList() {
       />
 
       <Layout>
+        <Breadcrumbs pathArray={["Home", "Kriteria"]} />
+
         <PageTitle title="Kriteria" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full w-full">
           {/* add criteria & view button */}
@@ -66,8 +81,15 @@ export default function KriteriaList() {
           {/* criteria table */}
 
           <KriteriaTable
-            kriteria={filteredData}
+            kriteria={currentData}
             loading={loading}
+          />
+
+          {/* pagination */}
+          <Paginations
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
           />
         </div>
       </Layout>

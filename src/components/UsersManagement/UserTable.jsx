@@ -5,11 +5,22 @@ import { toast } from "sonner";
 import UserTableActions from "./UserTableActions";
 import UserInputModal from "./UserInputModal";
 import SearchBar from "../ui/SearchBar";
+import Paginations from "../ui/Pagination";
 
 export default function UserTable() {
   const { users, loading, fetchUsers, removeUser } = useUsers();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  const onPageChange = (page) => setCurrentPage(page);
 
   useEffect(() => {
     setFilteredData(users);
@@ -29,6 +40,7 @@ export default function UserTable() {
       });
       setFilteredData(filtered);
     }
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   const handleDelete = async (id) => {
@@ -69,48 +81,57 @@ export default function UserTable() {
       {loading ? (
         <p className="text-center p-4">Loading...</p>
       ) : (
-        <Table
-          striped
-          className="min-w-full whitespace-nowrap overflow-hidden"
-        >
-          <Table.Head>
-            <Table.HeadCell className="w-[30%] text-center">Username</Table.HeadCell>
-            <Table.HeadCell className="w-[30%] text-center">Email</Table.HeadCell>
-            <Table.HeadCell className="w-[30%] text-center">Role</Table.HeadCell>
-            <Table.HeadCell className="w-[10%] text-center">Aksi</Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {filteredData.length > 0 ? (
-              filteredData.map((user) => (
-                <Table.Row
-                  key={user.id_user}
-                  className="bg-white"
-                >
-                  <Table.Cell className="text-center">{user.username}</Table.Cell>
-                  <Table.Cell className="text-center">{user.email}</Table.Cell>
-                  <Table.Cell className="text-center">{user.role}</Table.Cell>
-                  <Table.Cell className="text-center">
-                    <UserTableActions
-                      user={user}
-                      onDelete={() => handleDelete(user.id_user)}
-                      refresh={fetchUsers}
-                    />
+        <>
+          <Table
+            striped
+            className="min-w-full whitespace-nowrap overflow-hidden"
+          >
+            <Table.Head>
+              <Table.HeadCell className="w-[30%] text-center">Username</Table.HeadCell>
+              <Table.HeadCell className="w-[30%] text-center">Email</Table.HeadCell>
+              <Table.HeadCell className="w-[30%] text-center">Role</Table.HeadCell>
+              <Table.HeadCell className="w-[10%] text-center">Aksi</Table.HeadCell>
+            </Table.Head>
+            <Table.Body className="divide-y">
+              {currentData.length > 0 ? (
+                currentData.map((user) => (
+                  <Table.Row
+                    key={user.id_user}
+                    className="bg-white"
+                  >
+                    <Table.Cell className="text-center">{user.username}</Table.Cell>
+                    <Table.Cell className="text-center">{user.email}</Table.Cell>
+                    <Table.Cell className="text-center">{user.role}</Table.Cell>
+                    <Table.Cell className="text-center">
+                      <UserTableActions
+                        user={user}
+                        onDelete={() => handleDelete(user.id_user)}
+                        refresh={fetchUsers}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              ) : (
+                <Table.Row>
+                  <Table.Cell
+                    colSpan="4"
+                    className="text-center py-4"
+                  >
+                    Tidak ada data user.
                   </Table.Cell>
                 </Table.Row>
-              ))
-            ) : (
-              <Table.Row>
-                <Table.Cell
-                  colSpan="4"
-                  className="text-center py-4"
-                >
-                  Tidak ada data user.
-                </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
+              )}
+            </Table.Body>
+          </Table>
+        </>
       )}
+      <div className="mt-4">
+        <Paginations
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
+      </div>
     </div>
   );
 }

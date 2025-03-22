@@ -1,13 +1,15 @@
-import React from 'react'
-import Layout from '../Layout'
-import PenilaianTable from '../../components/Penilaian/PenilaianTable'
+import React from "react";
+import Layout from "../Layout";
+import PenilaianTable from "../../components/Penilaian/PenilaianTable";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 
 const PenilaianList = () => {
   return (
     <Layout>
-        <PenilaianTable/>
+      <Breadcrumbs pathArray={["Home", "Penilaian"]} />
+      <PenilaianTable />
     </Layout>
-  )
-}
+  );
+};
 
-export default PenilaianList
+export default PenilaianList;

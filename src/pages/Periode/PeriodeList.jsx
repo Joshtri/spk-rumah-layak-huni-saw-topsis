@@ -4,6 +4,8 @@ import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import { usePeriode } from "../../hooks/usePeriode";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import Paginations from "../../components/ui/Pagination";
 
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -12,6 +14,17 @@ export default function PeriodeList() {
   const { periode, loading } = usePeriode();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+
+  // Add pagination states
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  const onPageChange = (page) => setCurrentPage(page);
 
   useEffect(() => {
     setFilteredData(periode);
@@ -35,6 +48,7 @@ export default function PeriodeList() {
       />
 
       <Layout>
+        <Breadcrumbs pathArray={["Home", "Periode"]} />
         <PageTitle title="Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">
@@ -57,9 +71,16 @@ export default function PeriodeList() {
           </div>
 
           <PeriodeTable
-            periode={filteredData}
+            periode={currentData}
             loading={loading}
           />
+          <div className="mt-4">
+            <Paginations
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+            />
+          </div>
         </div>
       </Layout>
     </>

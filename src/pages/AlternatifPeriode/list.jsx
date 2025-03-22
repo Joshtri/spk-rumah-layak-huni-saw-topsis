@@ -3,6 +3,8 @@ import AlternatifPeriodeInputModal from "../../components/AlternatifPeriode/Alte
 import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import Paginations from "../../components/ui/Pagination";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
@@ -12,10 +14,22 @@ export default function AlternatifPeriodeList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 
+  // Add pagination states
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  const onPageChange = (page) => setCurrentPage(page);
+
   useEffect(() => {
     setFilteredData(alternatifPeriode);
   }, [alternatifPeriode]);
 
+  // Update handleSearch to reset pagination
   const handleSearch = (query) => {
     const searchQuery = query.trim();
     if (searchQuery === "") {
@@ -28,6 +42,7 @@ export default function AlternatifPeriodeList() {
       );
       setFilteredData(filtered);
     }
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   return (
@@ -38,7 +53,8 @@ export default function AlternatifPeriodeList() {
       />
 
       <Layout>
-        <PageTitle title="Alternatif dalam Periode" />
+        <Breadcrumbs pathArray={["Home", "Alternatif Periode"]} />
+        <PageTitle title="Alternatif Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">
             <div className="mr-auto">
@@ -60,9 +76,16 @@ export default function AlternatifPeriodeList() {
           </div>
 
           <AlternatifPeriodeTable
-            alternatifPeriode={filteredData}
+            alternatifPeriode={currentData}
             loading={loading}
           />
+          <div className="mt-4">
+            <Paginations
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+            />
+          </div>
         </div>
       </Layout>
     </>
