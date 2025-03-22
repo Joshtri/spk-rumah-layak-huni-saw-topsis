@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const HasilPerhitunganTable = () => {
-  return (
-    <div>HasilPerhitunganTable</div>
-  )
-}
+  return <div>HasilPerhitunganTable</div>;
+};
 
-export default HasilPerhitunganTable
+export default HasilPerhitunganTable;
