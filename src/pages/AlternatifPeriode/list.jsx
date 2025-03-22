@@ -53,7 +53,12 @@ export default function AlternatifPeriodeList() {
       />
 
       <Layout>
-        <Breadcrumbs pathArray={["Home", "Alternatif Periode"]} />
+        <Breadcrumbs
+          pathArray={[
+            { path: "/dashboard", label: "Home" },
+            { path: null, label: "Alternatif Periode" },
+          ]}
+        />
         <PageTitle title="Alternatif Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">

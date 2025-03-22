@@ -54,7 +54,12 @@ export default function KriteriaList() {
       />
 
       <Layout>
-        <Breadcrumbs pathArray={["Home", "Kriteria"]} />
+        <Breadcrumbs
+          pathArray={[
+            { path: "/dashboard", label: "Home" },
+            { path: null, label: "Kriteria" },
+          ]}
+        />
 
         <PageTitle title="Kriteria" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full w-full">

@@ -6,8 +6,13 @@ import BreadCrumbs from "../../components/ui/Breadcrumbs";
 export default function RankingList() {
   return (
     <Layout>
-      <BreadCrumbs pathArray={["Home", "Ranking"]} />
-      <PageTitle title="Ranking" />
+      <BreadCrumbs
+        pathArray={[
+          { path: "/dashboard", label: "Home" },
+          { path: null, label: "Hasil Perhitungan" },
+        ]}
+      />
+      <PageTitle title="Hasil Perhitungan" />
       <RankingTable />
     </Layout>
   );

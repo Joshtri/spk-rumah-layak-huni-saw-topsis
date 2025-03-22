@@ -48,7 +48,12 @@ export default function PeriodeList() {
       />
 
       <Layout>
-        <Breadcrumbs pathArray={["Home", "Periode"]} />
+        <Breadcrumbs
+          pathArray={[
+            { path: "/dashboard", label: "Home" },
+            { path: null, label: "Periode" },
+          ]}
+        />
         <PageTitle title="Periode" />
         <div className="grid grid-rows-[auto,1fr] gap-8 h-full">
           <div className="flex justify-end items-center h-full w-full">

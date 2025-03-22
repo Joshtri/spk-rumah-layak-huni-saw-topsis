@@ -6,7 +6,12 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs";
 const PenilaianList = () => {
   return (
     <Layout>
-      <Breadcrumbs pathArray={["Home", "Penilaian"]} />
+      <Breadcrumbs
+        pathArray={[
+          { path: "/dashboard", label: "Home" },
+          { path: null, label: "Penilaian" },
+        ]}
+      />
       <PenilaianTable />
     </Layout>
   );
