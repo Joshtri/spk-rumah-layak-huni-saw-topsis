@@ -1,16 +1,26 @@
 import Layout from "../Layout";
 import AlternatifTable from "../../components/Alternatif/AlternatifTable";
-import AlternatifInputModal from "../../components/Alternatif/AlternatifInputModal";
+import AlternatifInputModal from "../../components/alternatif/alternatifInputModal";
 import PageTitle from "../../components/ui/PageTitle";
-import { useAlternatif } from "../../hooks/useAlternatif";
 import SearchBar from "../../components/ui/SearchBar";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import Paginations from "../../components/ui/Pagination";
+import { useAlternatif } from "../../hooks/useAlternatif";
 import { useState, useEffect } from "react";
 
 export default function AlternatifList() {
   const { alternatif, loading } = useAlternatif();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+
+  // Add pagination states
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
 
   useEffect(() => {
     setFilteredData(alternatif);
@@ -26,7 +36,11 @@ export default function AlternatifList() {
       );
       setFilteredData(filtered);
     }
+    setCurrentPage(1); // Reset to first page when searching
   };
+
+  // Add pagination function
+  const onPageChange = (page) => setCurrentPage(page);
 
   return (
     <Layout>
@@ -53,8 +67,15 @@ export default function AlternatifList() {
         </div>
 
         <AlternatifTable
-          alternatif={filteredData}
+          alternatif={currentData}
           loading={loading}
+        />
+
+        {/* Add pagination component */}
+        <Paginations
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
         />
       </div>
     </Layout>

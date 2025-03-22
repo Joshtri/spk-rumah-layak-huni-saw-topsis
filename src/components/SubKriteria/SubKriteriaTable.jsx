@@ -1,9 +1,10 @@
-import { useSubKriteria } from "../../hooks/useSubKriteria"; // Import hooks sub kriteria
+import { useSubKriteria } from "../../hooks/useSubKriteria";
 import { Table, Button } from "flowbite-react";
 import SubCriteriaTableActions from "./SubKriteriaTableActions";
 import { useState, useEffect } from "react";
-import SubKriteriaInputModal from "./SubKriteriaInputModal"; // Modal tambah/edit sub-kriteria
+import SubKriteriaInputModal from "./SubKriteriaInputModal";
 import SearchBar from "../ui/SearchBar";
+import Paginations from "../ui/Pagination";
 import { toast } from "sonner";
 
 export default function SubCriteriaTable() {
@@ -11,6 +12,18 @@ export default function SubCriteriaTable() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSubKriteria, setSelectedSubKriteria] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
+
+  // pagination states
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  // pagination function
+  const onPageChange = (page) => setCurrentPage(page);
 
   useEffect(() => {
     setFilteredData(subKriteria);
@@ -80,54 +93,65 @@ export default function SubCriteriaTable() {
       {loading ? (
         <p className="text-center p-4">Loading...</p>
       ) : (
-        <Table
-          striped
-          className="min-w-full whitespace-nowrap overflow-hidden"
-        >
-          <Table.Head>
-            <Table.HeadCell className="w-[25%] text-center">Kriteria</Table.HeadCell>
-            <Table.HeadCell className="w-[25%] text-center">Sub Kriteria</Table.HeadCell>
-            <Table.HeadCell className="w-[20%] text-center">Bobot</Table.HeadCell>
-            <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {filteredData.length > 0 ? (
-              filteredData.map((item) => (
-                <Table.Row
-                  key={item.id}
-                  className="bg-white"
-                >
-                  <Table.Cell className="font-medium text-gray-900 text-center">
-                    {item.kriteria.nama_kriteria}
-                  </Table.Cell>
-                  <Table.Cell className="font-medium text-gray-900 text-center">{item.nama_sub_kriteria}</Table.Cell>
-                  <Table.Cell className="text-center">{item.bobot_sub_kriteria}</Table.Cell>
-                  <Table.Cell className="text-center space-x-2">
-                    <SubCriteriaTableActions
-                      idCriteria={item.kriteria_id}
-                      title={item.sub_kriteria_nama}
-                      bobot={item.bobot_kriteria}
-                      onEdit={() => {
-                        setSelectedSubKriteria(item);
-                        setIsModalOpen(true);
-                      }}
-                      onDelete={() => handleDelete(item.id)}
-                    />
+        <>
+          <Table
+            striped
+            className="min-w-full whitespace-nowrap overflow-hidden"
+          >
+            <Table.Head>
+              <Table.HeadCell className="w-[25%] text-center">Kriteria</Table.HeadCell>
+              <Table.HeadCell className="w-[25%] text-center">Sub Kriteria</Table.HeadCell>
+              <Table.HeadCell className="w-[20%] text-center">Bobot</Table.HeadCell>
+              <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
+            </Table.Head>
+            <Table.Body className="divide-y">
+              {currentData.length > 0 ? (
+                currentData.map((item) => (
+                  <Table.Row
+                    key={item.id}
+                    className="bg-white"
+                  >
+                    <Table.Cell className="font-medium text-gray-900 text-center">
+                      {item.kriteria.nama_kriteria}
+                    </Table.Cell>
+                    <Table.Cell className="font-medium text-gray-900 text-center">{item.nama_sub_kriteria}</Table.Cell>
+                    <Table.Cell className="text-center">{item.bobot_sub_kriteria}</Table.Cell>
+                    <Table.Cell className="text-center space-x-2">
+                      <SubCriteriaTableActions
+                        idCriteria={item.kriteria_id}
+                        title={item.sub_kriteria_nama}
+                        bobot={item.bobot_kriteria}
+                        onEdit={() => {
+                          setSelectedSubKriteria(item);
+                          setIsModalOpen(true);
+                        }}
+                        onDelete={() => handleDelete(item.id)}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              ) : (
+                <Table.Row>
+                  <Table.Cell
+                    colSpan="4"
+                    className="text-center py-4"
+                  >
+                    Tidak ada data sub kriteria.
                   </Table.Cell>
                 </Table.Row>
-              ))
-            ) : (
-              <Table.Row>
-                <Table.Cell
-                  colSpan="4"
-                  className="text-center py-4"
-                >
-                  Tidak ada data sub kriteria.
-                </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
+              )}
+            </Table.Body>
+          </Table>
+
+          {/* Add pagination component */}
+          <div className="mt-4">
+            <Paginations
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+            />
+          </div>
+        </>
       )}
     </div>
   );
