@@ -6,7 +6,12 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs";
 export default function UsersList() {
   return (
     <Layout>
-      <Breadcrumbs pathArray={["Home", "Users Management"]} />
+      <Breadcrumbs
+        pathArray={[
+          { path: "/dashboard", label: "Home" },
+          { path: null, label: "User Management" },
+        ]}
+      />
       <PageTitle title="Admin" />
       <UserTable />
     </Layout>

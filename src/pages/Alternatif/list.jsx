@@ -44,7 +44,12 @@ export default function AlternatifList() {
 
   return (
     <Layout>
-      <Breadcrumbs pathArray={["Home", "Alternatif"]} />
+      <Breadcrumbs
+        pathArray={[
+          { path: "/dashboard", label: "Home" },
+          { path: null, label: "Alternatif" },
+        ]}
+      />
       <PageTitle title="Alternatif" />
       <AlternatifInputModal
         isOpen={isModalOpen}

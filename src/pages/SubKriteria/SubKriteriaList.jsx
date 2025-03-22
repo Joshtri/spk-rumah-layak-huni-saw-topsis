@@ -6,7 +6,12 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs";
 export default function SubKriteriaList() {
   return (
     <Layout>
-      <Breadcrumbs pathArray={["Home", "Sub Kriteria"]} />
+      <Breadcrumbs
+        pathArray={[
+          { path: "/dashboard", label: "Home" },
+          { path: null, label: "Sub Kriteria" },
+        ]}
+      />
       <PageTitle title="Sub Kriteria" />
       <SubCriteriaTable />
     </Layout>
