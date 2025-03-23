@@ -75,7 +75,8 @@ export const Sidebar = ({ isOpen, onClose }) => {
                       item.text === "Kriteria" ||
                       item.text === "Sub Kriteria" ||
                       item.text === "Dashboard" ||
-                      item.text === "Alternatif"
+                      item.text === "Alternatif" ||
+                      item.text === "Hasil Perhitungan"
                     );
                   }
 
