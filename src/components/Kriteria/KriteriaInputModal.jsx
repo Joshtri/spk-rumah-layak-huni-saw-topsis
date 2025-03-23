@@ -7,7 +7,7 @@ import {
   Textarea,
 } from "flowbite-react";
 import { useState } from "react";
-import { useKriteria } from "../../hooks/useKriteria"; // Import custom hook
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext"; // Import custom hook
 import { toast } from "sonner"; // Import sonner untuk notifikasi
 
 export default function KriteriaInputModal({ isOpen, onClose }) {

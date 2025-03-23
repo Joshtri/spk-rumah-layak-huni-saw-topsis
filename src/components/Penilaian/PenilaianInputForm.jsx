@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useKriteria } from "../../hooks/useKriteria";
-import { useAlternatif } from "../../hooks/useAlternatif";
-import { usePenilaian } from "../../hooks/usePenilaian";
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
+import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
+import { usePenilaianContext as usePenilaian } from "../../contexts/penilaianContext";
 import { toast } from "sonner";
 import { Button, Label, Select } from "flowbite-react";
 

@@ -1,6 +1,6 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { usePeriode } from "../../hooks/usePeriode";
+import { usePeriodeContext } from "../../contexts/periodeContext";
 import { toast } from "sonner";
 
 export default function PeriodeInputModal({ isOpen, onClose }) {
@@ -8,7 +8,7 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
   const [tanggalMulai, setTanggalMulai] = useState("");
   const [tanggalSelesai, setTanggalSelesai] = useState("");
   const [loading, setLoading] = useState(false);
-  const { addPeriode } = usePeriode();
+  const { addPeriode } = usePeriodeContext();
 
   const handleSave = async () => {
     if (!namaPeriode || !tanggalMulai || !tanggalSelesai) {

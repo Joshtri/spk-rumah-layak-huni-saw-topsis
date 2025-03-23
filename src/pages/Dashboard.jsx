@@ -2,16 +2,16 @@ import React from "react";
 import StatCard from "../components/ui/StatCard";
 
 import { FiList, FiUsers, FiClock, FiBarChart2 } from "react-icons/fi"; // 🔥 Ikon tambahan
-import { useAlternatif } from "../hooks/useAlternatif";
-import { usePeriode } from "../hooks/usePeriode";
-import { useKriteria } from "../hooks/useKriteria";
+import { useAlternatifContext as useAlternatif } from "../contexts/alternatifContext";
+import { usePeriodeContext } from "../contexts/periodeContext";
+import { useKriteriaContext as useKriteria } from "../contexts/kriteriaContext";
 import { useAlternatifPeriode } from "../hooks/useAlternatifPeriode";
 import Layout from "./Layout";
 import { useAuth } from "../hooks/useAuth";
 
 const Dashboard = () => {
   const { alternatif, loading: loadingAlternatif } = useAlternatif();
-  const { periode, loading: loadingPeriode } = usePeriode();
+  const { periode, loading: loadingPeriode } = usePeriodeContext();
   const { kriteria, loading: loadingKriteria } = useKriteria();
   const { alternatifPeriode, loading: loadingAlternatifPeriode } =
     useAlternatifPeriode();

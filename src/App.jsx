@@ -21,73 +21,108 @@ import UsersList from "./pages/UsersManagement/UsersManagement";
 import PerhitunganSawTopsis from "./components/Perhitungan/SawTopsis/PerhitunganSawTopsis";
 import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMain";
 import SPKStepByStep from "./pages/HowTo/HowToPage";
+import { SubKriteriaProvider } from "./contexts/subKriteriaContext";
+import { AlternatifProvider } from "./contexts/alternatifContext";
+import { PeriodeProvider } from "./contexts/periodeContext";
+import { UsersProvider } from "./contexts/usersContext";
+import { PenilaianProvider } from "./contexts/penilaianContext";
 
 function App() {
   return (
-    <KriteriaProvider>
-      <Toaster position="top-right" richColors />
-      <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+    <PenilaianProvider>
 
-          {/* 🔒 Dashboard - semua role boleh */}
-          <Route
-            element={
-              <ProtectedRoute
-                allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]}
-              />
-            }
-          >
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Route>
 
-          {/* 🔒 Hanya ADMIN & PERANGKAT_DESA */}
-          <Route
-            element={
-              <ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA"]} />
-            }
-          >
-            <Route path="/hasil-perhitungan" element={<RankingList />} />
-            <Route path="/periode" element={<PeriodeList />} />
-            <Route path="/users-management" element={<UsersList />} />
-            <Route path="/penilaian" element={<PenilaianList />} />
-            <Route path="/penilaian/create" element={<PenilaianCreate />} />
-            <Route
-              path="/alternatif-periode"
-              element={<AlternatifPeriodeList />}
-            />
-            <Route path="/perhitungan-intro" element={<PerhitunganMain />} />
-            <Route
-              path="/perhitungan-saw-topsis"
-              element={<PerhitunganSawTopsisMain />}
-            />
-          </Route>
+    <UsersProvider>
+      <KriteriaProvider>
+        <SubKriteriaProvider>
+          <AlternatifProvider>
+            <PeriodeProvider>
+              <Toaster position="top-right" richColors />
+              <BrowserRouter>
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<LoginPage />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* 🔒 KEPALA_DESA + ADMIN + PERANGKAT_DESA (shared access) */}
-          <Route
-            element={
-              <ProtectedRoute
-                allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]}
-              />
-            }
-          >            
-            <Route path="/alternatif" element={<AlternatifList />} />
-            <Route path="/kriteria" element={<KriteriaList />} />
-            <Route path="/sub-kriteria" element={<SubKriteriaList />} />
-            <Route path="/profile" element={<Profile />} />
+                  {/* 🔒 Dashboard - semua role boleh */}
+                  <Route
+                    element={
+                      <ProtectedRoute
+                        allowedRoles={[
+                          "ADMIN",
+                          "PERANGKAT_DESA",
+                          "KEPALA_DESA",
+                        ]}
+                      />
+                    }
+                  >
+                    <Route path="/dashboard" element={<DashboardPage />} />
+                  </Route>
 
-          </Route>
+                  {/* 🔒 Hanya ADMIN & PERANGKAT_DESA */}
+                  <Route
+                    element={
+                      <ProtectedRoute
+                        allowedRoles={["ADMIN", "PERANGKAT_DESA"]}
+                      />
+                    }
+                  >
+                    <Route
+                      path="/hasil-perhitungan"
+                      element={<RankingList />}
+                    />
+                    <Route path="/periode" element={<PeriodeList />} />
+                    <Route path="/users-management" element={<UsersList />} />
+                    <Route path="/penilaian" element={<PenilaianList />} />
+                    <Route
+                      path="/penilaian/create"
+                      element={<PenilaianCreate />}
+                    />
+                    <Route
+                      path="/alternatif-periode"
+                      element={<AlternatifPeriodeList />}
+                    />
+                    <Route
+                      path="/perhitungan-intro"
+                      element={<PerhitunganMain />}
+                    />
+                    <Route
+                      path="/perhitungan-saw-topsis"
+                      element={<PerhitunganSawTopsisMain />}
+                    />
+                  </Route>
 
-          {/* Public How-To Page */}
-          <Route path="/how-to" element={<SPKStepByStep />} />
+                  {/* 🔒 KEPALA_DESA + ADMIN + PERANGKAT_DESA (shared access) */}
+                  <Route
+                    element={
+                      <ProtectedRoute
+                        allowedRoles={[
+                          "ADMIN",
+                          "PERANGKAT_DESA",
+                          "KEPALA_DESA",
+                        ]}
+                      />
+                    }
+                  >
+                    <Route path="/alternatif" element={<AlternatifList />} />
+                    <Route path="/kriteria" element={<KriteriaList />} />
+                    <Route path="/sub-kriteria" element={<SubKriteriaList />} />
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
 
-          {/* Not Found */}
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
-        </Routes>
-      </BrowserRouter>
-    </KriteriaProvider>
+                  {/* Public How-To Page */}
+                  <Route path="/how-to" element={<SPKStepByStep />} />
+
+                  {/* Not Found */}
+                  <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+                </Routes>
+              </BrowserRouter>
+            </PeriodeProvider>
+          </AlternatifProvider>
+        </SubKriteriaProvider>
+      </KriteriaProvider>
+    </UsersProvider>
+    </PenilaianProvider>
   );
 }
 

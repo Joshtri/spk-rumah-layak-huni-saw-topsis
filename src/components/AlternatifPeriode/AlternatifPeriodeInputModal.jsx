@@ -1,13 +1,13 @@
 import { Modal, Button, Label, Select } from "flowbite-react";
 import { useState } from "react";
-import { useAlternatif } from "../../hooks/useAlternatif";
-import { usePeriode } from "../../hooks/usePeriode";
+import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
+import { usePeriodeContext } from "../../contexts/periodeContext";
 import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
 import { toast } from "sonner";
 
 export default function AlternatifPeriodeInputModal({ isOpen, onClose }) {
   const { alternatif } = useAlternatif(); // Ambil daftar Alternatif
-  const { periode } = usePeriode(); // Ambil daftar Periode
+  const { periode } = usePeriodeContext(); // Ambil daftar Periode
   const { addAlternatifToPeriode } = useAlternatifPeriode(); // Fungsi untuk menambahkan Alternatif ke Periode
 
   const [selectedAlternatif, setSelectedAlternatif] = useState("");

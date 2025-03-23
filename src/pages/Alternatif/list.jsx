@@ -5,7 +5,7 @@ import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import Paginations from "../../components/ui/Pagination";
-import { useAlternatif } from "../../hooks/useAlternatif";
+import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
 import { useState, useEffect } from "react";
 
 export default function AlternatifList() {

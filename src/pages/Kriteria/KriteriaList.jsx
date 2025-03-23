@@ -3,7 +3,7 @@ import KriteriaTable from "../../components/Kriteria/KriteriaTable";
 import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
-import { useKriteria } from "../../hooks/useKriteria";
+import { useKriteriaContext  as useKriteria } from "../../contexts/kriteriaContext";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import Paginations from "../../components/ui/Pagination";
 

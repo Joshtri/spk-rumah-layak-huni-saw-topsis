@@ -1,10 +1,10 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { useUsers } from "../../hooks/useUsers";
+import { useUsersContext  } from "../../contexts/usersContext";
 import { toast } from "sonner";
 
 export default function UserInputModal({ isOpen, onClose, refresh }) {
-  const { addUser } = useUsers();
+  const { addUser } = useUsersContext();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

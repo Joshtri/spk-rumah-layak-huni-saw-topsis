@@ -1,4 +1,4 @@
-import { useUsers } from "../../hooks/useUsers";
+import { useUsersContext as useUsers } from "../../contexts/usersContext";
 import { Table, Button } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
