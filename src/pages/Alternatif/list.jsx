@@ -13,6 +13,10 @@ export default function AlternatifList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 
+  // Add role check
+  const userRole = localStorage.getItem("role");
+  const isPerangkatDesa = userRole === "PERANGKAT_DESA";
+
   // Add pagination states
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,12 +67,14 @@ export default function AlternatifList() {
               placeholder={"Cari Alternatif"}
             />
           </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Tambah Alternatif
-          </button>
+          {isPerangkatDesa && (
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Tambah Alternatif
+            </button>
+          )}
         </div>
 
         <AlternatifTable
@@ -76,7 +82,6 @@ export default function AlternatifList() {
           loading={loading}
         />
 
-        {/* Add pagination component */}
         <Paginations
           currentPage={currentPage}
           totalPages={totalPages}

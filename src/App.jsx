@@ -37,49 +37,44 @@ function App() {
             <SubKriteriaProvider>
               <AlternatifProvider>
                 <PeriodeProvider>
-                  <Toaster position="top-right" richColors />
+                  <Toaster
+                    position="top-right"
+                    richColors
+                  />
                   <BrowserRouter>
                     <Routes>
                       {/* Public Routes */}
-                      <Route path="/" element={<LoginPage />} />
+                      <Route
+                        path="/"
+                        element={<LoginPage />}
+                      />
                       <Route
                         path="/forgot-password"
                         element={<ForgotPassword />}
                       />
 
                       {/* 🔒 Dashboard - semua role boleh */}
-                      <Route
-                        element={
-                          <ProtectedRoute
-                            allowedRoles={[
-                              "ADMIN",
-                              "PERANGKAT_DESA",
-                              "KEPALA_DESA",
-                            ]}
-                          />
-                        }
-                      >
-                        <Route path="/dashboard" element={<DashboardPage />} />
+                      <Route element={<ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]} />}>
+                        <Route
+                          path="/dashboard"
+                          element={<DashboardPage />}
+                        />
                       </Route>
 
                       {/* 🔒 Hanya ADMIN & PERANGKAT_DESA */}
-                      <Route
-                        element={
-                          <ProtectedRoute
-                            allowedRoles={["ADMIN", "PERANGKAT_DESA"]}
-                          />
-                        }
-                      >
+                      <Route element={<ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA"]} />}>
                         <Route
-                          path="/hasil-perhitungan"
-                          element={<RankingList />}
+                          path="/periode"
+                          element={<PeriodeList />}
                         />
-                        <Route path="/periode" element={<PeriodeList />} />
                         <Route
                           path="/users-management"
                           element={<UsersList />}
                         />
-                        <Route path="/penilaian" element={<PenilaianList />} />
+                        <Route
+                          path="/penilaian"
+                          element={<PenilaianList />}
+                        />
                         <Route
                           path="/penilaian/create"
                           element={<PenilaianCreate />}
@@ -99,34 +94,40 @@ function App() {
                       </Route>
 
                       {/* 🔒 KEPALA_DESA + ADMIN + PERANGKAT_DESA (shared access) */}
-                      <Route
-                        element={
-                          <ProtectedRoute
-                            allowedRoles={[
-                              "ADMIN",
-                              "PERANGKAT_DESA",
-                              "KEPALA_DESA",
-                            ]}
-                          />
-                        }
-                      >
+                      <Route element={<ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]} />}>
                         <Route
                           path="/alternatif"
                           element={<AlternatifList />}
                         />
-                        <Route path="/kriteria" element={<KriteriaList />} />
+                        <Route
+                          path="/kriteria"
+                          element={<KriteriaList />}
+                        />
                         <Route
                           path="/sub-kriteria"
                           element={<SubKriteriaList />}
                         />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route
+                          path="/profile"
+                          element={<Profile />}
+                        />
+                        <Route
+                          path="/hasil-perhitungan"
+                          element={<RankingList />}
+                        />
                       </Route>
 
                       {/* Public How-To Page */}
-                      <Route path="/how-to" element={<SPKStepByStep />} />
+                      <Route
+                        path="/how-to"
+                        element={<SPKStepByStep />}
+                      />
 
                       {/* Not Found */}
-                      <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+                      <Route
+                        path="*"
+                        element={<h1>404 - Page Not Found</h1>}
+                      />
                     </Routes>
                   </BrowserRouter>
                 </PeriodeProvider>
