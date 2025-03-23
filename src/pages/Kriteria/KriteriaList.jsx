@@ -38,13 +38,17 @@ export default function KriteriaList() {
     if (searchQuery === "") {
       setFilteredData(kriteria);
     } else {
-      const filtered = kriteria.filter((item) => item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase()));
+      const filtered = kriteria.filter((item) =>
+        item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase())
+      );
       setFilteredData(filtered);
     }
   };
 
   // pagination functions
   const onPageChange = (page) => setCurrentPage(page);
+  const role = localStorage.getItem("role");
+  const isAdminOrKepalaDesa = role === "ADMIN" || role === "KEPALA_DESA";
 
   return (
     <>
@@ -71,13 +75,18 @@ export default function KriteriaList() {
                 placeholder={"Cari Kriteria"}
               />
             </div>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Tambah Kriteria
-            </button>
 
+            {/* 🔐 Tampilkan hanya jika role ADMIN / KEPALA_DESA */}
+            {isAdminOrKepalaDesa && (
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Tambah Kriteria
+              </button>
+            )}
+
+            {/* View Subkriteria (boleh semua role) */}
             <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-4">
               <NavLink to={"/sub-kriteria"}>View Subkriteria</NavLink>
             </button>
@@ -85,10 +94,7 @@ export default function KriteriaList() {
 
           {/* criteria table */}
 
-          <KriteriaTable
-            kriteria={currentData}
-            loading={loading}
-          />
+          <KriteriaTable kriteria={currentData} loading={loading} />
 
           {/* pagination */}
           <Paginations
