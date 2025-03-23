@@ -49,7 +49,6 @@ function App() {
               <ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA"]} />
             }
           >
-            <Route path="/alternatif" element={<AlternatifList />} />
             <Route path="/hasil-perhitungan" element={<RankingList />} />
             <Route path="/periode" element={<PeriodeList />} />
             <Route path="/users-management" element={<UsersList />} />
@@ -73,7 +72,8 @@ function App() {
                 allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]}
               />
             }
-          >
+          >            
+            <Route path="/alternatif" element={<AlternatifList />} />
             <Route path="/kriteria" element={<KriteriaList />} />
             <Route path="/sub-kriteria" element={<SubKriteriaList />} />
             <Route path="/profile" element={<Profile />} />
