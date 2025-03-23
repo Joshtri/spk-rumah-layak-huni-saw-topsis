@@ -47,7 +47,7 @@ export const Sidebar = () => {
                 // 🎯 Role KEPALA_DESA hanya akses 2 menu
                 if (user.role === "KEPALA_DESA") {
                   return (
-                    item.text === "Kriteria" || item.text === "Sub Kriteria" || item.text === "Dashboard"
+                    item.text === "Kriteria" || item.text === "Sub Kriteria" || item.text === "Dashboard" || item.text === "Alternatif"
                   );
                 }
 
