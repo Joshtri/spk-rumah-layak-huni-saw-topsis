@@ -31,12 +31,12 @@ export const useAuth = () => {
   const login = async (credentials) => {
     try {
       const data = await loginUser(credentials);
-      
+
       // Simpan token dan informasi user di localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.user.username);
       localStorage.setItem("role", data.user.role);
-      localStorage.setItem("id", data.user.id);
+      localStorage.setItem("id", data.user.id_user);
 
       setUser(data.user);
       toast.success("✅ Login berhasil!");
