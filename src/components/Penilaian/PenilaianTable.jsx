@@ -13,7 +13,7 @@ export default function PenilaianTable() {
   const [filteredData, setFilteredData] = useState({});
 
   // Add pagination states
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(Object.keys(filteredData).length / itemsPerPage);
 

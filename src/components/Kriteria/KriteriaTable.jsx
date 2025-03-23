@@ -21,6 +21,7 @@ export default function KriteriaTable({ kriteria, loading }) {
           }}
         >
           <Table.Head>
+            <Table.HeadCell className="w-[40%] text-center">No</Table.HeadCell>
             <Table.HeadCell className="w-[40%] text-center">Nama Kriteria</Table.HeadCell>
             <Table.HeadCell className="w-[20%] text-center">Bobot</Table.HeadCell>
             <Table.HeadCell className="w-[20%] text-center">Tipe Kriteria</Table.HeadCell>
@@ -28,12 +29,12 @@ export default function KriteriaTable({ kriteria, loading }) {
           </Table.Head>
           <Table.Body className="divide-y">
             {kriteria.length > 0 ? (
-              kriteria.map((item) => (
+              kriteria.map((item, index) => (
                 <Table.Row
                   key={item.id}
                   className="bg-white"
                 >
-                  <Table.Cell className="font-medium text-gray-900 text-center">{item.nama_kriteria}</Table.Cell>
+                  <Table.Cell className="font-medium text-gray-900 text-center">{index + 1}</Table.Cell>
                   <Table.Cell className="text-center">{item.bobot_kriteria}%</Table.Cell>
                   <Table.Cell className="text-center">{item.tipe_kriteria}</Table.Cell>
                   <Table.Cell>

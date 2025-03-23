@@ -44,7 +44,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
   
       const formattedResults = finalScores.map((alt, index) => ({
         alternatifId: alt.alternatifId,
-        ranking: index + 1,
+        rangking: index + 1,
         nilai_akhir: parseFloat(alt.preference),
         status: index + 1 <= 10 ? "Layak" : "Tidak Layak",
         periodeId: periodeIdInt,

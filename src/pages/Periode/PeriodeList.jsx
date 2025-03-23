@@ -17,7 +17,7 @@ export default function PeriodeList() {
   const [filteredData, setFilteredData] = useState([]);
 
   // Add pagination states
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 

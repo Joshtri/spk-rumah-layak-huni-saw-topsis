@@ -10,7 +10,7 @@ export default function AlternatifTable({ alternatif, loading }) {
         className="min-w-full whitespace-nowrap overflow-hidden"
       >
         <Table.Head>
-          <Table.HeadCell className="w-[10%] text-center">ID</Table.HeadCell>
+          <Table.HeadCell className="w-[10%] text-center">No</Table.HeadCell>
           <Table.HeadCell className="w-[30%] text-center">Nama Alternatif</Table.HeadCell>
           <Table.HeadCell className="w-[30%] text-center">Periode</Table.HeadCell>
           <Table.HeadCell className="w-[30%] text-center">Aksi</Table.HeadCell>
@@ -36,12 +36,12 @@ export default function AlternatifTable({ alternatif, loading }) {
               </Table.Cell>
             </Table.Row>
           ) : (
-            alternatif.map((item) => (
+            alternatif.map((item,index) => (
               <Table.Row
                 key={item.id_alternatif}
                 className="bg-white"
               >
-                <Table.Cell className="text-center">{item.id_alternatif}</Table.Cell>
+                <Table.Cell className="text-center">{index + 1}</Table.Cell>
                 <Table.Cell className="text-center">{item.nama_alternatif}</Table.Cell>
                 <Table.Cell className="text-center">
                   {item.alternatifPeriode.length > 0 ? (

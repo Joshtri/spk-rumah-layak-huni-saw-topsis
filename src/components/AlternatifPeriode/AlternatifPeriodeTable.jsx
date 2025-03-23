@@ -35,12 +35,12 @@ export default function AlternatifPeriodeTable({ alternatifPeriode, loading }) {
               </Table.Cell>
             </Table.Row>
           ) : (
-            alternatifPeriode.map((item) => (
+            alternatifPeriode.map((item,index) => (
               <Table.Row
                 key={item.id}
                 className="bg-white"
               >
-                <Table.Cell className="text-center">{item.id}</Table.Cell>
+                <Table.Cell className="text-center">{index + 1}</Table.Cell>
                 <Table.Cell className="text-center">{item.alternatif.nama_alternatif}</Table.Cell>
                 <Table.Cell className="text-center">{item.periode.nama_periode}</Table.Cell>
               </Table.Row>
