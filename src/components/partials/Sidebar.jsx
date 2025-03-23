@@ -1,5 +1,14 @@
 import { useEffect } from "react";
-import { CalculatorIcon, Calendar, LayoutDashboard, LogOut, Ruler, Users, Menu, X } from "lucide-react";
+import {
+  CalculatorIcon,
+  Calendar,
+  LayoutDashboard,
+  LogOut,
+  Ruler,
+  Users,
+  Menu,
+  X,
+} from "lucide-react";
 import { MdGrade } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -24,26 +33,45 @@ export const Sidebar = ({ isOpen, onClose }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  const menuItems = [
-    { icon: LayoutDashboard, text: "Dashboard", path: "/dashboard" },
-    { icon: Ruler, text: "Kriteria", path: "/kriteria" },
-    { icon: Ruler, text: "Sub Kriteria", path: "/sub-kriteria" },
-    { icon: Users, text: "Alternatif", path: "/alternatif" },
-    { icon: Users, text: "Alternatif Periode", path: "/alternatif-periode" },
-    { icon: Calendar, text: "Periode", path: "/periode" },
-    { icon: Users, text: "Users Management", path: "/users-management" },
-    { icon: MdGrade, text: "Penilaian Alternatif", path: "/penilaian" },
+  const menuGroups = [
     {
-      icon: CalculatorIcon,
-      text: "Perhitungan TOPSIS &  SAW",
-      path: "/perhitungan-intro",
+      title: "Utama",
+      items: [{ icon: LayoutDashboard, text: "Dashboard", path: "/dashboard" }],
     },
     {
-      icon: CalculatorIcon,
-      text: "Hasil Perhitungan",
-      path: "/hasil-perhitungan",
+      title: "Data Primary",
+      items: [
+        { icon: Ruler, text: "Kriteria", path: "/kriteria" },
+        { icon: Ruler, text: "Sub Kriteria", path: "/sub-kriteria" },
+        { icon: Users, text: "Alternatif", path: "/alternatif" },
+        { icon: Users, text: "Alternatif Periode", path: "/alternatif-periode" },
+        { icon: Calendar, text: "Periode", path: "/periode" },
+      ],
+    },
+    {
+      title: "Perhitungan",
+      items: [
+        {
+          icon: CalculatorIcon,
+          text: "Perhitungan TOPSIS &  SAW",
+          path: "/perhitungan-intro",
+        },
+        {
+          icon: CalculatorIcon,
+          text: "Hasil Perhitungan",
+          path: "/hasil-perhitungan",
+        },
+      ],
+    },
+    {
+      title: "Manajemen",
+      items: [
+        { icon: Users, text: "Users Management", path: "/users-management" },
+        { icon: MdGrade, text: "Penilaian Alternatif", path: "/penilaian" },
+      ],
     },
   ];
+  
 
   // 🚫 Saat user belum tersedia (misalnya masih loading), jangan render menu
   if (!user) return null;
@@ -66,10 +94,9 @@ export const Sidebar = ({ isOpen, onClose }) => {
       >
         <div className="flex flex-col flex-1">
           <nav className="flex-1 p-6 flex flex-col">
-            <div className="space-y-1">
-              {menuItems
-                .filter((item) => {
-                  // 🎯 Role KEPALA_DESA hanya akses 2 menu
+            <div className="space-y-4">
+              {menuGroups.map((group, groupIdx) => {
+                const filteredItems = group.items.filter((item) => {
                   if (user.role === "KEPALA_DESA") {
                     return (
                       item.text === "Kriteria" ||
@@ -79,34 +106,48 @@ export const Sidebar = ({ isOpen, onClose }) => {
                       item.text === "Hasil Perhitungan"
                     );
                   }
-
-                  // ADMIN dan PERANGKAT_DESA bisa akses semua
                   if (user.role === "ADMIN" || user.role === "PERANGKAT_DESA") {
                     return true;
                   }
-
                   return false;
-                })
-                .map((item, index) => (
-                  <NavLink
-                    key={index}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
-                        isActive ? "bg-gray-700 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                      }`
-                    }
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span className="text-sm font-medium">{item.text}</span>
-                  </NavLink>
-                ))}
+                });
+
+                if (filteredItems.length === 0) return null;
+
+                return (
+                  <div key={groupIdx} className="space-y-1">
+                    <p className="text-xs text-gray-400 uppercase tracking-wide px-3">
+                      {group.title}
+                    </p>
+                    {filteredItems.map((item, index) => (
+                      <NavLink
+                        key={index}
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
+                            isActive
+                              ? "bg-gray-700 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                          }`
+                        }
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span className="text-sm font-medium">{item.text}</span>
+                      </NavLink>
+                    ))}
+                    {/* Optional separator */}
+                    {groupIdx !== menuGroups.length - 1 && (
+                      <hr className="border-t border-gray-600 my-2 mx-3" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* 🔥 Logout Button */}
             <button
               onClick={logout}
-              className="flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-gray-300 hover:bg-red-700 hover:text-white mt-auto"
+              className="flex items-center space-x-3 px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 mt-auto transition-colors"
             >
               <LogOut className="h-5 w-5" />
               <span className="text-sm font-medium">Keluar</span>

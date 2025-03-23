@@ -1,11 +1,4 @@
-import {
-  Bell,
-  BookOpen,
-  Menu,
-  X,
-  User,
-  LogOut,
-} from "lucide-react";
+import { Bell, BookOpen, Menu, X, User, LogOut } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import ConfirmationDialog from "../ui/ConfirmationDialogComponent";
@@ -95,8 +88,11 @@ export const Header = ({ onMenuClick, isSidebarOpen }) => {
               <User className="h-4 w-4 mr-2" />
               Profile
             </Dropdown.Item>
-            <Dropdown.Item onClick={logout}>
-              <LogOut className="h-4 w-4 mr-2" />
+            <Dropdown.Item
+              onClick={logout}
+              className="text-red-600 hover:bg-red-100 focus:bg-red-100"
+            >
+              <LogOut className="h-4 w-4 mr-2 text-red-600" />
               Logout
             </Dropdown.Item>
           </Dropdown>
