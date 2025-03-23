@@ -6,26 +6,29 @@ import { Select } from "flowbite-react";
 import { usePeriode } from "../../hooks/usePeriode";
 import { useEffect, useState } from "react";
 import ButtonExportToPdf from "../../components/ui/ButtonExportToPdf";
-import { getHasilPerhitunganByPeriode } from "../../api/hasilPerhitunganApi"; // ✅
+import {
+  getHasilPerhitungan,
+  getHasilPerhitunganByPeriode,
+} from "../../api/hasilPerhitunganApi";
 
 export default function RankingList() {
   const { periode } = usePeriode();
   const [selectedPeriode, setSelectedPeriode] = useState("");
   const [isPrinting, setIsPrinting] = useState(false);
-  const [rankingData, setRankingData] = useState([]); // ✅
+  const [rankingData, setRankingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!selectedPeriode) {
-        setRankingData([]);
-        return;
-      }
-
       try {
-        const data = await getHasilPerhitunganByPeriode(selectedPeriode); // ✅
-        setRankingData(data);
+        if (!selectedPeriode) {
+          const allData = await getHasilPerhitungan();
+          setRankingData(allData);
+        } else {
+          const filtered = await getHasilPerhitunganByPeriode(Number(selectedPeriode));
+          setRankingData(filtered);
+        }
       } catch (error) {
-        console.error("❌ Gagal mengambil data hasil perhitungan:", error);
+        console.error("❌ Gagal mengambil data hasil perhitungan:", error.response?.data || error.message);
       }
     };
 
@@ -58,7 +61,7 @@ export default function RankingList() {
               },
             }}
           >
-            <option value="" className="text-gray-900">Pilih Periode</option>
+            <option value="">Semua Periode</option>
             {periode?.map((p) => (
               <option key={p.id_periode} value={p.id_periode}>
                 {p.nama_periode}
@@ -75,7 +78,7 @@ export default function RankingList() {
         />
       </div>
 
-      {/* Tabel versi cetak */}
+      {/* Untuk cetak */}
       <div
         id="ranking-table-print"
         className={isPrinting ? "block mb-4" : "hidden"}
@@ -84,7 +87,10 @@ export default function RankingList() {
         <div className="text-center mb-4">
           <h2 className="text-2xl font-bold">Hasil Perhitungan</h2>
           <p className="text-lg">
-            {periode?.find((p) => p.id_periode === selectedPeriode)?.nama_periode || ""}
+            {
+              periode?.find((p) => p.id_periode === Number(selectedPeriode))
+                ?.nama_periode || "Semua Periode"
+            }
           </p>
         </div>
         <RankingTable
@@ -94,7 +100,7 @@ export default function RankingList() {
         />
       </div>
 
-      {/* Tabel versi tampilan biasa */}
+      {/* Untuk tampilan biasa */}
       <div className={isPrinting ? "hidden" : "block"}>
         <RankingTable
           rankings={rankingData}

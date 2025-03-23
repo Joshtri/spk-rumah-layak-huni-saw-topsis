@@ -1,10 +1,15 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/hasil-perhitungan`;
+const API_URL = `${import.meta.env.VITE_BASE_URL}/api/hasil-perhitungan`;
 
 export const getHasilPerhitunganByPeriode = async (periodeId) => {
   const response = await axios.get(`${API_URL}/${periodeId}`);
   return response.data;
+};
+
+export const getHasilPerhitungan = async () => {
+    const response = await axios.get(`${API_URL}`);
+    return response.data;
 };
 
 export const saveHasilPerhitungan = async (data) => {
