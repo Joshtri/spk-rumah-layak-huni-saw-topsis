@@ -25,88 +25,66 @@ import SPKStepByStep from "./pages/HowTo/HowToPage";
 function App() {
   return (
     <KriteriaProvider>
-      <Toaster
-        position="top-right"
-        richColors
-      />
+      <Toaster position="top-right" richColors />
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route
-            path="/"
-            element={<LoginPage />}
-          />
-          <Route
-            path="/forgot-password"
-            element={<ForgotPassword />}
-          />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Protected Routes - HANYA ADMIN yang bisa mengakses */}
-          <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-            <Route
-              path="/dashboard"
-              element={<DashboardPage />}
-            />
-            <Route
-              path="/alternatif"
-              element={<AlternatifList />}
-            />
-            <Route
-              path="/profile"
-              element={<Profile />}
-            />
-            <Route
-              path="/hasil-perhitungan"
-              element={<RankingList />}
-            />
-            <Route
-              path="/kriteria"
-              element={<KriteriaList />}
-            />
-            <Route
-              path="/sub-kriteria"
-              element={<SubKriteriaList />}
-            />
-            <Route
-              path="/periode"
-              element={<PeriodeList />}
-            />
-            <Route
-              path="/users-management"
-              element={<UsersList />}
-            />
-            <Route
-              path="/penilaian"
-              element={<PenilaianList />}
-            />
-            <Route
-              path="/penilaian/create"
-              element={<PenilaianCreate />}
-            />
+          {/* 🔒 Dashboard - semua role boleh */}
+          <Route
+            element={
+              <ProtectedRoute
+                allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]}
+              />
+            }
+          >
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
+
+          {/* 🔒 Hanya ADMIN & PERANGKAT_DESA */}
+          <Route
+            element={
+              <ProtectedRoute allowedRoles={["ADMIN", "PERANGKAT_DESA"]} />
+            }
+          >
+            <Route path="/alternatif" element={<AlternatifList />} />
+            <Route path="/hasil-perhitungan" element={<RankingList />} />
+            <Route path="/periode" element={<PeriodeList />} />
+            <Route path="/users-management" element={<UsersList />} />
+            <Route path="/penilaian" element={<PenilaianList />} />
+            <Route path="/penilaian/create" element={<PenilaianCreate />} />
             <Route
               path="/alternatif-periode"
               element={<AlternatifPeriodeList />}
             />
-
-            <Route
-              path="/perhitungan-intro"
-              element={<PerhitunganMain />}
-            />
+            <Route path="/perhitungan-intro" element={<PerhitunganMain />} />
             <Route
               path="/perhitungan-saw-topsis"
               element={<PerhitunganSawTopsisMain />}
             />
           </Route>
 
+          {/* 🔒 KEPALA_DESA + ADMIN + PERANGKAT_DESA (shared access) */}
           <Route
-            path="/how-to"
-            element={<SPKStepByStep />}/>
+            element={
+              <ProtectedRoute
+                allowedRoles={["ADMIN", "PERANGKAT_DESA", "KEPALA_DESA"]}
+              />
+            }
+          >
+            <Route path="/kriteria" element={<KriteriaList />} />
+            <Route path="/sub-kriteria" element={<SubKriteriaList />} />
+            <Route path="/profile" element={<Profile />} />
 
-          {/* Not Found Route */}
-          <Route
-            path="*"
-            element={<h1>404 - Page Not Found</h1>}
-          />
+          </Route>
+
+          {/* Public How-To Page */}
+          <Route path="/how-to" element={<SPKStepByStep />} />
+
+          {/* Not Found */}
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </KriteriaProvider>

@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChangePasswordModal from "./ChangePasswordModal";
+import { useAuth } from "../../hooks/useAuth"; // 🔥 Ambil hook auth
 
 export default function ProfileData() {
+  const { user } = useAuth(); // ✅ Ambil user dari context
+
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+  // Isi form saat data user tersedia
+  useEffect(() => {
+    if (user) {
+      setUsername(user.username || "");
+      setEmail(user.email || "");
+    }
+  }, [user]);
+
   return (
     <>
       <ChangePasswordModal
@@ -16,13 +28,15 @@ export default function ProfileData() {
       {/* profile */}
       <div className="border-b border-gray-300 pb-6 mb-6">
         <div className="flex justify-between items-center mb-2">
-          {/* title */}
           <h1 className="text-2xl font-semibold text-gray-900">Profil</h1>
 
-          {/* edit button */}
+          {/* Buttons */}
           <div className="flex gap-2">
             <button
-              onClick={() => setIsEditing(false)}
+              onClick={() => {
+                // 🔒 Simpan bisa panggil API update profile nanti di sini
+                setIsEditing(false);
+              }}
               className={`px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-lg ${
                 !isEditing ? "hidden" : ""
               }`}
@@ -41,9 +55,9 @@ export default function ProfileData() {
           </div>
         </div>
 
-        {/* data textfield*/}
+        {/* Data TextField */}
         <div className="grid grid-rows-2 gap-6">
-          {/* username */}
+          {/* Username */}
           <div>
             <label
               htmlFor="username"
@@ -61,7 +75,7 @@ export default function ProfileData() {
             ></textarea>
           </div>
 
-          {/* email */}
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -83,10 +97,7 @@ export default function ProfileData() {
 
       {/* password */}
       <div className="flex justify-between items-center mb-2">
-        {/* title */}
         <h1 className="text-2xl font-semibold text-gray-900">Password</h1>
-
-        {/* change password button */}
         <button
           className="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg"
           onClick={() => setIsPasswordModalOpen(true)}

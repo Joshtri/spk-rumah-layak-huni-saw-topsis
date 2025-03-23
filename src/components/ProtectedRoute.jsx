@@ -6,7 +6,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  console.log("🔒 Token di ProtectedRoute:", token); // 🔥 Debugging
+  // console.log("🔒 Token di ProtectedRoute:", token); // 🔥 Debugging
 
   if (!token) {
     return (

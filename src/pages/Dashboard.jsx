@@ -7,6 +7,7 @@ import { usePeriode } from "../hooks/usePeriode";
 import { useKriteria } from "../hooks/useKriteria";
 import { useAlternatifPeriode } from "../hooks/useAlternatifPeriode";
 import Layout from "./Layout";
+import { useAuth } from "../hooks/useAuth";
 
 const Dashboard = () => {
   const { alternatif, loading: loadingAlternatif } = useAlternatif();
@@ -14,59 +15,80 @@ const Dashboard = () => {
   const { kriteria, loading: loadingKriteria } = useKriteria();
   const { alternatifPeriode, loading: loadingAlternatifPeriode } =
     useAlternatifPeriode();
+
+  const { user } = useAuth();
+
+  const getSalamWaktu = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Pagi";
+    if (hour < 18) return "Siang";
+    return "Sore";
+  };
+
   return (
     <Layout>
-      <div className="grid grid-rows-[auto,1fr] gap-10 h-full">
-        {/* 🔥 Greeting */}
-        <div className="flex justify-center items-center h-full text-center">
-          <h1
-            className="text-6xl font-bold text-gray-800 
-          transition-all duration-300 ease-in-out
-          [text-shadow:_0px_10px_10px_rgb(0_0_0_/_20%)]"
-          >
-            Selamat Datang di Dashboard!
-          </h1>
+      {/* 🔥 Stat Cards */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-gradient-to-r from-primary/10 to-white border border-primary/20 p-6 rounded-2xl shadow-sm mb-5">
+        {/* Icon / Emoji / Avatar */}
+        {/* <div className="text-5xl">👋</div> */}
+
+        {/* Textual Content */}
+        <div className="text-center md:text-left space-y-1">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+            Selamat {getSalamWaktu()}, {user?.username || "User"}!
+          </h2>
+          {user?.role}
+          <p className="text-gray-500 text-sm md:text-base">
+            Semoga harimu menyenangkan dan produktif 🌿
+          </p>
         </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 🔥 Greeting Section */}
 
-        {/* 🔥 Stat Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Total Alternatif */}
-          <StatCard
-            title="Total Alternatif"
-            navTo="/alternatif"
-            navText="Lihat Semua"
-            icon={<FiUsers />}
-          >
-            <p className="text-3xl font-bold text-gray-800">
-              {loadingAlternatif ? "..." : alternatif.length}
-            </p>
-          </StatCard>
+        {/* 🔐 ADMIN & PERANGKAT_DESA bisa lihat semua */}
+        {(user?.role === "ADMIN" || user?.role === "PERANGKAT_DESA") && (
+          <>
+            {/* Total Alternatif */}
+            <StatCard
+              title="Total Alternatif"
+              navTo="/alternatif"
+              navText="Lihat Semua"
+              icon={<FiUsers />}
+            >
+              <p className="text-3xl font-bold text-gray-800">
+                {loadingAlternatif ? "..." : alternatif.length}
+              </p>
+            </StatCard>
 
-          {/* Total Periode */}
-          <StatCard
-            title="Total Periode"
-            navTo="/periode"
-            navText="Lihat Semua"
-            icon={<FiClock />}
-          >
-            <p className="text-3xl font-bold text-gray-800">
-              {loadingPeriode ? "..." : periode.length}
-            </p>
-          </StatCard>
+            {/* Total Periode */}
+            <StatCard
+              title="Total Periode"
+              navTo="/periode"
+              navText="Lihat Semua"
+              icon={<FiClock />}
+            >
+              <p className="text-3xl font-bold text-gray-800">
+                {loadingPeriode ? "..." : periode.length}
+              </p>
+            </StatCard>
+          </>
+        )}
 
-          {/* Total Kriteria */}
-          <StatCard
-            title="Total Kriteria"
-            navTo="/kriteria"
-            navText="Lihat Semua"
-            icon={<FiList />}
-          >
-            <p className="text-3xl font-bold text-gray-800">
-              {loadingKriteria ? "..." : kriteria.length}
-            </p>
-          </StatCard>
+        {/* Semua Role Bisa Lihat Total Kriteria */}
+        <StatCard
+          title="Total Kriteria"
+          navTo="/kriteria"
+          navText="Lihat Semua"
+          icon={<FiList />}
+        >
+          <p className="text-3xl font-bold text-gray-800">
+            {loadingKriteria ? "..." : kriteria.length}
+          </p>
+        </StatCard>
 
-          {/* Total Alternatif dalam Periode */}
+        {/* 🔐 ADMIN & PERANGKAT_DESA bisa lihat Alternatif Terdaftar */}
+        {(user?.role === "ADMIN" || user?.role === "PERANGKAT_DESA") && (
           <StatCard
             title="Alternatif Terdaftar"
             navTo="/alternatif-periode"
@@ -77,7 +99,7 @@ const Dashboard = () => {
               {loadingAlternatifPeriode ? "..." : alternatifPeriode.length}
             </p>
           </StatCard>
-        </div>
+        )}
       </div>
     </Layout>
   );

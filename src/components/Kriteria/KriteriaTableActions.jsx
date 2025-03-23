@@ -9,7 +9,8 @@ import { useKriteria } from "../../hooks/useKriteria";
 export default function KriteriaTableActions({ idKriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubKriteriaModalOpen, setIsSubKriteriaModalOpen] = useState(false);
-  const [isSubKriteriaViewModalOpen, setIsSubKriteriaViewModalOpen] = useState(false); // 🔥 Modal Lihat Subkriteria
+  const [isSubKriteriaViewModalOpen, setIsSubKriteriaViewModalOpen] =
+    useState(false); // 🔥 Modal Lihat Subkriteria
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { removeKriteria } = useKriteria();
 
@@ -24,6 +25,9 @@ export default function KriteriaTableActions({ idKriteria }) {
       console.error("Error deleting kriteria:", error);
     }
   };
+
+  const role = localStorage.getItem("role");
+  const isAdminOrKepalaDesa = role === "ADMIN" || role === "KEPALA_DESA";
 
   return (
     <>
@@ -48,18 +52,31 @@ export default function KriteriaTableActions({ idKriteria }) {
       />
 
       {/* Modal Konfirmasi Hapus */}
-      <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}>
+      <Modal
+        show={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
         <Modal.Body>
           <div className="text-center p-4">
-            <h3 className="text-lg font-semibold text-gray-900">Apakah kamu yakin ingin menghapus kriteria ini?</h3>
-            <p className="text-gray-600 mt-2">Tindakan ini tidak dapat dibatalkan.</p>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Apakah kamu yakin ingin menghapus kriteria ini?
+            </h3>
+            <p className="text-gray-600 mt-2">
+              Tindakan ini tidak dapat dibatalkan.
+            </p>
           </div>
         </Modal.Body>
         <Modal.Footer className="flex justify-center">
-          <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white">
+          <Button
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-700 text-white"
+          >
             Hapus
           </Button>
-          <Button onClick={() => setIsDeleteModalOpen(false)} className="bg-gray-500 hover:bg-gray-700 text-white">
+          <Button
+            onClick={() => setIsDeleteModalOpen(false)}
+            className="bg-gray-500 hover:bg-gray-700 text-white"
+          >
             Batal
           </Button>
         </Modal.Footer>
@@ -67,24 +84,31 @@ export default function KriteriaTableActions({ idKriteria }) {
 
       {/* Tombol Aksi */}
       <div className="flex gap-2 justify-center">
-        <button
-          className="min-w-[4rem] bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Edit
-        </button>
-        <button
-          className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm"
-          onClick={() => setIsDeleteModalOpen(true)}
-        >
-          Hapus
-        </button>
-        <button
-          className="min-w-[6rem] bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded text-sm"
-          onClick={() => setIsSubKriteriaModalOpen(true)}
-        >
-          Tambah Subkriteria
-        </button>
+        {/* 🔐 Tampil hanya untuk ADMIN & KEPALA_DESA */}
+        {isAdminOrKepalaDesa && (
+          <>
+            <button
+              className="min-w-[4rem] bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Edit
+            </button>
+            <button
+              className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm"
+              onClick={() => setIsDeleteModalOpen(true)}
+            >
+              Hapus
+            </button>
+            <button
+              className="min-w-[6rem] bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded text-sm"
+              onClick={() => setIsSubKriteriaModalOpen(true)}
+            >
+              Tambah Subkriteria
+            </button>
+          </>
+        )}
+
+        {/* 🔓 Semua role bisa lihat subkriteria */}
         <button
           className="min-w-[6rem] bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded text-sm"
           onClick={() => setIsSubKriteriaViewModalOpen(true)}
