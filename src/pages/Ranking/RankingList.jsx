@@ -4,24 +4,33 @@ import PageTitle from "../../components/ui/PageTitle";
 import BreadCrumbs from "../../components/ui/Breadcrumbs";
 import { Select } from "flowbite-react";
 import { usePeriode } from "../../hooks/usePeriode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonExportToPdf from "../../components/ui/ButtonExportToPdf";
+import { getHasilPerhitunganByPeriode } from "../../api/hasilPerhitunganApi"; // ✅
 
 export default function RankingList() {
   const { periode } = usePeriode();
   const [selectedPeriode, setSelectedPeriode] = useState("");
   const [isPrinting, setIsPrinting] = useState(false);
+  const [rankingData, setRankingData] = useState([]); // ✅
 
-  // Add dummy data
-  const dummyRankings = [
-    { id: 1, nama: "John Doe", nilai: 85.5 },
-    { id: 2, nama: "Jane Smith", nilai: 82.3 },
-    { id: 3, nama: "Bob Johnson", nilai: 78.9 },
-    { id: 4, nama: "Alice Brown", nilai: 77.2 },
-    { id: 5, nama: "Charlie Davis", nilai: 75.8 },
-    { id: 6, nama: "Eva Wilson", nilai: 73.4 },
-    { id: 7, nama: "Frank Miller", nilai: 71.1 },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedPeriode) {
+        setRankingData([]);
+        return;
+      }
+
+      try {
+        const data = await getHasilPerhitunganByPeriode(selectedPeriode); // ✅
+        setRankingData(data);
+      } catch (error) {
+        console.error("❌ Gagal mengambil data hasil perhitungan:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPeriode]);
 
   return (
     <Layout>
@@ -49,23 +58,15 @@ export default function RankingList() {
               },
             }}
           >
-            <option
-              value=""
-              className="text-gray-900"
-            >
-              Pilih Periode
-            </option>
+            <option value="" className="text-gray-900">Pilih Periode</option>
             {periode?.map((p) => (
-              <option
-                key={p.id_periode}
-                value={p.id_periode}
-                className="text-gray-900"
-              >
+              <option key={p.id_periode} value={p.id_periode}>
                 {p.nama_periode}
               </option>
             ))}
           </Select>
         </div>
+
         <ButtonExportToPdf
           elementId="ranking-table-print"
           filename="hasil-perhitungan"
@@ -74,7 +75,7 @@ export default function RankingList() {
         />
       </div>
 
-      {/* Table for PDF export - temporarily visible during export */}
+      {/* Tabel versi cetak */}
       <div
         id="ranking-table-print"
         className={isPrinting ? "block mb-4" : "hidden"}
@@ -82,19 +83,21 @@ export default function RankingList() {
       >
         <div className="text-center mb-4">
           <h2 className="text-2xl font-bold">Hasil Perhitungan</h2>
-          <p className="text-lg">{periode?.find((p) => p.id_periode === selectedPeriode)?.nama_periode || ""}</p>
+          <p className="text-lg">
+            {periode?.find((p) => p.id_periode === selectedPeriode)?.nama_periode || ""}
+          </p>
         </div>
         <RankingTable
-          rankings={dummyRankings}
-          disablePagination={true} // This is crucial
-          showAllData={true} // Add this prop if needed
+          rankings={rankingData}
+          disablePagination={true}
+          showAllData={true}
         />
       </div>
 
-      {/* Visible table with pagination */}
+      {/* Tabel versi tampilan biasa */}
       <div className={isPrinting ? "hidden" : "block"}>
         <RankingTable
-          rankings={dummyRankings}
+          rankings={rankingData}
           disablePagination={false}
         />
       </div>

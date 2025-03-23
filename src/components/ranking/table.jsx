@@ -1,9 +1,15 @@
 import { Table } from "flowbite-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Paginations from "../ui/Pagination";
+import { getHasilPerhitunganByPeriode } from "../../api/hasilPerhitunganApi";
+import { useParams } from "react-router-dom";
 
-export default function RankingTable({ rankings = [], disablePagination = false, showAllData = false }) {
-  // Add pagination states
+export default function RankingTable({ disablePagination = false, showAllData = false }) {
+  const { periodeId } = useParams(); // Ambil dari URL: /hasil-perhitungan/:periodeId
+  const [rankings, setRankings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Pagination
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(rankings.length / itemsPerPage);
@@ -11,11 +17,29 @@ export default function RankingTable({ rankings = [], disablePagination = false,
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = rankings.slice(startIndex, endIndex);
+  const displayData = disablePagination || showAllData ? rankings : currentData;
 
   const onPageChange = (page) => setCurrentPage(page);
 
-  // Use all data when printing
-  const displayData = disablePagination || showAllData ? rankings : currentData;
+  // Fetch data saat mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getHasilPerhitunganByPeriode(periodeId);
+        setRankings(data);
+      } catch (error) {
+        console.error("❌ Gagal memuat hasil perhitungan:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (periodeId) fetchData();
+  }, [periodeId]);
+
+  if (loading) {
+    return <p className="text-center py-4">Loading data...</p>;
+  }
 
   return (
     <div className="overflow-x-auto rounded-lg shadow">
@@ -39,13 +63,16 @@ export default function RankingTable({ rankings = [], disablePagination = false,
         </Table.Head>
         <Table.Body className="divide-y">
           {displayData.map((ranking, index) => (
-            <Table.Row
-              key={index}
-              className="bg-white"
-            >
-              <Table.Cell className="font-medium text-gray-900 text-center">{startIndex + index + 1}</Table.Cell>
-              <Table.Cell className="text-gray-900 text-center">{ranking.nama}</Table.Cell>
-              <Table.Cell className="text-gray-900 text-center">{ranking.nilai}</Table.Cell>
+            <Table.Row key={index} className="bg-white">
+              <Table.Cell className="font-medium text-gray-900 text-center">
+                {startIndex + index + 1}
+              </Table.Cell>
+              <Table.Cell className="text-gray-900 text-center">
+                {ranking.nama}
+              </Table.Cell>
+              <Table.Cell className="text-gray-900 text-center">
+                {ranking.nilai}
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
