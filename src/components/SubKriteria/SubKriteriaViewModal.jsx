@@ -1,6 +1,6 @@
 import { Modal, Table, Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useKriteria } from "../../hooks/useKriteria"; // 🔥 Import hooks
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
 
 export default function SubKriteriaViewModal({ isOpen, onClose, idKriteria }) {
   const { getSubKriteriaByKriteria } = useKriteria(); // 🔥 Fetch subkriteria

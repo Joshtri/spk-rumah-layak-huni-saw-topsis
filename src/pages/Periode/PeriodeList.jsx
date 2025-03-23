@@ -3,7 +3,8 @@ import PeriodeTable from "../../components/Periode/PeriodeTable";
 import Layout from "../Layout";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
-import { usePeriode } from "../../hooks/usePeriode";
+import { usePeriodeContext } from "../../contexts/periodeContext";
+
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import Paginations from "../../components/ui/Pagination";
 
@@ -11,7 +12,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function PeriodeList() {
-  const { periode, loading } = usePeriode();
+  const { periode, loading } = usePeriodeContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 

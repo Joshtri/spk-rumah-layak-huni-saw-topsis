@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Select, Spinner } from "flowbite-react";
-import { usePenilaian } from "../../../hooks/usePenilaian";
-import { useKriteria } from "../../../hooks/useKriteria";
-import { usePeriode } from "../../../hooks/usePeriode";
+import { usePenilaianContext as usePenilaian } from "../../../contexts/penilaianContext";
+import { useKriteriaContext as useKriteria } from "../../../contexts/kriteriaContext";
+import { usePeriodeContext } from "../../../contexts/periodeContext";
 
 import MatriksKeputusan from "../SawTopsis/Saw/MatriksKeputusan";
 import NormalisasiSAW from "../SawTopsis/Saw/NormalisasiSaw";
@@ -14,7 +14,7 @@ import NilaiPreferensi from "../SawTopsis/Topsis/NilaiPreferensi";
 export default function PerhitunganSawTopsis() {
   const { penilaian, loading, fetchPenilaian } = usePenilaian();
   const { kriteria, loading: kriteriaLoading, fetchKriteria } = useKriteria();
-  const { periode, fetchPeriode } = usePeriode();
+  const { periode, fetchPeriode } = usePeriodeContext();
 
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [filteredPenilaian, setFilteredPenilaian] = useState([]);

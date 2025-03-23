@@ -7,10 +7,10 @@ import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import Paginations from "../../components/ui/Pagination";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
+import { useAlternatifPeriodeContext } from "../../contexts/alternatifPeriodeContext";
 
 export default function AlternatifPeriodeList() {
-  const { alternatifPeriode, loading } = useAlternatifPeriode();
+  const { alternatifPeriode, loading } = useAlternatifPeriodeContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 

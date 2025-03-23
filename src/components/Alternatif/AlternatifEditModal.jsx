@@ -1,12 +1,12 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { useAlternatif } from "../../hooks/useAlternatif";
-import { usePeriode } from "../../hooks/usePeriode";
-import { toast } from "sonner";
+import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
+ import { toast } from "sonner";
+import { usePeriodeContext } from "../../contexts/periodeContext";
 
 export default function AlternatifEditModal({ isOpen, onClose, alternatifId }) {
   const { getAlternatifById, editAlternatif } = useAlternatif();
-  const { periode } = usePeriode();
+  const { periode } = usePeriodeContext();
 
   const [alternatifName, setAlternatifName] = useState("");
   const [selectedPeriode, setSelectedPeriode] = useState("");
