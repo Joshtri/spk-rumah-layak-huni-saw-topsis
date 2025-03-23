@@ -5,7 +5,7 @@ import { FiList, FiUsers, FiClock, FiBarChart2 } from "react-icons/fi"; // 🔥 
 import { useAlternatifContext as useAlternatif } from "../contexts/alternatifContext";
 import { usePeriodeContext } from "../contexts/periodeContext";
 import { useKriteriaContext as useKriteria } from "../contexts/kriteriaContext";
-import { useAlternatifPeriode } from "../hooks/useAlternatifPeriode";
+import { useAlternatifPeriodeContext } from "../contexts/alternatifPeriodeContext";
 import Layout from "./Layout";
 import { useAuth } from "../hooks/useAuth";
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
   const { periode, loading: loadingPeriode } = usePeriodeContext();
   const { kriteria, loading: loadingKriteria } = useKriteria();
   const { alternatifPeriode, loading: loadingAlternatifPeriode } =
-    useAlternatifPeriode();
+  useAlternatifPeriodeContext();
 
   const { user } = useAuth();
 

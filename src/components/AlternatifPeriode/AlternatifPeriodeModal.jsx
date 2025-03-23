@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Select } from "flowbite-react";
-import { useAlternatifPeriode } from "../../hooks/useAlternatifPeriode";
+import { useAlternatifPeriodeContext } from "../../contexts/alternatifPeriodeContext";
+
 import { usePeriodeContext } from "../../contexts/periodeContext";
 import { toast } from "sonner";
 
 export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif }) {
-  const { daftarAlternatifPeriode } = useAlternatifPeriode();
+  const { daftarAlternatifPeriode } = useAlternatifPeriodeContext();
   const { periode, fetchPeriode } = usePeriodeContext(); // 🔥 Ambil daftar Periode
   const [selectedPeriode, setSelectedPeriode] = useState();
 

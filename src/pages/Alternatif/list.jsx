@@ -5,11 +5,11 @@ import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import Paginations from "../../components/ui/Pagination";
-import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
+import { useAlternatifContext } from "../../contexts/alternatifContext";
 import { useState, useEffect } from "react";
 
 export default function AlternatifList() {
-  const { alternatif, loading } = useAlternatif();
+  const { alternatif, loading } = useAlternatifContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
 
