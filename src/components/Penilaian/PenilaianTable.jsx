@@ -1,6 +1,6 @@
 import { Table, Spinner, Button } from "flowbite-react";
-import { usePenilaian } from "../../hooks/usePenilaian";
-import { useKriteria } from "../../hooks/useKriteria";
+import { usePenilaianContext as usePenilaian } from "../../contexts/penilaianContext";
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../ui/SearchBar";

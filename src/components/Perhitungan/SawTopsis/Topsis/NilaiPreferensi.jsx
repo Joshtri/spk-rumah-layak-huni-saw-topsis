@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Table, Button, Select, Spinner } from "flowbite-react";
 import axios from "axios";
 import { toast } from "sonner";
-import { usePeriode } from "../../../../hooks/usePeriode";
+import { usePeriodeContext } from "../../../../contexts/periodeContext";
 
 export default function NilaiPreferensi({ finalScores = [] }) {
-  const { periode, loading, fetchPeriode } = usePeriode();
+  const { periode, loading, fetchPeriode } = usePeriodeContext();
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [existingData, setExistingData] = useState(false); // ✅ Cek apakah data sudah ada
 

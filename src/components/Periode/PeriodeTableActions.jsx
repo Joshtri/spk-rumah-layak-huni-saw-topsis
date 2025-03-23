@@ -1,8 +1,8 @@
-import { usePeriode } from "../../hooks/usePeriode";
+import { usePeriodeContext } from "../../contexts/periodeContext";
 import { Table, Spinner } from "flowbite-react";
 
 export default function PeriodeTable() {
-  const { periode, loading } = usePeriode();
+  const { periode, loading } = usePeriodeContext();
 
   return (
     <div className="overflow-x-auto rounded-lg shadow">

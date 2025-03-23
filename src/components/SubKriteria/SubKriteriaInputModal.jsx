@@ -1,7 +1,7 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useKriteriaContext } from "../../contexts/kriteriaContext"; // Untuk dropdown Kriteria
-import { useSubKriteria } from "../../hooks/useSubKriteria"; // Gunakan hooks sub-kriteria
+import { useSubKriteriaContext as useSubKriteria } from "../../contexts/subKriteriaContext"; // Gunakan hooks sub-kriteria
 import { toast } from "sonner"; // Untuk notifikasi
 
 export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {

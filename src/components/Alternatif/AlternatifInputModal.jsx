@@ -1,6 +1,6 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
-import { useAlternatif } from "../../hooks/useAlternatif";
+import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
 import { toast } from "sonner";
 
 export default function AlternatifInputModal({ isOpen, onClose }) {

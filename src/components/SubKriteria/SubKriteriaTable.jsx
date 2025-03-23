@@ -1,4 +1,4 @@
-import { useSubKriteria } from "../../hooks/useSubKriteria";
+import { useSubKriteriaContext as useSubKriteria } from "../../contexts/subKriteriaContext";
 import { Table, Button } from "flowbite-react";
 import SubCriteriaTableActions from "./SubKriteriaTableActions";
 import { useState, useEffect } from "react";

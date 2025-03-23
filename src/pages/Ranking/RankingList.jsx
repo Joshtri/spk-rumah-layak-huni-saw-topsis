@@ -3,7 +3,7 @@ import RankingTable from "../../components/ranking/table";
 import PageTitle from "../../components/ui/PageTitle";
 import BreadCrumbs from "../../components/ui/Breadcrumbs";
 import { Select } from "flowbite-react";
-import { usePeriode } from "../../hooks/usePeriode";
+import { usePeriodeContext } from "../../contexts/periodeContext";
 import { useEffect, useState } from "react";
 import ButtonExportToPdf from "../../components/ui/ButtonExportToPdf";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../../api/hasilPerhitunganApi";
 
 export default function RankingList() {
-  const { periode } = usePeriode();
+  const { periode } = usePeriodeContext();
   const [selectedPeriode, setSelectedPeriode] = useState("");
   const [isPrinting, setIsPrinting] = useState(false);
   const [rankingData, setRankingData] = useState([]);
