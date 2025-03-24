@@ -8,6 +8,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
   const { periode, loading, fetchPeriode } = usePeriodeContext();
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [existingData, setExistingData] = useState(false); // ✅ Cek apakah data sudah ada
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     fetchPeriode();
@@ -29,6 +30,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
     }
   };
   const saveResults = async () => {
+    if (isSaving) return; // Prevent multiple clicks
     if (!selectedPeriod || isNaN(selectedPeriod)) {
       toast.error("❌ Pilih periode terlebih dahulu!");
       return;
@@ -40,6 +42,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
     }
 
     try {
+      setIsSaving(true);
       const periodeIdInt = parseInt(selectedPeriod, 10);
 
       const formattedResults = finalScores.map((alt, index) => ({
@@ -64,6 +67,8 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       } else {
         toast.error("❌ Gagal menyimpan hasil perhitungan.");
       }
+    } finally {
+      setIsSaving(false);
     }
   };
 
