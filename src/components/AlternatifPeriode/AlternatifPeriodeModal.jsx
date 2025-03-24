@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Select } from "flowbite-react";
 import { useAlternatifPeriodeContext } from "../../contexts/alternatifPeriodeContext";
-
+import { useAlternatifContext } from "../../contexts/alternatifContext";
 import { usePeriodeContext } from "../../contexts/periodeContext";
 import { toast } from "sonner";
 
-export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif }) {
+export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif, onSuccess }) {
   const { daftarAlternatifPeriode } = useAlternatifPeriodeContext();
-  const { periode, fetchPeriode } = usePeriodeContext(); // 🔥 Ambil daftar Periode
+  const { fetchAlternatif } = useAlternatifContext();
+  const { periode, fetchPeriode } = usePeriodeContext();
   const [selectedPeriode, setSelectedPeriode] = useState();
 
   useEffect(() => {
-    fetchPeriode(); // 🔥 Ambil daftar periode saat modal dibuka
+    fetchPeriode();
   }, []);
 
   const handleDaftar = async () => {
@@ -23,15 +24,21 @@ export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif }
     try {
       await daftarAlternatifPeriode(idAlternatif, selectedPeriode);
       toast.success("Alternatif berhasil didaftarkan ke Periode!");
+      await fetchAlternatif();
+      onSuccess?.();
       onClose();
     } catch (error) {
-        console.log(error);
+      console.error("Failed to register alternatif to periode:", error);
       toast.error("Gagal mendaftarkan Alternatif ke Periode.");
     }
   };
 
   return (
-    <Modal show={isOpen} onClose={onClose} size="md">
+    <Modal
+      show={isOpen}
+      onClose={onClose}
+      size="md"
+    >
       <div className="p-4 border-b">
         <h3 className="text-xl font-semibold text-center">Daftarkan Alternatif ke Periode</h3>
       </div>
@@ -40,10 +47,16 @@ export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif }
           {/* Pilih Periode */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Pilih Periode</label>
-            <Select value={selectedPeriode} onChange={(e) => setSelectedPeriode(e.target.value)}>
+            <Select
+              value={selectedPeriode}
+              onChange={(e) => setSelectedPeriode(e.target.value)}
+            >
               <option value="">Pilih Periode</option>
               {periode.map((item) => (
-                <option key={item.id_periode} value={item.id_periode}>
+                <option
+                  key={item.id_periode}
+                  value={item.id_periode}
+                >
                   {item.nama_periode}
                 </option>
               ))}
@@ -52,10 +65,16 @@ export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif }
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
-        <Button onClick={handleDaftar} className="bg-emerald-500 text-white">
+        <Button
+          onClick={handleDaftar}
+          className="bg-emerald-500 text-white"
+        >
           Simpan
         </Button>
-        <Button onClick={onClose} className="bg-red-500 text-white">
+        <Button
+          onClick={onClose}
+          className="bg-red-500 text-white"
+        >
           Batal
         </Button>
       </Modal.Footer>

@@ -33,15 +33,15 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       toast.error("❌ Pilih periode terlebih dahulu!");
       return;
     }
-  
+
     if (existingData) {
       toast.error("Hasil perhitungan sudah ada untuk periode ini. Harap hapus data sebelum menyimpan ulang.");
       return;
     }
-  
+
     try {
       const periodeIdInt = parseInt(selectedPeriod, 10);
-  
+
       const formattedResults = finalScores.map((alt, index) => ({
         alternatifId: alt.alternatifId,
         rangking: index + 1,
@@ -49,16 +49,16 @@ export default function NilaiPreferensi({ finalScores = [] }) {
         status: index + 1 <= 10 ? "Layak" : "Tidak Layak",
         periodeId: periodeIdInt,
       }));
-  
+
       await axios.post(`${import.meta.env.VITE_BASE_URL}/api/hasil-perhitungan`, {
         results: formattedResults,
       });
-  
+
       toast.success("✅ Hasil perhitungan berhasil disimpan!");
       checkExistingData(selectedPeriod); // 🔄 Refresh validasi setelah menyimpan
     } catch (error) {
       console.error("❌ Error saving results:", error);
-  
+
       if (error.response && error.response.data && error.response.data.error) {
         toast.error(` ${error.response.data.error}`);
       } else {
@@ -66,7 +66,6 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       }
     }
   };
-  
 
   const deleteResults = async () => {
     try {
@@ -81,12 +80,13 @@ export default function NilaiPreferensi({ finalScores = [] }) {
 
   return (
     <div className="mt-6">
-      <h3 className="text-lg font-semibold text-gray-700 mb-2">
-        Nilai Preferensi & Urutan Alternatif
-      </h3>
+      <h3 className="text-lg font-semibold text-gray-700 mb-2">Nilai Preferensi & Urutan Alternatif</h3>
 
       {loading ? (
-        <Spinner size="lg" className="text-center my-4" />
+        <Spinner
+          size="lg"
+          className="text-center my-4"
+        />
       ) : periode.length === 0 ? (
         <p className="text-red-500">❌ Tidak ada data periode tersedia.</p>
       ) : (
@@ -98,7 +98,10 @@ export default function NilaiPreferensi({ finalScores = [] }) {
           >
             <option value="">Pilih Periode</option>
             {periode.map((p) => (
-              <option key={p.id_periode} value={p.id_periode}>
+              <option
+                key={p.id_periode}
+                value={p.id_periode}
+              >
                 {p.nama_periode}
               </option>
             ))}
@@ -131,15 +134,18 @@ export default function NilaiPreferensi({ finalScores = [] }) {
             <Table.HeadCell>Ranking</Table.HeadCell>
             <Table.HeadCell>Alternatif</Table.HeadCell>
             <Table.HeadCell>Nilai Preferensi</Table.HeadCell>
-            <Table.HeadCell>Status</Table.HeadCell>
+            {/* <Table.HeadCell>Status</Table.HeadCell> */}
           </Table.Head>
           <Table.Body>
             {finalScores.map((alt, index) => (
-              <Table.Row key={alt.alternatifId} className={index + 1 <= 10 ? "bg-green-200" : "bg-red-200"}>
+              <Table.Row
+                key={alt.alternatifId}
+                className={index + 1 <= 10 ? "bg-green-200" : "bg-red-200"}
+              >
                 <Table.Cell>{index + 1}</Table.Cell>
                 <Table.Cell>{alt.nama_alternatif}</Table.Cell>
                 <Table.Cell>{alt.preference}</Table.Cell>
-                <Table.Cell className="font-semibold">{index + 1 <= 10 ? "Layak ✅" : "Tidak Layak ❌"}</Table.Cell>
+                {/* <Table.Cell className="font-semibold">{index + 1 <= 10 ? "Layak ✅" : "Tidak Layak ❌"}</Table.Cell> */}
               </Table.Row>
             ))}
           </Table.Body>
