@@ -33,19 +33,20 @@ export const AlternatifProvider = ({ children }) => {
     try {
       const data = await createAlternatif(newAlternatif);
       setAlternatif((prev) => [...prev, data]);
-      await fetchAlternatif(); // ⬅️ Tambahkan ini di sini
-
+      await fetchAlternatif();
     } catch (error) {
       console.error("❌ Error adding alternatif:", error);
       throw error;
     }
   };
 
-  const editAlternatif = async (id, updatedAlternatif) => {
+  const editAlternatif = async (id_alternatif, updatedAlternatif) => {
     try {
-      const data = await updateAlternatif(id, updatedAlternatif);
+      const data = await updateAlternatif(id_alternatif, updatedAlternatif);
       setAlternatif((prev) =>
-        prev.map((item) => (item.id === id ? data : item))
+        prev.map((item) =>
+          item.id_alternatif === id_alternatif ? data : item
+        )
       );
     } catch (error) {
       console.error("❌ Error updating alternatif:", error);
@@ -53,10 +54,12 @@ export const AlternatifProvider = ({ children }) => {
     }
   };
 
-  const removeAlternatif = async (id) => {
+  const removeAlternatif = async (id_alternatif) => {
     try {
-      await deleteAlternatif(id);
-      setAlternatif((prev) => prev.filter((item) => item.id !== id));
+      await deleteAlternatif(id_alternatif);
+      setAlternatif((prev) =>
+        prev.filter((item) => item.id_alternatif !== id_alternatif)
+      );
     } catch (error) {
       console.error("❌ Error deleting alternatif:", error);
       throw error;

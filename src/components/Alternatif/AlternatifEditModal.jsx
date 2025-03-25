@@ -1,39 +1,38 @@
 import { Button, Modal, TextInput, Label, Select } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { useAlternatifContext as useAlternatif } from "../../contexts/alternatifContext";
- import { toast } from "sonner";
 import { usePeriodeContext } from "../../contexts/periodeContext";
+import { toast } from "sonner";
 
-export default function AlternatifEditModal({ isOpen, onClose, alternatifId }) {
-  const { getAlternatifById, editAlternatif } = useAlternatif();
-  const { periode } = usePeriodeContext();
+export default function AlternatifEditModal({ isOpen, onClose, alternatif }) {
+  const { editAlternatif, fetchAlternatif } = useAlternatif();
+  // const { periode } = usePeriodeContext();
 
   const [alternatifName, setAlternatifName] = useState("");
-  const [selectedPeriode, setSelectedPeriode] = useState("");
+  // const [selectedPeriode, setSelectedPeriode] = useState("");
 
   useEffect(() => {
-    const fetchAlternatif = async () => {
-      if (alternatifId) {
-        const data = await getAlternatifById(alternatifId);
-        setAlternatifName(data.nama_alternatif);
-        setSelectedPeriode(data.periodeId);
-      }
-    };
-
-    fetchAlternatif();
-  }, [alternatifId]);
+    if (isOpen && alternatif) {
+      setAlternatifName(alternatif.nama_alternatif || "");
+      // setSelectedPeriode(alternatif.periodeId?.toString() || "");
+    }
+  }, [isOpen, alternatif]);
 
   const handleSave = async () => {
-    try {
-      await editAlternatif(alternatifId, {
-        nama_alternatif: alternatifName,
-        periodeId: parseInt(selectedPeriode),
-      });
+    if (!alternatifName) {
+      toast.error("Semua field wajib diisi");
+      return;
+    }
 
+    try {
+      await editAlternatif(alternatif.id_alternatif, {
+        nama_alternatif: alternatifName,
+        // periodeId: parseInt(selectedPeriode),
+      });
       toast.success("Alternatif berhasil diperbarui!");
+      await fetchAlternatif();
       onClose();
     } catch (error) {
-      console.log(error);
       toast.error("Gagal memperbarui alternatif!");
     }
   };
@@ -47,7 +46,6 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatifId }) {
       </div>
       <Modal.Body>
         <div className="space-y-4">
-          {/* Nama Alternatif */}
           <div>
             <Label htmlFor="alternatifName" value="Nama Alternatif" />
             <TextInput
@@ -58,9 +56,7 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatifId }) {
               required
             />
           </div>
-
-          {/* Pilihan Periode */}
-          <div>
+          {/* <div>
             <Label htmlFor="periode" value="Periode" />
             <Select
               id="periode"
@@ -75,7 +71,7 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatifId }) {
                 </option>
               ))}
             </Select>
-          </div>
+          </div> */}
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-end">

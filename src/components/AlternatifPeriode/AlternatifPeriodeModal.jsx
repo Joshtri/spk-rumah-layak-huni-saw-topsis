@@ -12,7 +12,10 @@ export default function AlternatifPeriodeModal({ isOpen, onClose, idAlternatif, 
   const [selectedPeriode, setSelectedPeriode] = useState();
 
   useEffect(() => {
-    fetchPeriode();
+    //show the periode only if === 0.
+    if (periode.length === 0) {
+      fetchPeriode();
+    }
   }, []);
 
   const handleDaftar = async () => {

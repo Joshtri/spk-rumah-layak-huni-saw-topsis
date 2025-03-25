@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import {
   getAllPeriode,
   createPeriode,
@@ -14,20 +14,22 @@ export const PeriodeProvider = ({ children }) => {
   const [periode, setPeriode] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchPeriode = async () => {
+  // ✅ Bungkus fetchPeriode pakai useCallback
+  const fetchPeriode = useCallback(async () => {
     setLoading(true);
     try {
       const data = await getAllPeriode();
       setPeriode(data);
     } catch (error) {
       console.error("❌ Error fetching periode:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchPeriode();
-  }, []);
+  }, [fetchPeriode]); // aman karena useCallback
 
   const addPeriode = async (newPeriode) => {
     try {
@@ -43,9 +45,7 @@ export const PeriodeProvider = ({ children }) => {
     try {
       const data = await updatePeriode(id, updatedPeriode);
       setPeriode((prev) =>
-        prev.map((item) =>
-          item.id_periode === id ? data : item
-        )
+        prev.map((item) => (item.id_periode === id ? data : item))
       );
     } catch (error) {
       console.error("❌ Error updating periode:", error);
