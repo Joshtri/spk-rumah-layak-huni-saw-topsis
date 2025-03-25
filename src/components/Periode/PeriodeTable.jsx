@@ -8,7 +8,7 @@ export default function PeriodeTable({ periode, loading }) {
         className="min-w-full whitespace-nowrap overflow-hidden"
       >
         <Table.Head>
-          <Table.HeadCell className="text-center">ID</Table.HeadCell>
+          <Table.HeadCell className="text-center">No</Table.HeadCell>
           <Table.HeadCell className="text-center">Nama Periode</Table.HeadCell>
           <Table.HeadCell className="text-center">Tanggal Mulai</Table.HeadCell>
           <Table.HeadCell className="text-center">Tanggal Selesai</Table.HeadCell>
@@ -34,12 +34,12 @@ export default function PeriodeTable({ periode, loading }) {
               </Table.Cell>
             </Table.Row>
           ) : (
-            periode.map((item) => (
+            periode.map((item, index) => (
               <Table.Row
                 key={item.id_periode}
                 className="bg-white"
               >
-                <Table.Cell className="text-center">{item.id_periode}</Table.Cell>
+                <Table.Cell className="text-center">{index + 1}</Table.Cell>
                 <Table.Cell className="text-center">{item.nama_periode}</Table.Cell>
                 <Table.Cell className="text-center">{new Date(item.tanggal_mulai).toLocaleDateString()}</Table.Cell>
                 <Table.Cell className="text-center">{new Date(item.tanggal_selesai).toLocaleDateString()}</Table.Cell>

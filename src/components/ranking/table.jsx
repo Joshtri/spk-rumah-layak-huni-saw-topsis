@@ -3,7 +3,7 @@ import { useState } from "react";
 import Paginations from "../ui/Pagination";
 
 export default function RankingTable({ rankings = [], disablePagination = false, showAllData = false }) {
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(rankings.length / itemsPerPage);

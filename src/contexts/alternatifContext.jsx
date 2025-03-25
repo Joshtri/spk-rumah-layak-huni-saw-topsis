@@ -33,6 +33,8 @@ export const AlternatifProvider = ({ children }) => {
     try {
       const data = await createAlternatif(newAlternatif);
       setAlternatif((prev) => [...prev, data]);
+      await fetchAlternatif(); // ⬅️ Tambahkan ini di sini
+
     } catch (error) {
       console.error("❌ Error adding alternatif:", error);
       throw error;
