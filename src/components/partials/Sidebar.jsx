@@ -6,22 +6,18 @@ import {
   LogOut,
   Ruler,
   Users,
-  Menu,
-  X,
+  ClipboardList, // ✅ Pengganti MdGrade
 } from "lucide-react";
-import { MdGrade } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
 
-  // Close sidebar when route changes on mobile
   useEffect(() => {
     onClose?.();
   }, [location.pathname]);
 
-  // Close sidebar when clicking outside on mobile
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest(".sidebar")) {
@@ -67,18 +63,19 @@ export const Sidebar = ({ isOpen, onClose }) => {
       title: "Manajemen",
       items: [
         { icon: Users, text: "Users Management", path: "/users-management" },
-        { icon: MdGrade, text: "Penilaian Alternatif", path: "/penilaian" },
+        {
+          icon: ClipboardList, // ✅ Gantikan MdGrade
+          text: "Penilaian Alternatif",
+          path: "/penilaian",
+        },
       ],
     },
   ];
-  
 
-  // 🚫 Saat user belum tersedia (misalnya masih loading), jangan render menu
   if (!user) return null;
 
   return (
     <>
-      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
@@ -86,7 +83,6 @@ export const Sidebar = ({ isOpen, onClose }) => {
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`sidebar fixed md:static w-72 bg-[#1F2937] min-h-screen flex flex-col z-50
           transition-transform duration-300 ease-in-out
@@ -135,7 +131,6 @@ export const Sidebar = ({ isOpen, onClose }) => {
                         <span className="text-sm font-medium">{item.text}</span>
                       </NavLink>
                     ))}
-                    {/* Optional separator */}
                     {groupIdx !== menuGroups.length - 1 && (
                       <hr className="border-t border-gray-600 my-2 mx-3" />
                     )}
@@ -144,7 +139,6 @@ export const Sidebar = ({ isOpen, onClose }) => {
               })}
             </div>
 
-            {/* 🔥 Logout Button */}
             <button
               onClick={logout}
               className="flex items-center space-x-3 px-3 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 mt-auto transition-colors"
