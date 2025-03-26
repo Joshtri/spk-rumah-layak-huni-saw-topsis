@@ -149,9 +149,25 @@ export default function PenilaianTable() {
                       </Table.Cell>
                     );
                   })}
-                  <Table.Cell className="text-center">
+                  <Table.Cell className="text-center space-x-2">
                     <Button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded inline-flex"
+                      onClick={() =>
+                        navigate(`/penilaian/edit/${item.id_penilaian}`, {
+                          state: {
+                            alternatifName: item.nama_alternatif,
+                            currentPenilaian: item.penilaian,
+                            alternatifId: Object.keys(groupedPenilaian).find(
+                              (key) => groupedPenilaian[key].id_penilaian === item.id_penilaian
+                            ),
+                          },
+                        })
+                      }
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded inline-flex"
                       onClick={() => removePenilaian(item.id_penilaian)}
                     >
                       Hapus
