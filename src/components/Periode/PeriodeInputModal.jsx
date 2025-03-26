@@ -1,14 +1,23 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePeriodeContext } from "../../contexts/periodeContext";
 import { toast } from "sonner";
 
-export default function PeriodeInputModal({ isOpen, onClose }) {
+export default function PeriodeInputModal({ isOpen, onClose, isEdit = false, initialData = null }) {
   const [namaPeriode, setNamaPeriode] = useState("");
   const [tanggalMulai, setTanggalMulai] = useState("");
   const [tanggalSelesai, setTanggalSelesai] = useState("");
   const [loading, setLoading] = useState(false);
-  const { addPeriode } = usePeriodeContext();
+  const { addPeriode, editPeriode } = usePeriodeContext();
+
+  // Initialize form with edit data
+  useEffect(() => {
+    if (isEdit && initialData) {
+      setNamaPeriode(initialData.nama_periode);
+      setTanggalMulai(new Date(initialData.tanggal_mulai).toISOString().split("T")[0]);
+      setTanggalSelesai(new Date(initialData.tanggal_selesai).toISOString().split("T")[0]);
+    }
+  }, [isEdit, initialData]);
 
   const handleSave = async () => {
     if (!namaPeriode || !tanggalMulai || !tanggalSelesai) {
@@ -18,20 +27,30 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
 
     setLoading(true);
     try {
-      await addPeriode({
-        nama_periode: namaPeriode,
-        tanggal_mulai: new Date(tanggalMulai),
-        tanggal_selesai: new Date(tanggalSelesai),
-      });
+      if (isEdit) {
+        await editPeriode(initialData.id_periode, {
+          nama_periode: namaPeriode,
+          tanggal_mulai: new Date(tanggalMulai),
+          tanggal_selesai: new Date(tanggalSelesai),
+        });
+        toast.success("Periode berhasil diperbarui!");
+      } else {
+        await addPeriode({
+          nama_periode: namaPeriode,
+          tanggal_mulai: new Date(tanggalMulai),
+          tanggal_selesai: new Date(tanggalSelesai),
+        });
+        toast.success("Periode berhasil ditambahkan!");
+      }
 
-      toast.success("Periode berhasil ditambahkan!");
+      // Reset form
       setNamaPeriode("");
       setTanggalMulai("");
       setTanggalSelesai("");
       onClose();
     } catch (error) {
-      toast.error("Gagal menambahkan periode!");
-      console.error("Error creating periode:", error);
+      toast.error(isEdit ? "Gagal memperbarui periode!" : "Gagal menambahkan periode!");
+      console.error("Error saving periode:", error);
     } finally {
       setLoading(false);
     }
@@ -42,11 +61,10 @@ export default function PeriodeInputModal({ isOpen, onClose }) {
       show={isOpen}
       size="md"
       onClose={onClose}
-      className="flex items-center justify-center"
     >
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
         <div className="p-4 border-b rounded-t">
-          <h3 className="text-xl text-black font-semibold text-center">Tambah Periode</h3>
+          <h3 className="text-xl text-black font-semibold text-center">{isEdit ? "Edit Periode" : "Tambah Periode"}</h3>
         </div>
         <Modal.Body>
           <div className="space-y-4">

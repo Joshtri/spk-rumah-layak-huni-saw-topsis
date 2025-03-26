@@ -22,7 +22,7 @@ export default function KriteriaTableActions({ idKriteria }) {
       return;
     }
     setKriteriaData(found); // ✅ set data dulu
-    setIsModalOpen(true);   // ✅ baru buka modal
+    setIsModalOpen(true); // ✅ baru buka modal
   };
 
   const handleDelete = async () => {
@@ -36,8 +36,8 @@ export default function KriteriaTableActions({ idKriteria }) {
     }
   };
 
-  const role = localStorage.getItem("role");
-  const isAdminOrKepalaDesa = role === "ADMIN" || role === "KEPALA_DESA";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAdminOrKepalaDesa = user?.role === "KEPALA_DESA" || user?.role === "ADMIN";
 
   return (
     <>
@@ -63,15 +63,14 @@ export default function KriteriaTableActions({ idKriteria }) {
       />
 
       {/* Modal Konfirmasi Hapus */}
-      <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}>
+      <Modal
+        show={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
         <Modal.Body>
           <div className="text-center p-4">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Apakah kamu yakin ingin menghapus kriteria ini?
-            </h3>
-            <p className="text-gray-600 mt-2">
-              Tindakan ini tidak dapat dibatalkan.
-            </p>
+            <h3 className="text-lg font-semibold text-gray-900">Apakah kamu yakin ingin menghapus kriteria ini?</h3>
+            <p className="text-gray-600 mt-2">Tindakan ini tidak dapat dibatalkan.</p>
           </div>
         </Modal.Body>
         <Modal.Footer className="flex justify-center">

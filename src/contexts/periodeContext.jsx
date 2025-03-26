@@ -1,10 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import {
-  getAllPeriode,
-  createPeriode,
-  updatePeriode,
-  deletePeriode,
-} from "../api/periodeApi";
+import { getAllPeriode, createPeriode, updatePeriode, deletePeriode } from "../api/periodeApi";
 
 const PeriodeContext = createContext();
 
@@ -44,9 +39,7 @@ export const PeriodeProvider = ({ children }) => {
   const editPeriode = async (id, updatedPeriode) => {
     try {
       const data = await updatePeriode(id, updatedPeriode);
-      setPeriode((prev) =>
-        prev.map((item) => (item.id_periode === id ? data : item))
-      );
+      setPeriode((prev) => prev.map((item) => (item.id_periode === id ? data : item)));
     } catch (error) {
       console.error("❌ Error updating periode:", error);
       throw error;
@@ -56,9 +49,7 @@ export const PeriodeProvider = ({ children }) => {
   const removePeriode = async (id) => {
     try {
       await deletePeriode(id);
-      setPeriode((prev) =>
-        prev.filter((item) => item.id_periode !== id)
-      );
+      setPeriode((prev) => prev.filter((item) => item.id_periode !== id));
     } catch (error) {
       console.error("❌ Error deleting periode:", error);
       throw error;
