@@ -1,20 +1,30 @@
 import KriteriaEditModal from "./KriteriaEditModal";
 import SubKriteriaInputModal from "../SubKriteria/SubKriteriaInputModal";
-import SubKriteriaViewModal from "../SubKriteria/SubKriteriaViewModal"; // 🔥 Import modal baru
+import SubKriteriaViewModal from "../SubKriteria/SubKriteriaViewModal";
 import { useState } from "react";
 import { Modal, Button } from "flowbite-react";
 import { toast } from "sonner";
-import { useKriteriaContext as useKriteria  } from "../../contexts/kriteriaContext";
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
 
 export default function KriteriaTableActions({ idKriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubKriteriaModalOpen, setIsSubKriteriaModalOpen] = useState(false);
-  const [isSubKriteriaViewModalOpen, setIsSubKriteriaViewModalOpen] =
-    useState(false); // 🔥 Modal Lihat Subkriteria
+  const [isSubKriteriaViewModalOpen, setIsSubKriteriaViewModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const { removeKriteria } = useKriteria();
+  const [kriteriaData, setKriteriaData] = useState(null);
 
-  // Fungsi hapus kriteria
+  const { removeKriteria, kriteria: allKriteria } = useKriteria();
+
+  const handleEdit = () => {
+    const found = allKriteria.find((k) => k.id === idKriteria);
+    if (!found) {
+      toast.error("Data kriteria tidak ditemukan");
+      return;
+    }
+    setKriteriaData(found); // ✅ set data dulu
+    setIsModalOpen(true);   // ✅ baru buka modal
+  };
+
   const handleDelete = async () => {
     try {
       await removeKriteria(idKriteria);
@@ -35,6 +45,7 @@ export default function KriteriaTableActions({ idKriteria }) {
       <KriteriaEditModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        kriteria={kriteriaData}
       />
 
       {/* Modal Tambah Subkriteria */}
@@ -44,7 +55,7 @@ export default function KriteriaTableActions({ idKriteria }) {
         idKriteria={idKriteria}
       />
 
-      {/* 🔥 Modal Lihat Subkriteria */}
+      {/* Modal Lihat Subkriteria */}
       <SubKriteriaViewModal
         isOpen={isSubKriteriaViewModalOpen}
         onClose={() => setIsSubKriteriaViewModalOpen(false)}
@@ -52,10 +63,7 @@ export default function KriteriaTableActions({ idKriteria }) {
       />
 
       {/* Modal Konfirmasi Hapus */}
-      <Modal
-        show={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-      >
+      <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}>
         <Modal.Body>
           <div className="text-center p-4">
             <h3 className="text-lg font-semibold text-gray-900">
@@ -84,12 +92,11 @@ export default function KriteriaTableActions({ idKriteria }) {
 
       {/* Tombol Aksi */}
       <div className="flex gap-2 justify-center">
-        {/* 🔐 Tampil hanya untuk ADMIN & KEPALA_DESA */}
         {isAdminOrKepalaDesa && (
           <>
             <button
               className="min-w-[4rem] bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleEdit} // ✅ ubah dari langsung buka modal
             >
               Edit
             </button>
@@ -107,8 +114,6 @@ export default function KriteriaTableActions({ idKriteria }) {
             </button>
           </>
         )}
-
-        {/* 🔓 Semua role bisa lihat subkriteria */}
         <button
           className="min-w-[6rem] bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded text-sm"
           onClick={() => setIsSubKriteriaViewModalOpen(true)}

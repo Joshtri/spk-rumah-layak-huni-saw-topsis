@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { loginUser, getCurrentUser, logoutUser } from "../api/authApi";
+import { useEffect, useState } from "react";
+import { loginUser, logoutUser } from "../api/authApi";
 import { toast } from "sonner";
 
 export const useAuth = () => {
@@ -7,40 +7,36 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
+    if (typeof window === "undefined") return;
 
-      if (!token) {
+    try {
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+
+      if (!storedToken || !storedUser) {
         setLoading(false);
         return;
       }
 
-      try {
-        const currentUser = await getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        console.error("❌ Gagal mengambil user:", error);
-        logout(); // Jika token invalid, langsung logout
-      }
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    } catch (error) {
+      console.error("Gagal parse user:", error);
+      logout();
+    } finally {
       setLoading(false);
-    };
-
-    fetchUser();
+    }
   }, []);
 
   const login = async (credentials) => {
     try {
       const data = await loginUser(credentials);
 
-      // Simpan token dan informasi user di localStorage
       localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.user.username);
-      localStorage.setItem("role", data.user.role);
-      localStorage.setItem("id", data.user.id_user);
-
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
-      toast.success("✅ Login berhasil!");
 
+      toast.success("✅ Login berhasil!");
       return data;
     } catch (error) {
       toast.error("❌ Gagal login! Periksa email atau password.");
@@ -50,14 +46,12 @@ export const useAuth = () => {
 
   const logout = () => {
     logoutUser();
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("role");
-    localStorage.removeItem("id");
-
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
     setUser(null);
     toast.info("🚪 Logout berhasil!");
-    window.location.href = "/"; // Redirect ke halaman login setelah logout
+    window.location.href = "/";
   };
 
   return { user, loading, login, logout };

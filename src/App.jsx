@@ -12,6 +12,7 @@ import DashboardPage from "./pages/Dashboard";
 import KriteriaList from "./pages/Kriteria/KriteriaList";
 import PenilaianCreate from "./pages/Penilaian/PenilaianCreate";
 import PenilaianList from "./pages/Penilaian/PenilaianList";
+import PenilaianEdit from "./pages/Penilaian/PenilaianEdit";
 import PerhitunganMain from "./pages/Perhitungan/PerhitunganMain";
 import PeriodeList from "./pages/Periode/PeriodeList";
 import Profile from "./pages/ProfileManagement/Profile";
@@ -78,6 +79,10 @@ function App() {
                         <Route
                           path="/penilaian/create"
                           element={<PenilaianCreate />}
+                        />
+                        <Route
+                          path="/penilaian/edit/:id"
+                          element={<PenilaianEdit />}
                         />
                         <Route
                           path="/alternatif-periode"
