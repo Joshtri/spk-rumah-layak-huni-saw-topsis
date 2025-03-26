@@ -6,25 +6,26 @@ export const useAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Ambil user dari localStorage sekali saja di awal
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-
-    if (!storedToken || !storedUser) {
-      setLoading(false);
-      return;
-    }
+    if (typeof window === "undefined") return;
 
     try {
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+
+      if (!storedToken || !storedUser) {
+        setLoading(false);
+        return;
+      }
+
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
     } catch (error) {
       console.error("Gagal parse user:", error);
       logout();
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, []);
 
   const login = async (credentials) => {
@@ -32,7 +33,7 @@ export const useAuth = () => {
       const data = await loginUser(credentials);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user)); // ✅ Simpan 1x saja
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
 
       toast.success("✅ Login berhasil!");
@@ -45,7 +46,9 @@ export const useAuth = () => {
 
   const logout = () => {
     logoutUser();
-    localStorage.clear();
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
     setUser(null);
     toast.info("🚪 Logout berhasil!");
     window.location.href = "/";
