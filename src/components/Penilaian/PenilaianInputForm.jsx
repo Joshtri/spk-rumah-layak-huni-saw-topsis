@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function PenilaianInputForm({ isEdit = false, initialData = {} }) {
   const { kriteria, loading: kriteriaLoading } = useKriteria();
   const { alternatif, loading: alternatifLoading } = useAlternatif();
-  const { addPenilaian, updatePenilaian } = usePenilaian();
+  const { addPenilaian } = usePenilaian();
   const navigate = useNavigate();
 
   const [selectedAlternatif, setSelectedAlternatif] = useState(isEdit ? initialData.alternatifId : "");
@@ -52,10 +52,7 @@ export default function PenilaianInputForm({ isEdit = false, initialData = {} })
 
     try {
       if (isEdit) {
-        for (const kriteriaId in nilaiPenilaian) {
-          await updatePenilaian(selectedAlternatif, Number(kriteriaId), Number(nilaiPenilaian[kriteriaId]));
-        }
-        toast.success("Penilaian berhasil diperbarui!");
+        // Add function for pdate penilaian
       } else {
         if (!selectedAlternatif) {
           toast.error("Pilih alternatif terlebih dahulu!");
