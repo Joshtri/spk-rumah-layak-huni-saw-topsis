@@ -4,8 +4,8 @@ import { useState } from "react";
 export default function SubCriteriaTableActions({ idCriteria, title, bobot }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const role = localStorage.getItem("role");
-  const isAdminOrKepalaDesa = role === "ADMIN" || role === "KEPALA_DESA";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
   return (
     <>
       <SubCriteriaEditModal
