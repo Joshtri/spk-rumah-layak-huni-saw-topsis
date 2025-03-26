@@ -6,10 +6,10 @@ import { toast } from "sonner";
 
 export default function AlternatifEditModal({ isOpen, onClose, alternatif }) {
   const { editAlternatif, fetchAlternatif } = useAlternatif();
-  // const { periode } = usePeriodeContext();
+  const { periode } = usePeriodeContext();
 
   const [alternatifName, setAlternatifName] = useState("");
-  // const [selectedPeriode, setSelectedPeriode] = useState("");
+  const [selectedPeriode, setSelectedPeriode] = useState("");
 
   useEffect(() => {
     if (isOpen && alternatif) {
@@ -32,22 +32,27 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatif }) {
       toast.success("Alternatif berhasil diperbarui!");
       await fetchAlternatif();
       onClose();
-    } catch (error) {
+    } catch {
       toast.error("Gagal memperbarui alternatif!");
     }
   };
 
   return (
-    <Modal show={isOpen} size="md" onClose={onClose}>
+    <Modal
+      show={isOpen}
+      size="md"
+      onClose={onClose}
+    >
       <div className="p-4 border-b rounded-t">
-        <h3 className="text-xl text-black font-semibold text-center">
-          Edit Alternatif
-        </h3>
+        <h3 className="text-xl text-black font-semibold text-center">Edit Alternatif</h3>
       </div>
       <Modal.Body>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="alternatifName" value="Nama Alternatif" />
+            <Label
+              htmlFor="alternatifName"
+              value="Nama Alternatif"
+            />
             <TextInput
               id="alternatifName"
               placeholder="Masukkan Nama Alternatif"
@@ -56,8 +61,11 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatif }) {
               required
             />
           </div>
-          {/* <div>
-            <Label htmlFor="periode" value="Periode" />
+          <div>
+            <Label
+              htmlFor="periode"
+              value="Periode"
+            />
             <Select
               id="periode"
               value={selectedPeriode}
@@ -66,19 +74,28 @@ export default function AlternatifEditModal({ isOpen, onClose, alternatif }) {
             >
               <option value="">Pilih Periode</option>
               {periode.map((item) => (
-                <option key={item.id_periode} value={item.id_periode}>
+                <option
+                  key={item.id_periode}
+                  value={item.id_periode}
+                >
                   {item.nama_periode}
                 </option>
               ))}
             </Select>
-          </div> */}
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
-        <Button onClick={handleSave} className="bg-emerald-500 text-white">
+        <Button
+          onClick={handleSave}
+          className="bg-emerald-500 text-white"
+        >
           Simpan
         </Button>
-        <Button onClick={onClose} className="bg-red-500 text-white">
+        <Button
+          onClick={onClose}
+          className="bg-red-500 text-white"
+        >
           Batal
         </Button>
       </Modal.Footer>
