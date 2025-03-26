@@ -1,5 +1,5 @@
 import Layout from "../Layout";
-import AlternatifTable from "../../components/Alternatif/AlternatifTable";
+import AlternatifTable from "../../components/alternatif/Alternatiftable";
 import AlternatifInputModal from "../../components/Alternatif/AlternatifInputModal";
 import PageTitle from "../../components/ui/PageTitle";
 import SearchBar from "../../components/ui/SearchBar";
@@ -14,8 +14,8 @@ export default function AlternatifList() {
   const [filteredData, setFilteredData] = useState([]);
 
   // Add role check
-  const userRole = localStorage.getItem("role");
-  const isPerangkatDesa = userRole === "PERANGKAT_DESA" || userRole === "ADMIN";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isPerangkatDesa = user?.role === "PERANGKAT_DESA" || user?.role === "ADMIN";
 
   // Add pagination states
   const itemsPerPage = 10;
