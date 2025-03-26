@@ -8,7 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const Header = ({ onMenuClick, isSidebarOpen }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
   return (
     <header className="bg-white border-b">
@@ -39,9 +39,7 @@ export const Header = ({ onMenuClick, isSidebarOpen }) => {
             alt="Kabupaten Rote Ndao Logo"
             className="h-14 w-auto object-contain"
           />
-          <h1 className="text-xl font-semibold hidden sm:block">
-            SPK Penentuan Rumah Layak Huni | Desa Lakamola
-          </h1>
+          <h1 className="text-xl font-semibold hidden sm:block">SPK Penentuan Rumah Layak Huni | Desa Lakamola</h1>
           <h1 className="text-xl font-semibold sm:hidden">SPK RLH</h1>
         </div>
 
@@ -80,11 +78,12 @@ export const Header = ({ onMenuClick, isSidebarOpen }) => {
           >
             <Dropdown.Header>
               <span className="block text-sm font-medium">Nama User</span>
-              <span className="block truncate text-sm text-gray-500">
-                user@example.com
-              </span>
+              <span className="block truncate text-sm text-gray-500">user@example.com</span>
             </Dropdown.Header>
-            <Dropdown.Item as={NavLink} to="/profile">
+            <Dropdown.Item
+              as={NavLink}
+              to="/profile"
+            >
               <User className="h-4 w-4 mr-2" />
               Profile
             </Dropdown.Item>
