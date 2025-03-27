@@ -16,22 +16,35 @@ export const getPenilaianById = async (id) => {
 };
 
 // 🔥 Tambah Penilaian baru (dengan nilai dari bobot sub_kriteria)
-export const createPenilaian = async (alternatifId, subKriteriaId) => {
+export const createPenilaian = async (alternatifId, subKriteriaId, periodeId) => {
     const response = await axios.post(API_BASE_URL, {
-        alternatifId,
-        subKriteriaId,
+      alternatifId,
+      sub_kriteriaId: subKriteriaId,
+      periodeId, // ✅ kirim ke backend
     });
-
+  
     return response.data;
-};
+  };
+  
 
 // 🔥 Update nilai pada Penilaian
-export const updatePenilaian = async (id, nilai) => {
-    const response = await axios.put(`${API_BASE_URL}/${id}`, { nilai }, { headers: getAuthHeader() });
+export const updatePenilaian = async (id, payload) => {
+    const response = await axios.put(
+      `${API_BASE_URL}/${id}`,
+      payload,
+      { headers: getAuthHeader() }
+    );
     return response.data;
-};
-
+  };
+  
 // 🔥 Hapus Penilaian
 export const deletePenilaian = async (id) => {
     await axios.delete(`${API_BASE_URL}/${id}`, { headers: getAuthHeader() });
+};
+
+
+export const deletePenilaianByAlternatifId = async (alternatifId) => {
+    await axios.delete(`${API_BASE_URL}/by-alternatif/${alternatifId}`, {
+      headers: getAuthHeader(),
+    });
 };
