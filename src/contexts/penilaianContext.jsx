@@ -5,6 +5,7 @@ import {
   createPenilaian,
   updatePenilaian,
   deletePenilaian,
+  deletePenilaianByAlternatifId,
 } from "../api/penilaianApi";
 import { toast } from "sonner";
 
@@ -44,30 +45,34 @@ export const PenilaianProvider = ({ children }) => {
   };
 
   // 🔥 Tambah penilaian baru
-  const addPenilaian = async (alternatifId, subKriteriaId) => {
+  const addPenilaian = async (alternatifId, subKriteriaId, periodeId) => {
     try {
-      const newPenilaian = await createPenilaian(alternatifId, subKriteriaId);
+      const newPenilaian = await createPenilaian(alternatifId, subKriteriaId, periodeId);
       setPenilaian((prev) => [...prev, newPenilaian]);
-      toast.success("✅ Penilaian berhasil ditambahkan!");
+      return { success: true, data: newPenilaian }; // ✅ return hasil
     } catch (error) {
       console.error("❌ Error adding penilaian:", error.response?.data || error.message);
-      toast.error(error.response?.data?.error || "Gagal menambahkan penilaian.");
+      return {
+        success: false,
+        error: error.response?.data?.error || "Gagal menambahkan penilaian.",
+      };
     }
   };
+  
+  
 
   // 🔥 Edit penilaian
-  const editPenilaian = async (id, nilai) => {
+  const editPenilaian = async (id, payload) => {
     try {
-      const updated = await updatePenilaian(id, nilai);
+      const updated = await updatePenilaian(id, payload);
       setPenilaian((prev) =>
         prev.map((p) => (p.id_penilaian === id ? updated : p))
       );
-      toast.success("✅ Penilaian berhasil diperbarui!");
-    } catch (error) {
+     } catch (error) {
       console.error("❌ Error updating penilaian:", error);
-      toast.error("Gagal memperbarui penilaian.");
-    }
+     }
   };
+  
 
   // 🔥 Hapus penilaian
   const removePenilaian = async (id) => {
@@ -81,6 +86,18 @@ export const PenilaianProvider = ({ children }) => {
     }
   };
 
+  const removePenilaianByAlternatif = async (alternatifId) => {
+    try {
+      await deletePenilaianByAlternatifId(alternatifId);
+      // Refresh data setelah hapus
+      fetchPenilaian();
+      toast.success("✅ Semua penilaian untuk alternatif berhasil dihapus!");
+    } catch (error) {
+      console.error("❌ Error deleting penilaian by alternatifId:", error);
+      toast.error("Gagal menghapus penilaian berdasarkan alternatif.");
+    }
+  };
+
   return (
     <PenilaianContext.Provider
       value={{
@@ -91,6 +108,7 @@ export const PenilaianProvider = ({ children }) => {
         addPenilaian,
         editPenilaian,
         removePenilaian,
+        removePenilaianByAlternatif,
       }}
     >
       {children}

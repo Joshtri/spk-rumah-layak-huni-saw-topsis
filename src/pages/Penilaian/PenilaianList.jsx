@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../Layout";
 import PenilaianTable from "../../components/Penilaian/PenilaianTable";
 import Breadcrumbs from "../../components/ui/Breadcrumbs";
+import { ErrorBoundary } from "../../components/ErrorBoundary";
 
 const PenilaianList = () => {
   return (
@@ -12,8 +13,10 @@ const PenilaianList = () => {
           { path: null, label: "Penilaian" },
         ]}
       />
-      <PenilaianTable />
-    </Layout>
+      <ErrorBoundary>
+        <PenilaianTable />
+      </ErrorBoundary>
+     </Layout>
   );
 };
 

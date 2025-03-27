@@ -65,8 +65,8 @@ export default function SubCriteriaTable() {
     }
   };
 
-  const role = localStorage.getItem("role");
-  const isAdminOrKepalaDesa = role === "ADMIN" || role === "KEPALA_DESA";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
 
   return (
     <div className="overflow-x-auto rounded-lg shadow p-4">

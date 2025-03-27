@@ -3,31 +3,30 @@ import { Toaster } from "sonner";
 
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AlternatifProvider } from "./contexts/alternatifContext";
+import { AlternatifPeriodeProvider } from "./contexts/alternatifPeriodeContext";
 import { KriteriaProvider } from "./contexts/kriteriaContext";
+import { PenilaianProvider } from "./contexts/penilaianContext";
+import { PeriodeProvider } from "./contexts/periodeContext";
+import { SubKriteriaProvider } from "./contexts/subKriteriaContext";
+import { UsersProvider } from "./contexts/usersContext";
 import AlternatifList from "./pages/Alternatif/list";
 import AlternatifPeriodeList from "./pages/AlternatifPeriode/list";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import LoginPage from "./pages/Auth/LoginPage";
 import DashboardPage from "./pages/Dashboard";
+import SPKStepByStep from "./pages/HowTo/HowToPage";
 import KriteriaList from "./pages/Kriteria/KriteriaList";
 import PenilaianCreate from "./pages/Penilaian/PenilaianCreate";
-import PenilaianList from "./pages/Penilaian/PenilaianList";
 import PenilaianEdit from "./pages/Penilaian/PenilaianEdit";
+import PenilaianList from "./pages/Penilaian/PenilaianList";
 import PerhitunganMain from "./pages/Perhitungan/PerhitunganMain";
+import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMain";
 import PeriodeList from "./pages/Periode/PeriodeList";
 import Profile from "./pages/ProfileManagement/Profile";
 import RankingList from "./pages/Ranking/RankingList";
 import SubKriteriaList from "./pages/SubKriteria/SubKriteriaList";
 import UsersList from "./pages/UsersManagement/UsersManagement";
-import PerhitunganSawTopsis from "./components/Perhitungan/SawTopsis/PerhitunganSawTopsis";
-import PerhitunganSawTopsisMain from "./pages/Perhitungan/PerhitunganSawTopsisMain";
-import SPKStepByStep from "./pages/HowTo/HowToPage";
-import { SubKriteriaProvider } from "./contexts/subKriteriaContext";
-import { AlternatifProvider } from "./contexts/alternatifContext";
-import { PeriodeProvider } from "./contexts/periodeContext";
-import { UsersProvider } from "./contexts/usersContext";
-import { PenilaianProvider } from "./contexts/penilaianContext";
-import { AlternatifPeriodeProvider } from "./contexts/alternatifPeriodeContext";
 
 function App() {
   return (
