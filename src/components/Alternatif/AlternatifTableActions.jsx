@@ -33,8 +33,8 @@ export default function AlternatifTableActions({ idAlternatif, hasPeriode }) {
     }
   };
 
-  const role = localStorage.getItem("role");
-  const isReadonly = role === "KEPALA_DESA";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isReadonly = user?.role === "KEPALA_DESA";
 
   return (
     <>
