@@ -10,7 +10,7 @@ export default function KriteriaEditModal({ isOpen, onClose, kriteria }) {
   const [deskripsi, setDeskripsi] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { updateKriteria } = useKriteria(); // Fungsi update
+  const { editKriteria } = useKriteria(); // Fungsi update
 
   // 🔹 Update state saat modal dibuka dengan data yang didapat dari API
   useEffect(() => {
@@ -27,17 +27,16 @@ export default function KriteriaEditModal({ isOpen, onClose, kriteria }) {
       toast.error("Semua field harus diisi!");
       return;
     }
-
+  
     setLoading(true);
     try {
-      await updateKriteria({
-        id: kriteria.id, // Pastikan ID dikirim
+      await editKriteria(kriteria.id_kriteria, {
         nama_kriteria: namaKriteria,
         bobot_kriteria: parseFloat(bobotKriteria),
         tipe_kriteria: tipeKriteria,
         keterangan: deskripsi,
       });
-
+  
       toast.success("Kriteria berhasil diperbarui!");
       onClose();
     } catch (error) {
@@ -47,6 +46,7 @@ export default function KriteriaEditModal({ isOpen, onClose, kriteria }) {
       setLoading(false);
     }
   };
+  
 
   return (
     <Modal show={isOpen}  size="md"  onClose={onClose}>

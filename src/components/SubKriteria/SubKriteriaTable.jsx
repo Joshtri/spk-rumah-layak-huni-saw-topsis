@@ -43,7 +43,7 @@ export default function SubCriteriaTable() {
       const filtered = subKriteria.filter((item) => {
         // Search in both kriteria name and sub-kriteria name
         return (
-          item.kriteria.nama_kriteria
+          item.kriteria?.nama_kriteria
             .toLowerCase()
             .includes(searchQuery.toLowerCase()) ||
           item.nama_sub_kriteria
@@ -54,6 +54,8 @@ export default function SubCriteriaTable() {
       setFilteredData(filtered);
     }
   };
+
+  console.log("SubKriteria yang akan dirender:", currentData);
 
   const handleDelete = async (id) => {
     try {
@@ -66,7 +68,8 @@ export default function SubCriteriaTable() {
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+  const isAdminOrKepalaDesa =
+    user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
 
   return (
     <div className="overflow-x-auto rounded-lg shadow p-4">
@@ -123,9 +126,12 @@ export default function SubCriteriaTable() {
             <Table.Body className="divide-y">
               {currentData.length > 0 ? (
                 currentData.map((item) => (
-                  <Table.Row key={item.id} className="bg-white">
+                  <Table.Row
+                    key={item.id || item.id_sub_kriteria}
+                    className="bg-white"
+                  >
                     <Table.Cell className="font-medium text-gray-900 text-center">
-                      {item.kriteria.nama_kriteria}
+                      {item.kriteria?.nama_kriteria}
                     </Table.Cell>
                     <Table.Cell className="font-medium text-gray-900 text-center">
                       {item.nama_sub_kriteria}
@@ -136,8 +142,9 @@ export default function SubCriteriaTable() {
                     <Table.Cell className="text-center space-x-2">
                       <SubCriteriaTableActions
                         idCriteria={item.kriteria_id}
-                        title={item.sub_kriteria_nama}
-                        bobot={item.bobot_kriteria}
+                        subCriteriaId={item.id_sub_kriteria}
+                        title={item.nama_sub_kriteria}
+                        bobot={item.bobot_sub_kriteria}
                         onEdit={() => {
                           setSelectedSubKriteria(item);
                           setIsModalOpen(true);

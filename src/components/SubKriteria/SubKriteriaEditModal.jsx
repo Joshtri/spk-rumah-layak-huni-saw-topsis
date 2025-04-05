@@ -1,12 +1,38 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
+import { useSubKriteriaContext as useSubKriteria } from "../../contexts/subKriteriaContext";
+import { toast } from "sonner";
 
-export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriteriaBobot, idCriteria }) {
-  const [subCriteriaName, setSubCriteriaName] = useState(title);
-  const [bobotSubCriteria, setBobotSubCriteria] = useState(subCriteriaBobot);
+export default function SubCriteriaEditModal({
+  isOpen,
+  onClose,
+  title,
+  subCriteriaBobot,
+  idCriteria,
+  subCriteriaId,
+  refreshSubKriteria,
+}) {
+  const [subCriteriaName, setSubCriteriaName] = useState(title || "");
+  const [bobotSubCriteria, setBobotSubCriteria] = useState(
+    subCriteriaBobot || ""
+  );
+  const { editSubKriteria } = useSubKriteria();
+  const handleSave = async () => {
+    try {
+      await editSubKriteria(subCriteriaId, {
+        kriteriaId: idCriteria,
+        nama_sub_kriteria: subCriteriaName,
+        bobot_sub_kriteria: parseFloat(bobotSubCriteria),
+      });
 
-  console.log(idCriteria);
-  // use idCriteria to edit subcriteria to the correct criteria
+      await refreshSubKriteria?.();
+      toast.success("Sub Kriteria berhasil diperbarui!");
+      onClose();
+    } catch (err) {
+      console.error(err);
+      toast.error("Gagal memperbarui sub kriteria!");
+    }
+  };
 
   return (
     <>
@@ -23,9 +49,11 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
           },
           content: {
             base: "relative w-full lg:max-w-2xl p-4 md:h-auto",
-            inner: "relative rounded-lg bg-gray-100 border-stone-900 border-2 shadow-lg flex flex-col h-full md:h-auto",
+            inner:
+              "relative rounded-lg bg-gray-100 border-stone-900 border-2 shadow-lg flex flex-col h-full md:h-auto",
           },
-          position: "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
+          position:
+            "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
         }}
       >
         <div className="flex items-start justify-between p-4 border-b rounded-t">
@@ -84,7 +112,7 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
           <Button
-            onClick={onClose}
+            onClick={handleSave}
             className="bg-emerald-500 hover:bg-emerald-700 text-white border-emerald-500 hover:border-emerald-700 mr-2"
           >
             Simpan

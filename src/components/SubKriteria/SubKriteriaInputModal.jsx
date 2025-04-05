@@ -4,7 +4,7 @@ import { useKriteriaContext } from "../../contexts/kriteriaContext"; // Untuk dr
 import { useSubKriteriaContext as useSubKriteria } from "../../contexts/subKriteriaContext"; // Gunakan hooks sub-kriteria
 import { toast } from "sonner"; // Untuk notifikasi
 
-export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
+export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria, refreshSubKriteria  }) {
   const { kriteria } = useKriteriaContext(); // Ambil daftar kriteria
   const { addSubKriteria } = useSubKriteria(); // Gunakan hooks untuk tambah sub-kriteria
   const [selectedKriteriaId, setSelectedKriteriaId] = useState("");
@@ -34,6 +34,9 @@ export default function SubKriteriaInputModal({ isOpen, onClose, idKriteria }) {
         nama_sub_kriteria: subKriteriaName,
         bobot_sub_kriteria: parseFloat(bobotSubKriteria),
       });
+
+      await refreshSubKriteria(); // ✅ tambah baris ini untuk refresh list
+
 
       toast.success("Sub-Kriteria berhasil ditambahkan!");
       setSubKriteriaName("");

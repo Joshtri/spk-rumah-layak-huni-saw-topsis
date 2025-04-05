@@ -3,7 +3,8 @@ import { Select, Spinner } from "flowbite-react";
 import { usePenilaianContext as usePenilaian } from "../../../contexts/penilaianContext";
 import { useKriteriaContext as useKriteria } from "../../../contexts/kriteriaContext";
 import { usePeriodeContext } from "../../../contexts/periodeContext";
-
+import { Modal, Button } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 import MatriksKeputusan from "../SawTopsis/Saw/MatriksKeputusan";
 import NormalisasiSAW from "../SawTopsis/Saw/NormalisasiSaw";
 import NormalisasiTerbobot from "../SawTopsis/Topsis/NormalisasiTerbobot";
@@ -24,6 +25,9 @@ export default function PerhitunganSawTopsis() {
   const [idealSolutions, setIdealSolutions] = useState({});
   const [distances, setDistances] = useState({});
   const [finalScores, setFinalScores] = useState([]);
+
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPenilaian();
@@ -63,6 +67,15 @@ export default function PerhitunganSawTopsis() {
           item.subKriteria?.bobot_sub_kriteria || 0;
       });
       setDecisionMatrix(groupedPenilaian);
+
+      // Cek apakah ada kriteria yang belum dinilai
+      let hasEmptyPenilaian = Object.values(groupedPenilaian).some((alt) =>
+        kriteria.some((krit) => alt.penilaian[krit.id_kriteria] === undefined)
+      );
+
+      if (hasEmptyPenilaian) {
+        setShowWarningModal(true);
+      }
 
       // 🔹 **Normalisasi SAW**
       kriteria.forEach((krit) => {
@@ -131,7 +144,8 @@ export default function PerhitunganSawTopsis() {
             (sum, krit) =>
               sum +
               Math.pow(
-                idealPositif[krit.id_kriteria] - alt.penilaian[krit.id_kriteria],
+                idealPositif[krit.id_kriteria] -
+                  alt.penilaian[krit.id_kriteria],
                 2
               ),
             0
@@ -143,7 +157,8 @@ export default function PerhitunganSawTopsis() {
             (sum, krit) =>
               sum +
               Math.pow(
-                alt.penilaian[krit.id_kriteria] - idealNegatif[krit.id_kriteria],
+                alt.penilaian[krit.id_kriteria] -
+                  idealNegatif[krit.id_kriteria],
                 2
               ),
             0
@@ -187,6 +202,24 @@ export default function PerhitunganSawTopsis() {
         Perhitungan SAW & TOPSIS
       </h2>
 
+      <Modal show={showWarningModal} onClose={() => setShowWarningModal(false)}>
+        <Modal.Header>Penilaian Belum Lengkap</Modal.Header>
+        <Modal.Body>
+          <p className="text-gray-700">
+            Terdapat kriteria yang belum dinilai untuk alternatif pada periode
+            ini. Silakan lengkapi penilaian terlebih dahulu di menu Penilaian.
+          </p>
+        </Modal.Body>
+        <Modal.Footer className="justify-between">
+          <Button color="gray" onClick={() => setShowWarningModal(false)}>
+            Tutup
+          </Button>
+          <Button color="blue" onClick={() => navigate("/penilaian")}>
+            Ke Menu Penilaian
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <div className="mb-4">
         <Select
           value={selectedPeriod}
@@ -205,9 +238,18 @@ export default function PerhitunganSawTopsis() {
         <Spinner />
       ) : (
         <>
-          <MatriksKeputusan decisionMatrix={decisionMatrix} kriteria={kriteria} />
-          <NormalisasiSAW normalizedMatrix={normalizedMatrix} kriteria={kriteria} />
-          <NormalisasiTerbobot weightedMatrix={weightedMatrix} kriteria={kriteria} />
+          <MatriksKeputusan
+            decisionMatrix={decisionMatrix}
+            kriteria={kriteria}
+          />
+          <NormalisasiSAW
+            normalizedMatrix={normalizedMatrix}
+            kriteria={kriteria}
+          />
+          <NormalisasiTerbobot
+            weightedMatrix={weightedMatrix}
+            kriteria={kriteria}
+          />
           <SolusiIdeal idealSolutions={idealSolutions} kriteria={kriteria} />
           <JarakSolusiIdeal distances={distances} />
           <NilaiPreferensi finalScores={finalScores} />
