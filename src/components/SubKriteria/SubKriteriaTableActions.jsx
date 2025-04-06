@@ -1,18 +1,11 @@
 import SubCriteriaEditModal from "./SubKriteriaEditModal";
 import { useState } from "react";
 
-export default function SubCriteriaTableActions({
-  idCriteria,
-  subCriteriaId,
-  title,
-  bobot,
-  refreshSubKriteria,
-}) {
+export default function SubCriteriaTableActions({ idCriteria, subCriteriaId, title, bobot, refreshSubKriteria }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdminOrKepalaDesa =
-    user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
   return (
     <>
       <SubCriteriaEditModal
@@ -21,8 +14,8 @@ export default function SubCriteriaTableActions({
         title={title}
         subCriteriaBobot={bobot}
         idCriteria={idCriteria}
-        subCriteriaId={subCriteriaId} // ✅ Pastikan ini ada
-        refreshSubKriteria={refreshSubKriteria}
+        subCriteriaId={subCriteriaId}
+        refreshSubKriteria={refreshSubKriteria} // Pass the refresh function
       />
       <div className="flex items-center justify-center space-x-2">
         {isAdminOrKepalaDesa ? (

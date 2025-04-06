@@ -13,9 +13,7 @@ export default function SubCriteriaEditModal({
   refreshSubKriteria,
 }) {
   const [subCriteriaName, setSubCriteriaName] = useState(title || "");
-  const [bobotSubCriteria, setBobotSubCriteria] = useState(
-    subCriteriaBobot || ""
-  );
+  const [bobotSubCriteria, setBobotSubCriteria] = useState(subCriteriaBobot || "");
   const { editSubKriteria } = useSubKriteria();
   const handleSave = async () => {
     try {
@@ -25,7 +23,9 @@ export default function SubCriteriaEditModal({
         bobot_sub_kriteria: parseFloat(bobotSubCriteria),
       });
 
+      // Refresh the table after editing
       await refreshSubKriteria?.();
+
       toast.success("Sub Kriteria berhasil diperbarui!");
       onClose();
     } catch (err) {
@@ -49,11 +49,9 @@ export default function SubCriteriaEditModal({
           },
           content: {
             base: "relative w-full lg:max-w-2xl p-4 md:h-auto",
-            inner:
-              "relative rounded-lg bg-gray-100 border-stone-900 border-2 shadow-lg flex flex-col h-full md:h-auto",
+            inner: "relative rounded-lg bg-gray-100 border-stone-900 border-2 shadow-lg flex flex-col h-full md:h-auto",
           },
-          position:
-            "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
+          position: "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
         }}
       >
         <div className="flex items-start justify-between p-4 border-b rounded-t">
