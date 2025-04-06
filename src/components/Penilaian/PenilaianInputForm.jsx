@@ -54,22 +54,28 @@ export default function PenilaianInputForm({
   // Pass kriteria as a parameter to avoid scope issues
   function mapPenilaianToState(penilaian, kriteriaList) {
     const mappedValues = {};
-    Object.entries(penilaian).forEach(([kriteriaId, value]) => {
-      // Find the sub-kriteria ID based on the name and bobot
-      const kriteriaItem = kriteriaList.find(
-        (k) => k.id_kriteria === Number(kriteriaId)
+
+    kriteriaList.forEach((k) => {
+      const existing = Object.entries(penilaian).find(
+        ([kId]) => Number(kId) === k.id_kriteria
       );
-      if (kriteriaItem) {
-        const subKriteria = kriteriaItem.subKriteria.find(
+
+      if (existing) {
+        const [kriteriaId, value] = existing;
+        const subKriteria = k.subKriteria.find(
           (sub) =>
             sub.nama_sub_kriteria === value.nama &&
             sub.bobot_sub_kriteria === value.bobot
         );
         if (subKriteria) {
-          mappedValues[kriteriaId] = subKriteria.id_sub_kriteria;
+          mappedValues[k.id_kriteria] = subKriteria.id_sub_kriteria;
         }
+      } else {
+        // ❗ Jika belum ada penilaian untuk kriteria ini, isi kosong
+        mappedValues[k.id_kriteria] = "";
       }
     });
+
     return mappedValues;
   }
 
@@ -86,37 +92,49 @@ export default function PenilaianInputForm({
     try {
       if (isEdit) {
         try {
-          for (const kriteriaId in nilaiPenilaian) {
+          for (const kriteriaItem of kriteria) {
+            const kriteriaId = kriteriaItem.id_kriteria;
             const subKriteriaId = nilaiPenilaian[kriteriaId];
+
+            if (!subKriteriaId || subKriteriaId === "") {
+              toast.error(
+                `Sub kriteria untuk "${kriteriaItem.nama_kriteria}" belum dipilih!`
+              );
+              return;
+            }
+
             const penilaianId =
-              initialData.currentPenilaian[kriteriaId]?.id_penilaian;
+              initialData.currentPenilaian?.[kriteriaId]?.id_penilaian;
 
-            if (!penilaianId) continue;
+            if (penilaianId) {
+              // Sudah ada penilaian, update
+              await editPenilaian(penilaianId, {
+                alternatifId: selectedAlternatif,
+                sub_kriteriaId: subKriteriaId,
+                kriteriaId,
+                periodeId: selectedPeriode,
+              });
+            } else {
+              // Belum ada, buat baru
+              const result = await addPenilaian(
+                Number(selectedAlternatif),
+                Number(subKriteriaId),
+                Number(selectedPeriode)
+              );
 
-            const kriteriaItem = kriteria.find(
-              (k) => k.id_kriteria === Number(kriteriaId)
-            );
-            const subKriteria = kriteriaItem?.subKriteria.find(
-              (sub) => sub.id_sub_kriteria === Number(subKriteriaId)
-            );
-
-            await editPenilaian(penilaianId, {
-              alternatifId: selectedAlternatif,
-              sub_kriteriaId: subKriteriaId,
-              kriteriaId: kriteriaItem?.id_kriteria,
-              periodeId: selectedPeriode,
-            });
+              if (!result.success) {
+                toast.error(result.error);
+                return;
+              }
+            }
           }
 
           toast.success("Penilaian berhasil diperbarui!");
-         
-          navigate("/penilaian", { replace: true }); // Use replace: true to create a clean navigation
-         
+          navigate("/penilaian", { replace: true });
         } catch (error) {
           console.error(error);
           toast.error("Gagal memperbarui penilaian.");
         }
-        return;
       } else {
         if (!selectedAlternatif) {
           toast.dismiss();

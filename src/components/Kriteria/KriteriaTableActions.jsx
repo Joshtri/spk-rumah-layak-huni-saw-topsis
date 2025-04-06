@@ -16,7 +16,7 @@ export default function KriteriaTableActions({ idKriteria }) {
   const { removeKriteria, kriteria: allKriteria } = useKriteria();
 
   const handleEdit = () => {
-    const found = allKriteria.find((k) => k.id === idKriteria);
+    const found = allKriteria.find((k) => k.id_kriteria === idKriteria);
     if (!found) {
       toast.error("Data kriteria tidak ditemukan");
       return;

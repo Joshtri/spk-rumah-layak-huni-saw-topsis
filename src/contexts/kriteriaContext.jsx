@@ -6,7 +6,7 @@ import {
   updateKriteria,
   deleteKriteria,
   getKriteriaById as fetchKriteriaById,
-  getSubKriteriaByKriteria as fetchSubKriteriaByKriteria
+  getSubKriteriaByKriteria as fetchSubKriteriaByKriteria,
 } from "../api/kriteriaApi";
 
 const KriteriaContext = createContext();

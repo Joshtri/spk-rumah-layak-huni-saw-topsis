@@ -1,12 +1,38 @@
 import { Button, Modal, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
+import { useSubKriteriaContext as useSubKriteria } from "../../contexts/subKriteriaContext";
+import { toast } from "sonner";
 
-export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriteriaBobot, idCriteria }) {
-  const [subCriteriaName, setSubCriteriaName] = useState(title);
-  const [bobotSubCriteria, setBobotSubCriteria] = useState(subCriteriaBobot);
+export default function SubCriteriaEditModal({
+  isOpen,
+  onClose,
+  title,
+  subCriteriaBobot,
+  idCriteria,
+  subCriteriaId,
+  refreshSubKriteria,
+}) {
+  const [subCriteriaName, setSubCriteriaName] = useState(title || "");
+  const [bobotSubCriteria, setBobotSubCriteria] = useState(subCriteriaBobot || "");
+  const { editSubKriteria } = useSubKriteria();
+  const handleSave = async () => {
+    try {
+      await editSubKriteria(subCriteriaId, {
+        kriteriaId: idCriteria,
+        nama_sub_kriteria: subCriteriaName,
+        bobot_sub_kriteria: parseFloat(bobotSubCriteria),
+      });
 
-  console.log(idCriteria);
-  // use idCriteria to edit subcriteria to the correct criteria
+      // Refresh the table after editing
+      await refreshSubKriteria?.();
+
+      toast.success("Sub Kriteria berhasil diperbarui!");
+      onClose();
+    } catch (err) {
+      console.error(err);
+      toast.error("Gagal memperbarui sub kriteria!");
+    }
+  };
 
   return (
     <>
@@ -84,7 +110,7 @@ export default function SubCriteriaEditModal({ isOpen, onClose, title, subCriter
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
           <Button
-            onClick={onClose}
+            onClick={handleSave}
             className="bg-emerald-500 hover:bg-emerald-700 text-white border-emerald-500 hover:border-emerald-700 mr-2"
           >
             Simpan
