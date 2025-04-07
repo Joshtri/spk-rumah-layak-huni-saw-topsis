@@ -58,8 +58,14 @@ export default function SubCriteriaTable() {
   console.log("SubKriteria yang akan dirender:", currentData);
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Apakah Anda yakin ingin menghapus sub kriteria ini?"
+    );
+    if (!confirmed) return;
+
     try {
       await removeSubKriteria(id);
+      await fetchSubKriteria(); // ✅ Refetch setelah hapus
       toast.success("Sub kriteria berhasil dihapus!");
     } catch (error) {
       console.log(error);
@@ -149,7 +155,7 @@ export default function SubCriteriaTable() {
                           setSelectedSubKriteria(item);
                           setIsModalOpen(true);
                         }}
-                        onDelete={() => handleDelete(item.id)}
+                        onDelete={() => handleDelete(item.id_sub_kriteria)} // ✅ Tambahkan ini
                       />
                     </Table.Cell>
                   </Table.Row>

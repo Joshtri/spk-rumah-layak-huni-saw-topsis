@@ -7,12 +7,14 @@ export default function SubCriteriaTableActions({
   title,
   bobot,
   refreshSubKriteria,
+  onDelete, // ✅ Tambahkan prop ini
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdminOrKepalaDesa =
     user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+
   return (
     <>
       <SubCriteriaEditModal
@@ -21,7 +23,7 @@ export default function SubCriteriaTableActions({
         title={title}
         subCriteriaBobot={bobot}
         idCriteria={idCriteria}
-        subCriteriaId={subCriteriaId} // ✅ Pastikan ini ada
+        subCriteriaId={subCriteriaId}
         refreshSubKriteria={refreshSubKriteria}
       />
       <div className="flex items-center justify-center space-x-2">
@@ -33,7 +35,10 @@ export default function SubCriteriaTableActions({
             >
               Edit
             </button>
-            <button className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm">
+            <button
+              className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm"
+              onClick={() => onDelete?.(subCriteriaId)} // ✅ Hubungkan ke onDelete
+            >
               Hapus
             </button>
           </>
