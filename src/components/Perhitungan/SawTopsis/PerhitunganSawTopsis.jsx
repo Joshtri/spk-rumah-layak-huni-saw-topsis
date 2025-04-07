@@ -51,42 +51,43 @@ export default function PerhitunganSawTopsis() {
       let maxValues = {};
       let minValues = {};
 
-      // 🔹 **Matriks Keputusan**
+      // 🔹 Matriks Keputusan
       let groupedPenilaian = {};
       filteredPenilaian.forEach((item) => {
-        const alternatifId = item.alternatif?.id_alternatif;
-        if (!groupedPenilaian[alternatifId]) {
-          groupedPenilaian[alternatifId] = {
+        const altId = item.alternatif?.id_alternatif;
+        if (!groupedPenilaian[altId]) {
+          groupedPenilaian[altId] = {
             nama_alternatif: item.alternatif?.nama_alternatif || "-",
-            alternatifId: item.alternatif?.id_alternatif,
+            alternatifId: altId,
             periodeId: item.periodeId,
             penilaian: {},
           };
         }
-        groupedPenilaian[alternatifId].penilaian[item.kriteriaId] =
+        groupedPenilaian[altId].penilaian[item.kriteriaId] =
           item.subKriteria?.bobot_sub_kriteria || 0;
       });
-      setDecisionMatrix(groupedPenilaian);
 
-      // Cek apakah ada kriteria yang belum dinilai
-      let hasEmptyPenilaian = Object.values(groupedPenilaian).some((alt) =>
-        kriteria.some((krit) => alt.penilaian[krit.id_kriteria] === undefined)
+      // ✅ Sort berdasarkan ID Alternatif
+      const sortedPenilaian = Object.fromEntries(
+        Object.entries(groupedPenilaian).sort(
+          ([a], [b]) =>
+            parseInt(a.replace(/\D/g, "")) - parseInt(b.replace(/\D/g, ""))
+        )
       );
 
-      if (hasEmptyPenilaian) {
-        setShowWarningModal(true);
-      }
+      setDecisionMatrix(sortedPenilaian);
 
-      // 🔹 **Normalisasi SAW**
-      // normalisasi dengan formula 2.1: rᵢⱼ = xᵢⱼ / max xⱼ
+      // 🔹 Normalisasi SAW (rᵢⱼ = xᵢⱼ / max xⱼ)
       kriteria.forEach((krit) => {
-        let values = Object.values(groupedPenilaian).map(
+        const values = Object.values(sortedPenilaian).map(
           (alt) => alt.penilaian[krit.id_kriteria] || 0
         );
         maxValues[krit.id_kriteria] = Math.max(...values);
+        minValues[krit.id_kriteria] = Math.min(...values);
       });
-      let normMatrix = {};
-      Object.entries(groupedPenilaian).forEach(([altId, alt]) => {
+
+      const normMatrix = {};
+      Object.entries(sortedPenilaian).forEach(([altId, alt]) => {
         normMatrix[altId] = {
           nama_alternatif: alt.nama_alternatif,
           alternatifId: alt.alternatifId,
@@ -94,15 +95,18 @@ export default function PerhitunganSawTopsis() {
         };
         kriteria.forEach((krit) => {
           const nilai = alt.penilaian[krit.id_kriteria] || 0;
-          const pembagi = maxValues[krit.id_kriteria] || 1;
-          const hasilNormalisasi = nilai / pembagi;
-          normMatrix[altId].penilaian[krit.id_kriteria] = hasilNormalisasi;
+          const norm =
+            krit.tipe_kriteria === "Benefit"
+              ? nilai / maxValues[krit.id_kriteria]
+              : minValues[krit.id_kriteria] / nilai;
+          normMatrix[altId].penilaian[krit.id_kriteria] = norm;
         });
       });
+
       setNormalizedMatrix(normMatrix);
 
-      // 🔹 **Normalisasi Terbobot (TOPSIS)**
-      let weightMatrix = {};
+      // 🔹 Normalisasi Terbobot
+      const weightMatrix = {};
       Object.entries(normMatrix).forEach(([altId, alt]) => {
         weightMatrix[altId] = {
           nama_alternatif: alt.nama_alternatif,
@@ -114,74 +118,73 @@ export default function PerhitunganSawTopsis() {
             krit.bobot_kriteria > 1
               ? krit.bobot_kriteria / 100
               : krit.bobot_kriteria;
-          weightMatrix[altId].penilaian[krit.id_kriteria] =
-            alt.penilaian[krit.id_kriteria] * bobot;
+          const nilaiTerbobot = alt.penilaian[krit.id_kriteria] * bobot;
+          weightMatrix[altId].penilaian[krit.id_kriteria] = nilaiTerbobot;
         });
       });
+
       setWeightedMatrix(weightMatrix);
 
-      // 🔹 **Solusi Ideal Positif & Negatif**
-      let idealPositif = {};
-      let idealNegatif = {};
+      // 🔹 Solusi Ideal
+      const idealPositif = {};
+      const idealNegatif = {};
       kriteria.forEach((krit) => {
         const values = Object.values(weightMatrix).map(
           (alt) => alt.penilaian[krit.id_kriteria] || 0
         );
-
         if (krit.tipe_kriteria === "Benefit") {
-          idealPositif[krit.id_kriteria] = Math.max(...values); // benefit → max
-          idealNegatif[krit.id_kriteria] = Math.min(...values); // benefit → min
+          idealPositif[krit.id_kriteria] = Math.max(...values);
+          idealNegatif[krit.id_kriteria] = Math.min(...values);
         } else {
-          idealPositif[krit.id_kriteria] = Math.min(...values); // cost → min jadi A+
-          idealNegatif[krit.id_kriteria] = Math.max(...values); // cost → max jadi A-
+          idealPositif[krit.id_kriteria] = Math.min(...values);
+          idealNegatif[krit.id_kriteria] = Math.max(...values);
         }
-
-        console.log("Tipe Kriteria:", krit.nama_kriteria, krit.tipe_kriteria);
-        console.log("A+:", idealPositif[krit.id_kriteria]);
-        console.log("A-:", idealNegatif[krit.id_kriteria]);
       });
 
       setIdealSolutions({ idealPositif, idealNegatif });
 
-      // 🔹 **Hitung Jarak ke Solusi Ideal**
-      let distanceMatrix = {};
+      // 🔹 Hitung Jarak
+      const distanceMatrix = {};
       Object.entries(weightMatrix).forEach(([altId, alt]) => {
         const dPlus = Math.sqrt(
           kriteria.reduce((sum, krit) => {
             const v = alt.penilaian[krit.id_kriteria] || 0;
-            const aPlus = idealPositif[krit.id_kriteria] || 0;
-            return sum + Math.pow(v - aPlus, 2);
+            const ideal = idealPositif[krit.id_kriteria] || 0;
+            return sum + Math.pow(v - ideal, 2);
           }, 0)
         );
         const dMinus = Math.sqrt(
           kriteria.reduce((sum, krit) => {
             const v = alt.penilaian[krit.id_kriteria] || 0;
-            const aMin = idealNegatif[krit.id_kriteria] || 0;
-            return sum + Math.pow(v - aMin, 2);
+            const ideal = idealNegatif[krit.id_kriteria] || 0;
+            return sum + Math.pow(v - ideal, 2);
           }, 0)
         );
 
         distanceMatrix[altId] = {
           nama_alternatif: alt.nama_alternatif,
           alternatifId: alt.alternatifId,
-          dPlus,
-          dMinus,
+          dPlus: parseFloat(dPlus.toFixed(4)),
+          dMinus: parseFloat(dMinus.toFixed(4)),
         };
       });
+
       setDistances(distanceMatrix);
 
-      // 🔹 **Hitung Nilai Preferensi (TOPSIS)**
-      let scores = Object.entries(distanceMatrix).map(([altId, alt]) => {
-        const preference = alt.dMinus / (alt.dPlus + alt.dMinus);
+      // 🔹 Nilai Preferensi (Vᵢ = D⁻ / (D⁺ + D⁻))
+      const finalScores = Object.entries(distanceMatrix).map(([altId, alt]) => {
+        const v = alt.dMinus / (alt.dPlus + alt.dMinus);
         return {
           nama_alternatif: alt.nama_alternatif,
           alternatifId: alt.alternatifId,
-          preference: preference.toFixed(4),
+          preference: parseFloat(v.toFixed(4)),
         };
       });
-      scores.sort((a, b) => b.preference - a.preference);
-      setFinalScores(scores);
+
+      finalScores.sort((a, b) => b.preference - a.preference);
+      setFinalScores(finalScores);
     } else {
+      // Reset jika data tidak lengkap
       setDecisionMatrix({});
       setNormalizedMatrix({});
       setWeightedMatrix({});
