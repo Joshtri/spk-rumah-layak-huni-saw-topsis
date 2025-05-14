@@ -12,8 +12,7 @@ export default function SubCriteriaTableActions({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdminOrKepalaDesa =
-    user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
 
   return (
     <>
