@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { useAuth } from "../../hooks/useAuth"; // 🔥 Ambil hook auth
+import { toast } from "sonner"; // ✅ Import toast
 
 export default function ProfileData() {
   const { user } = useAuth(); // ✅ Ambil user dari context
@@ -9,6 +10,20 @@ export default function ProfileData() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+  const handleSaveProfile = async () => {
+    try {
+      // Simulasi API untuk menyimpan username dan email
+      if (!username || !email) {
+        throw new Error("Data tidak valid");
+      }
+      // await api.updateProfile({ username, email });
+      toast.success("Profil berhasil diperbarui.");
+      setIsEditing(false);
+    } catch {
+      toast.error("Gagal memperbarui profil. Pastikan data valid.");
+    }
+  };
 
   // Isi form saat data user tersedia
   useEffect(() => {
@@ -33,10 +48,7 @@ export default function ProfileData() {
           {/* Buttons */}
           <div className="flex gap-2">
             <button
-              onClick={() => {
-                // 🔒 Simpan bisa panggil API update profile nanti di sini
-                setIsEditing(false);
-              }}
+              onClick={handleSaveProfile} // ✅ Panggil fungsi handleSaveProfile
               className={`px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-lg ${
                 !isEditing ? "hidden" : ""
               }`}

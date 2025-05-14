@@ -1,10 +1,27 @@
 import { Modal, Button, TextInput, Label } from "flowbite-react";
 import { useState } from "react";
+import { toast } from "sonner"; // ✅ Import toast
 
 export default function ChangePasswordModal({ isOpen, onClose }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSavePassword = async () => {
+    try {
+      if (!currentPassword || !newPassword || newPassword !== confirmPassword) {
+        throw new Error("Password tidak valid");
+      }
+      // Simulasi API untuk menyimpan password baru
+      // await api.updatePassword({ currentPassword, newPassword });
+      toast.success("Kata sandi berhasil diubah.");
+      onClose();
+    } catch {
+      toast.error(
+        "Gagal mengubah kata sandi. Kata sandi lama tidak sesuai atau data tidak valid."
+      );
+    }
+  };
 
   return (
     <Modal
@@ -108,7 +125,7 @@ export default function ChangePasswordModal({ isOpen, onClose }) {
       </Modal.Body>
       <Modal.Footer className="flex justify-end">
         <Button
-          onClick={onClose}
+          onClick={handleSavePassword} // ✅ Panggil fungsi handleSavePassword
           className="bg-emerald-500 hover:bg-emerald-700 text-white border-emerald-500 hover:border-emerald-700 mr-2"
         >
           Simpan
