@@ -1,11 +1,19 @@
 import SubCriteriaEditModal from "./SubKriteriaEditModal";
 import { useState } from "react";
 
-export default function SubCriteriaTableActions({ idCriteria, subCriteriaId, title, bobot, refreshSubKriteria }) {
+export default function SubCriteriaTableActions({
+  idCriteria,
+  subCriteriaId,
+  title,
+  bobot,
+  refreshSubKriteria,
+  onDelete, // ✅ Tambahkan prop ini
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+
   return (
     <>
       <SubCriteriaEditModal
@@ -15,7 +23,7 @@ export default function SubCriteriaTableActions({ idCriteria, subCriteriaId, tit
         subCriteriaBobot={bobot}
         idCriteria={idCriteria}
         subCriteriaId={subCriteriaId}
-        refreshSubKriteria={refreshSubKriteria} // Pass the refresh function
+        refreshSubKriteria={refreshSubKriteria}
       />
       <div className="flex items-center justify-center space-x-2">
         {isAdminOrKepalaDesa ? (
@@ -26,7 +34,10 @@ export default function SubCriteriaTableActions({ idCriteria, subCriteriaId, tit
             >
               Edit
             </button>
-            <button className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm">
+            <button
+              className="min-w-[4rem] bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm"
+              onClick={() => onDelete?.(subCriteriaId)} // ✅ Hubungkan ke onDelete
+            >
               Hapus
             </button>
           </>
