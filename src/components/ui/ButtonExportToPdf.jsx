@@ -1,61 +1,56 @@
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import autoTable from "jspdf-autotable";
 import { Button } from "flowbite-react";
 
-export default function ButtonExportToPdf({ elementId, filename = "document", onBeforePrint, onAfterPrint }) {
-  const handleDownload = async () => {
+export default function ButtonExportToPdf({ elementId, filename = "document" }) {
+  const handleDownload = () => {
     const targetElement = document.getElementById(elementId);
-
     if (!targetElement) {
-      console.error("Target element not found");
+      alert("No table found in export area.");
       return;
     }
 
-    try {
-      // Call before print callback to prepare print view
-      onBeforePrint?.();
-
-      // Wait for DOM to update with print view
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      // Create canvas from the target element
-      const canvas = await html2canvas(targetElement, {
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        windowWidth: targetElement.scrollWidth,
-        windowHeight: targetElement.scrollHeight,
-      });
-
-      // Calculate dimensions
-      const imgWidth = 190; // Slightly smaller than A4 width for margins
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      // Create PDF with proper orientation
-      const pdf = new jsPDF({
-        orientation: imgHeight > imgWidth ? "portrait" : "landscape",
-        unit: "mm",
-      });
-
-      // Calculate center position
-      const xPosition = (pdf.internal.pageSize.width - imgWidth) / 2;
-      const yPosition = 10; // Add some top margin
-
-      // Add image to PDF at centered position with high quality
-      const imgData = canvas.toDataURL("image/png", 1.0);
-      pdf.addImage(imgData, "PNG", xPosition, yPosition, imgWidth, imgHeight);
-
-      // Download PDF
-      pdf.save(`${filename}.pdf`);
-
-      // Call after print callback to restore view
-      onAfterPrint?.();
-    } catch (error) {
-      console.error("Failed to generate PDF:", error);
-      // Ensure we restore view even if there's an error
-      onAfterPrint?.();
+    // Get the table element
+    const table = targetElement.querySelector("table");
+    if (!table) {
+      alert("No table found in export area.");
+      return;
     }
+
+    // Get the title (e.g. Hasil Perhitungan)
+    const title = targetElement.querySelector("h2")?.innerText || "Exported Table";
+    // Get the periode info (assume in a <p> under the <h2>)
+    const periode = targetElement.querySelector("h2 + p")?.innerText || "";
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: "a4",
+    });
+
+    // Add title
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+
+    // Add periode info below the title if available
+    if (periode) {
+      doc.setFontSize(12);
+      doc.text(`Periode ${periode}`, 15, 28);
+    }
+
+    // Add table, adjust startY if periode info exists
+    autoTable(doc, {
+      html: table,
+      startY: periode ? 36 : 28, // below the periode or title
+      margin: { left: 15, right: 15 },
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [41, 128, 185] },
+      didDrawPage: () => {
+        // Optional: Add page number or other footer here
+      },
+    });
+
+    doc.save(`${filename}.pdf`);
   };
 
   return (
