@@ -22,7 +22,8 @@ export default function MatriksKeputusan({ decisionMatrix, kriteria }) {
         <Table.Body>
           {Object.values(decisionMatrix).map((alt) => (
             <Table.Row key={alt.nama_alternatif}>
-              <Table.Cell>{alt.nama_alternatif}</Table.Cell> // removed alt id and period id
+              {/* removed alt id and period id */}
+              <Table.Cell>{alt.nama_alternatif}</Table.Cell>
               {kriteria.map((krit) => (
                 <Table.Cell key={krit.id_kriteria}>{alt.penilaian[krit.id_kriteria] || "-"}</Table.Cell>
               ))}
