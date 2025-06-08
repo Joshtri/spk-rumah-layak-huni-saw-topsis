@@ -6,17 +6,42 @@ import {
   Select,
   Textarea,
 } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext"; // Import custom hook
 import { toast } from "sonner"; // Import sonner untuk notifikasi
+import axios from "axios";
 
 export default function KriteriaInputModal({ isOpen, onClose }) {
+  const [sisaBobot, setSisaBobot] = useState(100);
+
   const [namaKriteria, setNamaKriteria] = useState("");
   const [bobotKriteria, setBobotKriteria] = useState("");
   const [tipeKriteria, setTipeKriteria] = useState("Benefit"); // Default ke "Benefit"
   const [deskripsiKriteria, setDeskripsiKriteria] = useState("");
   const [loading, setLoading] = useState(false);
   const { addKriteria } = useKriteria(); // Ambil fungsi tambah kriteria dari hook
+
+  useEffect(() => {
+    if (isOpen) {
+      const fetchTotalBobot = async () => {
+        try {
+          const res = await axios.get("/api/cek-total-bobot-kriteria", {
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+            },
+          });
+          const total = res.data.total || 0;
+          setSisaBobot(100 - total);
+        } catch (err) {
+          console.error("Gagal mendapatkan total bobot:", err);
+          setSisaBobot(0); // fallback
+        }
+      };
+
+      fetchTotalBobot();
+    }
+  }, [isOpen]);
 
   const handleSave = async () => {
     if (!namaKriteria || !bobotKriteria || !tipeKriteria) {
@@ -27,6 +52,13 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
     const bobot = parseFloat(bobotKriteria);
     if (isNaN(bobot)) {
       toast.error("Bobot Kriteria harus berupa angka!");
+      return;
+    }
+
+    if (bobot > sisaBobot) {
+      toast.error(
+        `Bobot melebihi batas sisa! Maksimal yang bisa ditambahkan: ${sisaBobot}%`
+      );
       return;
     }
 
@@ -54,7 +86,7 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
   };
 
   return (
-    <Modal show={isOpen}  size="md"  onClose={onClose}>
+    <Modal show={isOpen} size="md" onClose={onClose}>
       <div className="flex items-start justify-between p-4 border-b rounded-t">
         <h3 className="text-xl text-black font-semibold">Tambah Kriteria</h3>
       </div>
@@ -83,6 +115,18 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
               onChange={(e) => setBobotKriteria(e.target.value)}
               required
             />
+            <p className="text-sm text-gray-500 mt-1">
+              Sisa bobot yang tersedia:{" "}
+              <span
+                className={
+                  sisaBobot === 0
+                    ? "text-red-500 font-semibold"
+                    : "text-blue-600 font-semibold"
+                }
+              >
+                {sisaBobot}%
+              </span>
+            </p>
           </div>
 
           {/* Tipe Kriteria */}
