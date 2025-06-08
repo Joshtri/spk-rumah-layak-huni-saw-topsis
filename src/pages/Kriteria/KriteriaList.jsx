@@ -1,19 +1,22 @@
 import KriteriaInputModal from "../../components/Kriteria/KriteriaInputModal";
 import KriteriaTable from "../../components/Kriteria/KriteriaTable";
-import Layout from "../Layout";
+import Breadcrumbs from "../../components/ui/Breadcrumbs";
 import PageTitle from "../../components/ui/PageTitle";
+import Paginations from "../../components/ui/Pagination";
 import SearchBar from "../../components/ui/SearchBar";
 import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
-import Breadcrumbs from "../../components/ui/Breadcrumbs";
-import Paginations from "../../components/ui/Pagination";
+import Layout from "../Layout";
 
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function KriteriaList() {
   // searchbar states
   const { kriteria, loading } = useKriteria();
   const [filteredData, setFilteredData] = useState([]);
+  const [totalBobot, setTotalBobot] = useState(0);
+  const [isTotalValid, setIsTotalValid] = useState(true);
 
   // modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +30,30 @@ export default function KriteriaList() {
   const endIndex = startIndex + itemsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
 
+  useEffect(() => {
+    const fetchTotalBobot = async () => {
+      try {
+        const res = await axios.get("/api/cek-total-bobot-kriteria", {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+          },
+        });
+        const data = res.data;
+        setTotalBobot(data.total || 0);
+
+        console.log(data);
+        // ❗ Jika success === true → artinya sudah pas 100%, jadi tidak valid untuk tambah
+        setIsTotalValid(data.success === false);
+      } catch (err) {
+        console.error("Gagal cek total bobot kriteria:", err);
+        setIsTotalValid(false); // fallback: anggap invalid
+      }
+    };
+
+    fetchTotalBobot();
+  }, []);
+
   // searchbar functions
   useEffect(() => {
     setFilteredData(kriteria);
@@ -38,7 +65,9 @@ export default function KriteriaList() {
     if (searchQuery === "") {
       setFilteredData(kriteria);
     } else {
-      const filtered = kriteria.filter((item) => item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase()));
+      const filtered = kriteria.filter((item) =>
+        item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase())
+      );
       setFilteredData(filtered);
     }
   };
@@ -46,7 +75,8 @@ export default function KriteriaList() {
   // pagination functions
   const onPageChange = (page) => setCurrentPage(page);
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+  const isAdminOrKepalaDesa =
+    user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
 
   return (
     <>
@@ -74,11 +104,25 @@ export default function KriteriaList() {
               />
             </div>
 
+            <div
+              className={`px-3 py-1 rounded-full text-sm font-semibold 
+                ${
+                  totalBobot === 100
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+            >
+              Total Bobot: {totalBobot}%
+            </div>
+
             {/* 🔐 Tampilkan hanya jika role ADMIN / KEPALA_DESA */}
+            {/* Tambah Kriteria */}
             {isAdminOrKepalaDesa && (
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50`}
                 onClick={() => setIsModalOpen(true)}
+                disabled={!isTotalValid} // ❗️disable jika sudah 100%
+                title={!isTotalValid ? "Total bobot sudah 100%" : ""}
               >
                 Tambah Kriteria
               </button>
@@ -92,10 +136,7 @@ export default function KriteriaList() {
 
           {/* criteria table */}
 
-          <KriteriaTable
-            kriteria={currentData}
-            loading={loading}
-          />
+          <KriteriaTable kriteria={currentData} loading={loading} />
 
           {/* pagination */}
           <Paginations
