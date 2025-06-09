@@ -7,41 +7,31 @@ import {
   Textarea,
 } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext"; // Import custom hook
-import { toast } from "sonner"; // Import sonner untuk notifikasi
-import axios from "axios";
+import { useKriteriaContext as useKriteria } from "../../contexts/kriteriaContext";
+import { toast } from "sonner";
 
 export default function KriteriaInputModal({ isOpen, onClose }) {
-  const [sisaBobot, setSisaBobot] = useState(100);
-
   const [namaKriteria, setNamaKriteria] = useState("");
   const [bobotKriteria, setBobotKriteria] = useState("");
-  const [tipeKriteria, setTipeKriteria] = useState("Benefit"); // Default ke "Benefit"
+  const [tipeKriteria, setTipeKriteria] = useState("Benefit");
   const [deskripsiKriteria, setDeskripsiKriteria] = useState("");
   const [loading, setLoading] = useState(false);
-  const { addKriteria } = useKriteria(); // Ambil fungsi tambah kriteria dari hook
+  const [totalBobot, setTotalBobot] = useState(0);
+  const [sisaBobot, setSisaBobot] = useState(100);
+  
+  const { addKriteria, kriteria } = useKriteria();
 
+  // Calculate total bobot from kriteria context
   useEffect(() => {
     if (isOpen) {
-      const fetchTotalBobot = async () => {
-        try {
-          const res = await axios.get("/api/cek-total-bobot-kriteria", {
-            headers: {
-              "Cache-Control": "no-cache",
-              Pragma: "no-cache",
-            },
-          });
-          const total = res.data.total || 0;
-          setSisaBobot(100 - total);
-        } catch (err) {
-          console.error("Gagal mendapatkan total bobot:", err);
-          setSisaBobot(0); // fallback
-        }
-      };
-
-      fetchTotalBobot();
+      const calculatedTotal = kriteria.reduce((sum, krit) => {
+        return sum + (krit.bobot_kriteria || 0);
+      }, 0);
+      
+      setTotalBobot(calculatedTotal);
+      setSisaBobot(100 - calculatedTotal);
     }
-  }, [isOpen]);
+  }, [isOpen, kriteria]);
 
   const handleSave = async () => {
     if (!namaKriteria || !bobotKriteria || !tipeKriteria) {
@@ -50,14 +40,15 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
     }
 
     const bobot = parseFloat(bobotKriteria);
-    if (isNaN(bobot)) {
-      toast.error("Bobot Kriteria harus berupa angka!");
+    if (isNaN(bobot) || bobot <= 0) {
+      toast.error("Bobot Kriteria harus berupa angka positif!");
       return;
     }
 
-    if (bobot > sisaBobot) {
+    // Check if adding this bobot will exceed 100%
+    if (totalBobot + bobot > 100) {
       toast.error(
-        `Bobot melebihi batas sisa! Maksimal yang bisa ditambahkan: ${sisaBobot}%`
+        `Bobot melebihi batas! Total akan menjadi ${totalBobot + bobot}%. Maksimal yang bisa ditambahkan: ${sisaBobot}%`
       );
       return;
     }
@@ -66,15 +57,15 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
     try {
       await addKriteria({
         nama_kriteria: namaKriteria,
-        bobot_kriteria: bobot, // ✅ Konversi angka yang aman
-        tipe_kriteria: tipeKriteria, // ✅ Pastikan enum sesuai
-        keterangan: deskripsiKriteria || null, // ✅ Pastikan tidak kirim string kosong
+        bobot_kriteria: bobot,
+        tipe_kriteria: tipeKriteria,
+        keterangan: deskripsiKriteria || null,
       });
 
       toast.success("Kriteria berhasil ditambahkan!");
       setNamaKriteria("");
       setBobotKriteria("");
-      setTipeKriteria("Benefit"); // Reset default
+      setTipeKriteria("Benefit");
       setDeskripsiKriteria("");
       onClose();
     } catch (error) {
@@ -84,6 +75,11 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
       setLoading(false);
     }
   };
+
+  // Check if save button should be disabled
+  const currentBobot = parseFloat(bobotKriteria) || 0;
+  const willExceed = totalBobot + currentBobot > 100;
+  const canSave = namaKriteria && bobotKriteria && !willExceed && currentBobot > 0;
 
   return (
     <Modal show={isOpen} size="md" onClose={onClose}>
@@ -114,19 +110,33 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
               value={bobotKriteria}
               onChange={(e) => setBobotKriteria(e.target.value)}
               required
+              min="0"
+              max={sisaBobot}
             />
-            <p className="text-sm text-gray-500 mt-1">
-              Sisa bobot yang tersedia:{" "}
-              <span
-                className={
-                  sisaBobot === 0
-                    ? "text-red-500 font-semibold"
-                    : "text-blue-600 font-semibold"
-                }
-              >
-                {sisaBobot}%
-              </span>
-            </p>
+            <div className="text-sm mt-1 space-y-1">
+              <p className="text-gray-500">
+                Total bobot saat ini:{" "}
+                <span className="font-semibold text-gray-700">{totalBobot}%</span>
+              </p>
+              <p className="text-gray-500">
+                Sisa bobot yang tersedia:{" "}
+                <span
+                  className={
+                    sisaBobot === 0
+                      ? "text-red-500 font-semibold"
+                      : "text-blue-600 font-semibold"
+                  }
+                >
+                  {sisaBobot}%
+                </span>
+              </p>
+              {currentBobot > 0 && (
+                <p className={`font-semibold ${willExceed ? "text-red-500" : "text-green-600"}`}>
+                  Total setelah ditambah: {totalBobot + currentBobot}%
+                  {willExceed && " (Melebihi batas!)"}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Tipe Kriteria */}
@@ -160,8 +170,9 @@ export default function KriteriaInputModal({ isOpen, onClose }) {
       <Modal.Footer className="flex justify-end">
         <Button
           onClick={handleSave}
-          disabled={loading}
-          className="bg-emerald-500 hover:bg-emerald-700 text-white"
+          disabled={loading || !canSave}
+          className="bg-emerald-500 hover:bg-emerald-700 text-white disabled:opacity-50"
+          title={willExceed ? "Bobot akan melebihi 100%" : ""}
         >
           {loading ? "Menyimpan..." : "Simpan"}
         </Button>

@@ -30,29 +30,17 @@ export default function KriteriaList() {
   const endIndex = startIndex + itemsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
 
+  // Remove the API-based useEffect and replace with frontend calculation
   useEffect(() => {
-    const fetchTotalBobot = async () => {
-      try {
-        const res = await axios.get("/api/cek-total-bobot-kriteria", {
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-          },
-        });
-        const data = res.data;
-        setTotalBobot(data.total || 0);
+    // Calculate total bobot from kriteria data
+    const calculatedTotal = kriteria.reduce((sum, krit) => {
+      return sum + (krit.bobot_kriteria || 0);
+    }, 0);
 
-        console.log(data);
-        // ❗ Jika success === true → artinya sudah pas 100%, jadi tidak valid untuk tambah
-        setIsTotalValid(data.success === false);
-      } catch (err) {
-        console.error("Gagal cek total bobot kriteria:", err);
-        setIsTotalValid(false); // fallback: anggap invalid
-      }
-    };
-
-    fetchTotalBobot();
-  }, []);
+    setTotalBobot(calculatedTotal);
+    // Allow adding if less than 100%
+    setIsTotalValid(calculatedTotal < 100);
+  }, [kriteria]); // Depend on kriteria changes
 
   // searchbar functions
   useEffect(() => {
@@ -65,9 +53,7 @@ export default function KriteriaList() {
     if (searchQuery === "") {
       setFilteredData(kriteria);
     } else {
-      const filtered = kriteria.filter((item) =>
-        item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      const filtered = kriteria.filter((item) => item.nama_kriteria.toLowerCase().includes(searchQuery.toLowerCase()));
       setFilteredData(filtered);
     }
   };
@@ -75,8 +61,7 @@ export default function KriteriaList() {
   // pagination functions
   const onPageChange = (page) => setCurrentPage(page);
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdminOrKepalaDesa =
-    user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
+  const isAdminOrKepalaDesa = user?.role === "ADMIN" || user?.role === "KEPALA_DESA";
 
   return (
     <>
@@ -106,11 +91,7 @@ export default function KriteriaList() {
 
             <div
               className={`px-3 py-1 rounded-full text-sm font-semibold 
-                ${
-                  totalBobot === 100
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                }`}
+                ${totalBobot === 100 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
             >
               Total Bobot: {totalBobot}%
             </div>
@@ -136,7 +117,10 @@ export default function KriteriaList() {
 
           {/* criteria table */}
 
-          <KriteriaTable kriteria={currentData} loading={loading} />
+          <KriteriaTable
+            kriteria={currentData}
+            loading={loading}
+          />
 
           {/* pagination */}
           <Paginations
