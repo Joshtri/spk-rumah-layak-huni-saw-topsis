@@ -9,6 +9,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [existingData, setExistingData] = useState(false); // ✅ Cek apakah data sudah ada
   const [isSaving, setIsSaving] = useState(false);
+  const [maxAlternatifs, setMaxAlternatifs] = useState(5);
 
   useEffect(() => {
     fetchPeriode();
@@ -45,11 +46,11 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       setIsSaving(true);
       const periodeIdInt = parseInt(selectedPeriod, 10);
 
-      const formattedResults = finalScores.map((alt, index) => ({
+      const formattedResults = finalScores.slice(0, maxAlternatifs).map((alt, index) => ({
         alternatifId: alt.alternatifId,
         rangking: index + 1,
         nilai_akhir: parseFloat(alt.preference),
-        status: index + 1 <= 10 ? "Layak" : "Tidak Layak",
+        status: "Layak",
         periodeId: periodeIdInt,
       }));
 
@@ -95,22 +96,42 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       ) : periode.length === 0 ? (
         <p className="text-red-500">❌ Tidak ada data periode tersedia.</p>
       ) : (
-        <div className="flex items-center space-x-4 mb-4">
-          <Select
-            value={selectedPeriod}
-            onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="w-1/3"
-          >
-            <option value="">Pilih Periode</option>
-            {periode.map((p) => (
-              <option
-                key={p.id_periode}
-                value={p.id_periode}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-4">
+            <Select
+              value={selectedPeriod}
+              onChange={(e) => setSelectedPeriod(e.target.value)}
+              className="w-auto"
+            >
+              <option value="">Pilih Periode</option>
+              {periode.map((p) => (
+                <option
+                  key={p.id_periode}
+                  value={p.id_periode}
+                >
+                  {p.nama_periode}
+                </option>
+              ))}
+            </Select>
+
+            <div className="flex items-center space-x-2">
+              <label
+                htmlFor="maxAlternatifs"
+                className="text-sm font-medium text-gray-700"
               >
-                {p.nama_periode}
-              </option>
-            ))}
-          </Select>
+                Jumlah Penerima Bantuan:
+              </label>
+              <input
+                id="maxAlternatifs"
+                type="number"
+                min="1"
+                max={finalScores.length || 100}
+                value={maxAlternatifs}
+                onChange={(e) => setMaxAlternatifs(parseInt(e.target.value) || 5)}
+                className="w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
 
           {existingData ? (
             <Button
