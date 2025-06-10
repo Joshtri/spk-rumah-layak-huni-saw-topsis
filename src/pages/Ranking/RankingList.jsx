@@ -6,11 +6,7 @@ import { Select } from "flowbite-react";
 import { usePeriodeContext } from "../../contexts/periodeContext";
 import { useEffect, useState } from "react";
 import ButtonExportToPdf from "../../components/ui/ButtonExportToPdf";
-import {
-  Modal,
-  Button as FlowbiteButton,
-  Select as FlowbiteSelect,
-} from "flowbite-react";
+import { Modal, Button as FlowbiteButton, Select as FlowbiteSelect } from "flowbite-react";
 import {
   getHasilPerhitungan,
   getHasilPerhitunganByPeriode,
@@ -27,23 +23,29 @@ export default function RankingList() {
   const [periodeToDelete, setPeriodeToDelete] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Set default periode to the latest one when periode data is loaded
+  useEffect(() => {
+    if (periode && periode.length > 0 && !selectedPeriode) {
+      // Assuming the latest periode is the last one in the array
+      // If you want the one with highest ID, use: Math.max(...periode.map(p => p.id_periode))
+      const latestPeriode = periode[periode.length - 1];
+      setSelectedPeriode(latestPeriode.id_periode.toString());
+    }
+  }, [periode, selectedPeriode]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (!selectedPeriode) {
-          const allData = await getHasilPerhitungan();
-          setRankingData(allData);
-        } else {
-          const filtered = await getHasilPerhitunganByPeriode(
-            Number(selectedPeriode)
-          );
-          setRankingData(filtered);
+          // Don't fetch data when no periode is selected
+          setRankingData([]);
+          return;
         }
+
+        const filtered = await getHasilPerhitunganByPeriode(Number(selectedPeriode));
+        setRankingData(filtered);
       } catch (error) {
-        console.error(
-          "❌ Gagal mengambil data hasil perhitungan:",
-          error.response?.data || error.message
-        );
+        console.error("❌ Gagal mengambil data hasil perhitungan:", error.response?.data || error.message);
       }
     };
 
@@ -77,9 +79,11 @@ export default function RankingList() {
                 },
               }}
             >
-              <option value="">Semua Periode</option>
               {periode?.map((p) => (
-                <option key={p.id_periode} value={p.id_periode}>
+                <option
+                  key={p.id_periode}
+                  value={p.id_periode}
+                >
                   {p.nama_periode}
                 </option>
               ))}
@@ -98,33 +102,63 @@ export default function RankingList() {
             filename="hasil-perhitungan"
             onBeforePrint={() => setIsPrinting(true)}
             onAfterPrint={() => setIsPrinting(false)}
+            disabled={!selectedPeriode}
           />
         </div>
 
-        {/* Untuk cetak */}
-        <div
-          id="ranking-table-print"
-          className={isPrinting ? "block mb-4" : "hidden"}
-          style={{ maxWidth: "100%", width: "100%" }}
-        >
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-bold">Hasil Perhitungan</h2>
-            <p className="text-lg">
-              {periode?.find((p) => p.id_periode === Number(selectedPeriode))
-                ?.nama_periode || "Semua Periode"}
+        {/* Show message when periode has no data */}
+        {rankingData.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-gray-500">
+            <svg
+              className="w-16 h-16 mb-4 text-gray-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+              />
+            </svg>
+            <p className="text-lg font-medium">Periode Kosong!</p>
+            <p className="text-sm mt-1">
+              Periode "{periode?.find((p) => p.id_periode === Number(selectedPeriode))?.nama_periode}" belum memiliki
+              hasil perhitungan
             </p>
           </div>
-          <RankingTable
-            rankings={rankingData}
-            disablePagination={true}
-            showAllData={true}
-          />
-        </div>
+        ) : (
+          <>
+            {/* Untuk cetak */}
+            <div
+              id="ranking-table-print"
+              className={isPrinting ? "block mb-4" : "hidden"}
+              style={{ maxWidth: "100%", width: "100%" }}
+            >
+              <div className="text-center mb-4">
+                <h2 className="text-2xl font-bold">Hasil Perhitungan</h2>
+                <p className="text-lg">
+                  {periode?.find((p) => p.id_periode === Number(selectedPeriode))?.nama_periode}
+                </p>
+              </div>
+              <RankingTable
+                rankings={rankingData}
+                disablePagination={true}
+                showAllData={true}
+              />
+            </div>
 
-        {/* Untuk tampilan biasa */}
-        <div className={isPrinting ? "hidden" : "block"}>
-          <RankingTable rankings={rankingData} disablePagination={false} />
-        </div>
+            {/* Untuk tampilan biasa */}
+            <div className={isPrinting ? "hidden" : "block"}>
+              <RankingTable
+                rankings={rankingData}
+                disablePagination={false}
+              />
+            </div>
+          </>
+        )}
       </Layout>
 
       <Modal
@@ -135,8 +169,7 @@ export default function RankingList() {
         <Modal.Body>
           <div className="space-y-4">
             <p className="text-sm text-gray-600">
-              Pilih periode yang ingin dihapus hasil perhitungannya. Tindakan
-              ini tidak dapat dibatalkan.
+              Pilih periode yang ingin dihapus hasil perhitungannya. Tindakan ini tidak dapat dibatalkan.
             </p>
             <FlowbiteSelect
               value={periodeToDelete}
@@ -145,7 +178,10 @@ export default function RankingList() {
             >
               <option value="">Pilih Periode</option>
               {periode?.map((p) => (
-                <option key={p.id_periode} value={p.id_periode}>
+                <option
+                  key={p.id_periode}
+                  value={p.id_periode}
+                >
                   {p.nama_periode}
                 </option>
               ))}
@@ -156,24 +192,19 @@ export default function RankingList() {
           <FlowbiteButton
             color="failure"
             onClick={async () => {
-              if (!periodeToDelete)
-                return alert("Pilih periode terlebih dahulu.");
+              if (!periodeToDelete) return alert("Pilih periode terlebih dahulu.");
 
               try {
                 setIsDeleting(true);
                 await deleteHasilPerhitungan(periodeToDelete);
                 setDestroyHasilModalOpen(false);
                 setPeriodeToDelete("");
-                setSelectedPeriode(""); // Refresh ke semua
-                const newData = await getHasilPerhitungan();
+                setSelectedPeriode(""); // Reset to show message again
+                setRankingData([]); // Clear data
 
                 toast.success("Berhasil menghapus hasil perhitungan PERIODE " + periodeToDelete);
-                setRankingData(newData);
               } catch (err) {
-                console.error(
-                  "Gagal menghapus hasil:",
-                  err.response?.data || err.message
-                );
+                console.error("Gagal menghapus hasil:", err.response?.data || err.message);
                 alert("Terjadi kesalahan saat menghapus.");
               } finally {
                 setIsDeleting(false);
