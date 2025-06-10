@@ -298,7 +298,23 @@ export default function NilaiPreferensi({ finalScores = [] }) {
                 min="1"
                 max={finalScores.length || 100}
                 value={maxAlternatifs}
-                onChange={(e) => setMaxAlternatifs(parseInt(e.target.value) || 5)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "") {
+                    setMaxAlternatifs("");
+                  } else {
+                    const numValue = parseInt(value);
+                    if (!isNaN(numValue) && numValue >= 1) {
+                      setMaxAlternatifs(numValue);
+                    }
+                  }
+                }}
+                onBlur={(e) => {
+                  // Set default value when user leaves the field empty
+                  if (e.target.value === "" || isNaN(parseInt(e.target.value))) {
+                    setMaxAlternatifs(5);
+                  }
+                }}
                 className="w-20 px-2 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
