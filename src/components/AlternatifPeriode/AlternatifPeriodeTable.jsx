@@ -35,16 +35,22 @@ export default function AlternatifPeriodeTable({ alternatifPeriode, loading }) {
               </Table.Cell>
             </Table.Row>
           ) : (
-            alternatifPeriode.map((item,index) => (
-              <Table.Row
-                key={item.id}
-                className="bg-white"
-              >
-                <Table.Cell className="text-center">{index + 1}</Table.Cell>
-                <Table.Cell className="text-center">{item.alternatif.nama_alternatif}</Table.Cell>
-                <Table.Cell className="text-center">{item.periode.nama_periode}</Table.Cell>
-              </Table.Row>
-            ))
+            alternatifPeriode
+              .sort(
+                (a, b) =>
+                  new Date(b.periode.created_at || b.periode.tanggal_mulai) -
+                  new Date(a.periode.created_at || a.periode.tanggal_mulai)
+              )
+              .map((item, index) => (
+                <Table.Row
+                  key={item.id}
+                  className="bg-white"
+                >
+                  <Table.Cell className="text-center">{index + 1}</Table.Cell>
+                  <Table.Cell className="text-center">{item.alternatif.nama_alternatif}</Table.Cell>
+                  <Table.Cell className="text-center">{item.periode.nama_periode}</Table.Cell>
+                </Table.Row>
+              ))
           )}
         </Table.Body>
       </Table>
