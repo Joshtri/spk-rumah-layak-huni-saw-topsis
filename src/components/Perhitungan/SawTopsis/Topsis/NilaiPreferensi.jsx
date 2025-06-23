@@ -3,10 +3,12 @@ import { Table, Button, Select, Spinner } from "flowbite-react";
 import axios from "axios";
 import { toast } from "sonner";
 import { usePeriodeContext } from "../../../../contexts/periodeContext";
+import { useKriteriaContext } from "../../../../contexts/kriteriaContext"; // Import the context for totalBobot
 import AddBonusModal from "./AddBonusModal";
 
 export default function NilaiPreferensi({ finalScores = [] }) {
   const { periode, loading, fetchPeriode } = usePeriodeContext();
+  const { kriteria } = useKriteriaContext(); // Access kriteria data
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [existingData, setExistingData] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -17,6 +19,7 @@ export default function NilaiPreferensi({ finalScores = [] }) {
   const [originalTiedGroups, setOriginalTiedGroups] = useState([]);
   const [originalScores, setOriginalScores] = useState(new Map());
   const [appliedBonuses, setAppliedBonuses] = useState(new Map());
+  const [totalBobot, setTotalBobot] = useState(0); // State for totalBobot
 
   useEffect(() => {
     fetchPeriode();
@@ -27,6 +30,14 @@ export default function NilaiPreferensi({ finalScores = [] }) {
       checkExistingData(selectedPeriod);
     }
   }, [selectedPeriod]);
+
+  useEffect(() => {
+    // Calculate totalBobot from kriteria data
+    const calculatedTotal = kriteria.reduce((sum, krit) => {
+      return sum + (krit.bobot_kriteria || 0);
+    }, 0);
+    setTotalBobot(calculatedTotal);
+  }, [kriteria]);
 
   // Initialize adjusted scores and identify tied groups when finalScores change
   useEffect(() => {
@@ -331,15 +342,20 @@ export default function NilaiPreferensi({ finalScores = [] }) {
             <div className="flex flex-col items-end">
               <Button
                 onClick={saveResults}
-                disabled={!selectedPeriod || isTied}
+                disabled={!selectedPeriod || isTied || totalBobot !== 100} // Disable if totalBobot is not 100
                 className={`px-4 py-2 rounded ${
-                  !selectedPeriod || isTied ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-700"
+                  !selectedPeriod || isTied || totalBobot !== 100
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-500 hover:bg-green-700"
                 } text-white`}
               >
                 Simpan Hasil Perhitungan
               </Button>
               {isTied && (
                 <p className="text-red-500 text-sm mt-1">⚠️ Terdapat nilai yang sama. Tidak dapat menyimpan hasil.</p>
+              )}
+              {totalBobot !== 100 && (
+                <p className="text-red-500 text-sm mt-1">⚠️ Total bobot kriteria harus 100% untuk menyimpan hasil.</p>
               )}
             </div>
           )}
