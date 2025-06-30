@@ -1,11 +1,24 @@
 import { Button } from "flowbite-react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import React from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useKriteriaContext } from "../../contexts/kriteriaContext"; // Import the context for totalBobot
 
 const PerhitunganHero = () => {
   const navigate = useNavigate();
+  const { kriteria } = useKriteriaContext(); // Access kriteria data
+  const [totalBobot, setTotalBobot] = useState(0);
+
+  useEffect(() => {
+    // Calculate totalBobot from kriteria data
+    const calculatedTotal = kriteria.reduce((sum, krit) => {
+      return sum + (krit.bobot_kriteria || 0);
+    }, 0);
+    setTotalBobot(calculatedTotal);
+  }, [kriteria]);
+
+  const canStartCalculation = totalBobot === 100;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -48,13 +61,26 @@ const PerhitunganHero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
+          className="relative z-10"
         >
           <Button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
-            onClick={() => navigate("/perhitungan-saw-topsis")}
+            className={`font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 ${
+              canStartCalculation
+                ? "bg-blue-500 hover:bg-blue-700 text-white"
+                : "bg-gray-400 cursor-not-allowed text-gray-200"
+            }`}
+            onClick={() => canStartCalculation && navigate("/perhitungan-saw-topsis")}
+            disabled={!canStartCalculation}
+            title={!canStartCalculation ? "Total bobot kriteria harus 100% untuk memulai perhitungan" : ""}
           >
             Mulai Perhitungan 🚀
           </Button>
+          
+          {!canStartCalculation && (
+            <p className="text-red-500 text-sm mt-2 text-start">
+              ⚠️ Total bobot kriteria harus 100% untuk memulai perhitungan.
+            </p>
+          )}
         </motion.div>
       </motion.div>
     </div>
