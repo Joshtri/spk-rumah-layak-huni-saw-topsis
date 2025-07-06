@@ -9,7 +9,7 @@ import { toast } from "sonner";
 export default function AlternatifPeriodeInputModal({ isOpen, onClose }) {
   const { alternatif } = useAlternatif(); // Ambil daftar Alternatif
   const { periode } = usePeriodeContext(); // Ambil daftar Periode
-  const { addAlternatifToPeriode } = useAlternatifPeriodeContext(); // Fungsi untuk menambahkan Alternatif ke Periode
+  const { daftarAlternatifPeriode } = useAlternatifPeriodeContext(); // Fungsi untuk menambahkan Alternatif ke Periode
 
   const [selectedAlternatif, setSelectedAlternatif] = useState("");
   const [selectedPeriode, setSelectedPeriode] = useState("");
@@ -59,7 +59,7 @@ export default function AlternatifPeriodeInputModal({ isOpen, onClose }) {
 
     setLoading(true);
     try {
-      await addAlternatifToPeriode(selectedAlternatif, selectedPeriode);
+      await daftarAlternatifPeriode(selectedAlternatif, selectedPeriode);
       toast.success("Alternatif berhasil didaftarkan ke Periode!");
       setSelectedAlternatif("");
       setSelectedPeriode("");
